@@ -16,7 +16,7 @@ public class UsuarioController {
     List<Professor> professores = new ArrayList<>();
     List<Usuario> usuarios = new ArrayList<>();
 
-    private int id;
+    private int id = 0;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> listarUsuarios() {
@@ -24,6 +24,17 @@ public class UsuarioController {
             return ResponseEntity.status(204).build();
         }
         return ResponseEntity.status(200).body(usuarios);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> usuariosPorId(@PathVariable int id) {
+
+        Usuario p = buscarUsuarioPorId(id);
+
+        if (p == null) {
+            return ResponseEntity.status(404).build();
+        }
+        return ResponseEntity.status(200).body(p);
     }
 
     //verbo GET
@@ -47,7 +58,7 @@ public class UsuarioController {
             return ResponseEntity.status(400).build();
         }
 
-        a.setId(id++);
+        a.setId(++id);
         alunos.add(a);
         usuarios.add(a);
         return ResponseEntity.status(201).body(a);
@@ -64,10 +75,10 @@ public class UsuarioController {
             return ResponseEntity.status(404).build();
         }
 
-        if (u.getId() != a.getId()) {
-            return ResponseEntity.status(403).build();
-            // http status 403 == forbidden
-        }
+//        if (u.getId() != a.getId()) {
+//            return ResponseEntity.status(403).build();
+//            // http status 403 == forbidden
+//        }
 
         u.setDataNascimento(a.getDataNascimento());
         u.setNome(a.getNome());
@@ -86,7 +97,7 @@ public class UsuarioController {
         Usuario usuarioDeletado = buscarUsuarioPorId(id);
         Aluno alunodeletado = buscarAlunoPorId(id);
 
-        if (usuarioDeletado == null) {
+        if (alunodeletado == null) {
             return ResponseEntity.status(404).build();
         }
 
@@ -107,14 +118,16 @@ public class UsuarioController {
         return ResponseEntity.status(200).body(professores);
     }
 
+
+
     //verbo POST
     @PostMapping("/professores")
     public ResponseEntity<Professor> cadastrarProfessor(@RequestBody Professor p) {
 
         Usuario usuario = buscarUsuarioPorId(p.getId());
 
-        if (usuario == null){
-            return ResponseEntity.status(404).build();
+        if (usuario != null){
+            return ResponseEntity.status(409).build();
         }
 
         if (emailExistente(p.getEmail(), p.getId())) {
@@ -125,7 +138,7 @@ public class UsuarioController {
             return ResponseEntity.status(400).build();
         }
 
-        p.setId(id++);
+        p.setId(++id);
         professores.add(p);
         usuarios.add(p);
         return ResponseEntity.status(201).body(p);
@@ -138,12 +151,12 @@ public class UsuarioController {
         Professor professor = buscarProfessorPorId(id);
         Usuario usuario = buscarUsuarioPorId(id);
 
-        if (usuario == null) {
+        if (professor == null) {
             return ResponseEntity.status(404).build();
         }
 
         if (!emailContemArroba(p.getEmail())) {
-            return ResponseEntity.status(404).build();
+            return ResponseEntity.status(400).build();
         }
 
         professor.setNome(p.getNome());
@@ -178,7 +191,7 @@ public class UsuarioController {
         Professor professor = buscarProfessorPorId(id);
         Usuario usuario = buscarUsuarioPorId(id);
 
-        if (usuario == null) {
+        if (professor == null) {
             return ResponseEntity.status(404).build();
         }
 
