@@ -6,14 +6,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class Usuario {
+    private int id;
     private String nome;
     private String dataNascimento;
     private int idade;
-    private String username;
     private String senha;
 
     public Usuario() {
+    }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -30,14 +37,6 @@ public class Usuario {
 
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String email) {
-        this.username = email;
     }
 
     public String getSenha() {
