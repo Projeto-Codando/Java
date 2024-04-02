@@ -1,5 +1,5 @@
 
-![Logo Codando](./src/imgs/Logo.svg)
+![Logo Codando](https://github.com/Projeto-Codando/institucional/blob/main/src/imgs/Logo.svg)
 
 # Codando 📚
 
