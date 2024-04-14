@@ -58,5 +58,4 @@ public class EducadorCadastroDTO {
         this.senha = senha;
     }
 
-    // getters e setters
 }

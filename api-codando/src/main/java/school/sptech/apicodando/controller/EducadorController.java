@@ -40,7 +40,7 @@ public class EducadorController {
 
     @PostMapping
 //    @SecurityRequeriment perguntar pro prof isso
-    public ResponseEntity<EducadorListagemDTO> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
+    public ResponseEntity<Void> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
         this.educadorService.criar(novoEducador);
         return ResponseEntity.status(201).build();
     }
@@ -67,8 +67,8 @@ public class EducadorController {
         return ResponseEntity.status(200).body(listaAuxiliar);
     }
 
-    @DeleteMapping
-    public ResponseEntity excluir (@PathVariable @Valid int id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir (@PathVariable @Valid int id){
         if (educadorRepository.existsById(id)){
             educadorService.excluir(id);
             return ok().build();
@@ -77,8 +77,8 @@ public class EducadorController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity atualizar(@PathVariable("id") @Valid int id,
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
                                     @RequestBody @Valid Educador educadorAlterado) {
         if (educadorRepository.existsById(id)) {
             educadorService.atualizar(educadorAlterado, id);

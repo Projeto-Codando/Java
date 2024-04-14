@@ -27,9 +27,9 @@ public class Aula {
     @NotBlank
     @PositiveOrZero
     protected Integer pontuacaoMaxima;
-    @ManyToOne
-    @JoinColumn(name ="idTema")
-    protected Integer fkTema;
+//    @ManyToOne
+//    @JoinColumn(name ="idTema")
+//    protected Integer fkTema;
 
     public Aula() {
     }
@@ -74,11 +74,11 @@ public class Aula {
         this.pontuacaoMaxima = pontuacaoMaxima;
     }
 
-    public Integer getFkTema() {
-        return fkTema;
-    }
-
-    public void setFkTema(Integer fkTema) {
-        this.fkTema = fkTema;
-    }
+//    public Integer getFkTema() {
+//        return fkTema;
+//    }
+//
+//    public void setFkTema(Integer fkTema) {
+//        this.fkTema = fkTema;
+//    }
 }

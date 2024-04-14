@@ -32,9 +32,9 @@ public class AlunoCadastroDTO {
     @NotNull
     private String status;
 
-    @NotBlank
+//    @NotBlank
     @PositiveOrZero
-    private Integer moedas;
+    private int moedas;
 
     public String getNome() {
         return nome;
@@ -76,11 +76,11 @@ public class AlunoCadastroDTO {
         this.status = status;
     }
 
-    public Integer getMoedas() {
+    public int getMoedas() {
         return moedas;
     }
 
-    public void setMoedas(Integer moedas) {
+    public void setMoedas(int moedas) {
         this.moedas = moedas;
     }
 }

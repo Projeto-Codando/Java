@@ -13,25 +13,25 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Educador {
 
-    @NotBlank
+//    @NotBlank
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idEducador;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
+//    @NotBlank
+//    @Size(min = 3, max = 255)
+//    @NotNull
     protected String nome;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
+//    @NotBlank
+//    @Size(min = 3, max = 255)
+//    @NotNull
     protected String sobrenome;
-    @NotNull
-    @NotBlank
-    @Email
+//    @NotNull
+//    @NotBlank
+//    @Email
     protected String email;
-    @NotBlank
-    @Size(min = 8, max = 255)
-    @NotNull
+//    @NotBlank
+//    @Size(min = 8, max = 255)
+//    @NotNull
     protected String senha;
 
     public Educador() {

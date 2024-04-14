@@ -9,36 +9,36 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Aluno {
 
-    @NotBlank
+//    @NotBlank
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idAluno;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
+//    @NotBlank
+//    @Size(min = 3, max = 255)
+//    @NotNull
     protected String nome;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
+//    @NotBlank
+//    @Size(min = 3, max = 255)
+//    @NotNull
     protected String sobrenome;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
+//    @NotBlank
+//    @Size(min = 3, max = 255)
+//    @NotNull
     protected String apelido;
-    @NotBlank
-    @Size(min = 8, max = 255)
-    @NotNull
+//    @NotBlank
+//    @Size(min = 8, max = 255)
+//    @NotNull
     protected String senha;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
+//    @NotBlank
+//    @Size(min = 3, max = 255)
+//    @NotNull
     protected String status;
-    @NotBlank
-    @PositiveOrZero
+//    @NotBlank
+//    @PositiveOrZero
     protected Integer moedas;
-    @ManyToOne
-    @JoinColumn(name ="idTurma")
-    protected Integer fkTurma;
+//    @ManyToOne
+//    @JoinColumn(name ="idTurma")
+//    protected Integer fkTurma;
 //    @OneToMany
 //    @JoinColumn(name ="idTurma")
 //    protected Integer fkEscolaridade;
@@ -102,13 +102,13 @@ public class Aluno {
         this.moedas = moedas;
     }
 
-    public Integer getFkTurma() {
-        return fkTurma;
-    }
-
-    public void setFkTurma(Integer fkTurma) {
-        this.fkTurma = fkTurma;
-    }
+//    public Integer getFkTurma() {
+//        return fkTurma;
+//    }
+//
+//    public void setFkTurma(Integer fkTurma) {
+//        this.fkTurma = fkTurma;
+//    }
 
 //    public Integer getFkEscolaridade() {
 //        return fkEscolaridade;

@@ -16,9 +16,9 @@ public class Tema {
     @Size(min = 3, max = 255)
     @NotNull
     protected String nome;
-    @ManyToOne
-    @JoinColumn(name ="idModulo")
-    protected Integer fkModulo;
+//    @ManyToOne
+//    @JoinColumn(name ="idModulo")
+//    protected Integer fkModulo;
 
     public Tema() {
     }
@@ -39,11 +39,11 @@ public class Tema {
         this.nome = nome;
     }
 
-    public Integer getFkModulo() {
-        return fkModulo;
-    }
-
-    public void setFkModulo(Integer fkModulo) {
-        this.fkModulo = fkModulo;
-    }
+//    public Integer getFkModulo() {
+//        return fkModulo;
+//    }
+//
+//    public void setFkModulo(Integer fkModulo) {
+//        this.fkModulo = fkModulo;
+//    }
 }

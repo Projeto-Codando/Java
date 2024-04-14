@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
 
 
-    Optional<Aluno> findByApelido(Integer integer);
+//    Optional<Aluno> findByApelido(Integer integer);
 }

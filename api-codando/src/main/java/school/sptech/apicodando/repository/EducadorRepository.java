@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface EducadorRepository extends JpaRepository<Educador, Integer> {
 
 
-    Optional<Educador> findByEmail(String email);
+//    Optional<Educador> findByEmail(String email);
 }

@@ -10,12 +10,12 @@ public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idGrade;
-    @ManyToOne
-    @JoinColumn(name ="idTurma")
-    protected Integer fkTurma;
-    @ManyToOne
-    @JoinColumn(name ="idTema")
-    protected Integer fkTema;
+//    @ManyToOne
+//    @JoinColumn(name ="idTurma")
+//    protected Integer fkTurma;
+//    @ManyToOne
+//    @JoinColumn(name ="idTema")
+//    protected Integer fkTema;
 
     public Grade() {
     }
@@ -28,19 +28,19 @@ public class Grade {
         this.idGrade = idGrade;
     }
 
-    public Integer getFkTurma() {
-        return fkTurma;
-    }
-
-    public void setFkTurma(Integer fkTurma) {
-        this.fkTurma = fkTurma;
-    }
-
-    public Integer getFkTema() {
-        return fkTema;
-    }
-
-    public void setFkTema(Integer fkTema) {
-        this.fkTema = fkTema;
-    }
+//    public Integer getFkTurma() {
+//        return fkTurma;
+//    }
+//
+//    public void setFkTurma(Integer fkTurma) {
+//        this.fkTurma = fkTurma;
+//    }
+//
+//    public Integer getFkTema() {
+//        return fkTema;
+//    }
+//
+//    public void setFkTema(Integer fkTema) {
+//        this.fkTema = fkTema;
+//    }
 }

@@ -20,12 +20,12 @@ public class Turma {
     @Size(min = 3, max = 255)
     @NotNull
     protected String sobrenome;
-    @ManyToOne
-    @JoinColumn(name ="idEscolaridade")
-    protected Integer fkEscolaridade;
-    @ManyToOne
-    @JoinColumn(name ="idEducador")
-    protected Integer fkEducador;
+//    @ManyToOne
+//    @JoinColumn(name ="idEscolaridade")
+//    protected Integer fkEscolaridade;
+//    @ManyToOne
+//    @JoinColumn(name ="idEducador")
+//    protected Integer fkEducador;
 
     public Turma() {
     }
@@ -54,19 +54,19 @@ public class Turma {
         this.sobrenome = sobrenome;
     }
 
-    public Integer getFkEscolaridade() {
-        return fkEscolaridade;
-    }
-
-    public void setFkEscolaridade(Integer fkEscolaridade) {
-        this.fkEscolaridade = fkEscolaridade;
-    }
-
-    public Integer getFkEducador() {
-        return fkEducador;
-    }
-
-    public void setFkEducador(Integer fkEducador) {
-        this.fkEducador = fkEducador;
-    }
+//    public Integer getFkEscolaridade() {
+//        return fkEscolaridade;
+//    }
+//
+//    public void setFkEscolaridade(Integer fkEscolaridade) {
+//        this.fkEscolaridade = fkEscolaridade;
+//    }
+//
+//    public Integer getFkEducador() {
+//        return fkEducador;
+//    }
+//
+//    public void setFkEducador(Integer fkEducador) {
+//        this.fkEducador = fkEducador;
+//    }
 }

@@ -1,5 +1,6 @@
 package school.sptech.apicodando.service.alunoService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import school.sptech.apicodando.entity.Aluno;
 import school.sptech.apicodando.entity.Educador;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @Service
 public class AlunoService {
-
+    @Autowired
     private AlunoRepository alunoRepository;
 
     public void criar(AlunoCadastroDTO alunoCadastroDTO) {

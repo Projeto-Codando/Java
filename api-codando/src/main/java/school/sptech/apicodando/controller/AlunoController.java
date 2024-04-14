@@ -30,7 +30,7 @@ public class AlunoController {
     private AlunoService alunoService;
 
     @PostMapping
-    public ResponseEntity<AlunoListagemDTO> criar(@RequestBody @Valid AlunoCadastroDTO novoAluno) {
+    public ResponseEntity<Void> criar(@RequestBody @Valid AlunoCadastroDTO novoAluno) {
         this.alunoService.criar(novoAluno);
         return ResponseEntity.status(201).build();
     }
@@ -55,8 +55,8 @@ public class AlunoController {
         return ResponseEntity.status(200).body(listaAuxiliar);
     }
 
-    @DeleteMapping
-    public ResponseEntity excluir (@PathVariable @Valid int id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir (@PathVariable @Valid int id){
         if (alunoRepository.existsById(id)){
             alunoService.excluir(id);
             return ok().build();
@@ -65,8 +65,8 @@ public class AlunoController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity atualizar(@PathVariable("id") @Valid int id,
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
                                     @RequestBody @Valid Aluno alunoAlterado) {
         if (alunoRepository.existsById(id)) {
             alunoService.atualizar(alunoAlterado, id);
