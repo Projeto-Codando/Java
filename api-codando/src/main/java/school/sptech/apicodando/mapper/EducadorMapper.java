@@ -1,10 +1,8 @@
 package school.sptech.apicodando.mapper;
 
-import school.sptech.apicodando.entity.Aluno;
 import school.sptech.apicodando.entity.Educador;
-import school.sptech.apicodando.record.DTOs.aluno.AlunoListagemDTO;
-import school.sptech.apicodando.record.DTOs.educador.EducadorCadastroDTO;
-import school.sptech.apicodando.record.DTOs.educador.EducadorListagemDTO;
+import school.sptech.apicodando.service.educadorService.dto.EducadorCadastroDTO;
+import school.sptech.apicodando.service.educadorService.dto.EducadorListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +23,13 @@ public class EducadorMapper {
     public static Educador toEntity(EducadorCadastroDTO dto) {
         if (dto == null) return null;
 
-        Educador entity = new Educador();
-        entity.setNome(dto.getNome());
-        entity.setSobrenome(dto.getSobrenome());
-        entity.setEmail(dto.getEmail());
-        entity.setSenha(dto.getSenha());
+        Educador educador = new Educador();
+        educador.setNome(dto.getNome());
+        educador.setSobrenome(dto.getSobrenome());
+        educador.setEmail(dto.getEmail());
+        educador.setSenha(dto.getSenha());
 
-        return entity;
+        return educador;
     }
 
     public static List<EducadorListagemDTO> toDto(List<Educador> entidade) {

@@ -1,4 +1,4 @@
-package school.sptech.apicodando.record.DTOs.educador;
+package school.sptech.apicodando.service.educadorService.dto;
 
 public class EducadorListagemDTO {
     private Integer idEducador;

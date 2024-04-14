@@ -3,8 +3,9 @@ package school.sptech.apicodando.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import school.sptech.apicodando.record.DTOs.educador.EducadorCadastroDTO;
-import school.sptech.apicodando.record.DTOs.educador.EducadorListagemDTO;
+import school.sptech.apicodando.service.educadorService.EducadorService;
+import school.sptech.apicodando.service.educadorService.dto.EducadorCadastroDTO;
+import school.sptech.apicodando.service.educadorService.dto.EducadorListagemDTO;
 import school.sptech.apicodando.repository.EducadorRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +21,28 @@ import java.util.Optional;
 public class EducadorController {
     @Autowired
     private EducadorRepository educadorRepository;
+    @Autowired
+    private EducadorService educadorService;
 
+
+
+//    @PostMapping
+//    public ResponseEntity<EducadorListagemDTO> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
+//        Educador educador = EducadorMapper.toEntity(novoEducador);
+//        Educador educadorSalvo = educadorRepository.save(educador);
+//        EducadorListagemDTO listagemDto = EducadorMapper.toDto(educadorSalvo);
+//        return ResponseEntity.status(201).body(listagemDto);
+//    }
 
 
     @PostMapping
+//    @SecurityRequeriment perguntar pro prof isso
     public ResponseEntity<EducadorListagemDTO> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
-        Educador educador = EducadorMapper.toEntity(novoEducador);
-        Educador educadorSalvo = educadorRepository.save(educador);
-        EducadorListagemDTO listagemDto = EducadorMapper.toDto(educadorSalvo);
-        return ResponseEntity.status(201).body(listagemDto);
+        this.educadorService.criar(novoEducador);
+        return ResponseEntity.status(201).build();
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<EducadorListagemDTO> buscaPorId(@PathVariable int id) {

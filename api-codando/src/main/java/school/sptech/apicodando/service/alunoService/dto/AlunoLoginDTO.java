@@ -1,4 +1,4 @@
-package school.sptech.apicodando.record.DTOs.aluno;
+package school.sptech.apicodando.service.alunoService.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

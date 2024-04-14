@@ -1,8 +1,8 @@
 package school.sptech.apicodando.mapper;
 
 import school.sptech.apicodando.entity.Aluno;
-import school.sptech.apicodando.record.DTOs.aluno.AlunoCadastroDTO;
-import school.sptech.apicodando.record.DTOs.aluno.AlunoListagemDTO;
+import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
+import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;

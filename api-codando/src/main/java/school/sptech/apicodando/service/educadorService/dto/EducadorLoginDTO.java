@@ -1,4 +1,4 @@
-package school.sptech.apicodando.record.DTOs.educador;
+package school.sptech.apicodando.service.educadorService.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

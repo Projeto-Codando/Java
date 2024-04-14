@@ -1,40 +1,21 @@
-package school.sptech.apicodando.record.DTOs.aluno;
+package school.sptech.apicodando.service.alunoService.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+public class AlunoListagemDTO {
 
-public class AlunoCadastroDTO {
-
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
+    private Integer idAluno;
     private String nome;
-
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
     private String sobrenome;
-
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
     private String apelido;
-
-    @NotBlank
-    @Size(min = 8, max = 255)
-    @NotNull
-    private String senha;
-
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
     private String status;
-
-    @NotBlank
-    @PositiveOrZero
     private Integer moedas;
+
+    public Integer getIdAluno() {
+        return idAluno;
+    }
+
+    public void setIdAluno(Integer idAluno) {
+        this.idAluno = idAluno;
+    }
 
     public String getNome() {
         return nome;
@@ -58,14 +39,6 @@ public class AlunoCadastroDTO {
 
     public void setApelido(String apelido) {
         this.apelido = apelido;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getStatus() {

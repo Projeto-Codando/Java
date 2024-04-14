@@ -1,11 +1,12 @@
-package school.sptech.apicodando.record.DTOs.educador;
+package school.sptech.apicodando.service.alunoService.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
-public class EducadorCadastroDTO {
+public class AlunoCadastroDTO {
+
     @NotBlank
     @Size(min = 3, max = 255)
     @NotNull
@@ -17,14 +18,23 @@ public class EducadorCadastroDTO {
     private String sobrenome;
 
     @NotBlank
-    @Email
+    @Size(min = 3, max = 255)
     @NotNull
-    private String email;
+    private String apelido;
 
     @NotBlank
     @Size(min = 8, max = 255)
     @NotNull
     private String senha;
+
+    @NotBlank
+    @Size(min = 3, max = 255)
+    @NotNull
+    private String status;
+
+    @NotBlank
+    @PositiveOrZero
+    private Integer moedas;
 
     public String getNome() {
         return nome;
@@ -42,12 +52,12 @@ public class EducadorCadastroDTO {
         this.sobrenome = sobrenome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getApelido() {
+        return apelido;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
     }
 
     public String getSenha() {
@@ -58,5 +68,19 @@ public class EducadorCadastroDTO {
         this.senha = senha;
     }
 
-    // getters e setters
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getMoedas() {
+        return moedas;
+    }
+
+    public void setMoedas(Integer moedas) {
+        this.moedas = moedas;
+    }
 }
