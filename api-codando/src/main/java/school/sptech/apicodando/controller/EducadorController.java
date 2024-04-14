@@ -16,6 +16,9 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.ResponseEntity.notFound;
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 @RequestMapping("/educadores")
 public class EducadorController {
@@ -46,7 +49,7 @@ public class EducadorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<EducadorListagemDTO> buscaPorId(@PathVariable int id) {
-        Optional<Educador> educadorOpt = educadorRepository.findById(id);
+        Optional<Educador> educadorOpt = educadorService.listarUmPorId(id);
         if (educadorOpt.isEmpty()) {
             return ResponseEntity.status(404).build();
         }
@@ -56,12 +59,35 @@ public class EducadorController {
 
     @GetMapping
     public ResponseEntity<List<EducadorListagemDTO>> listar() {
-        List<Educador> educadores = educadorRepository.findAll();
+        List<Educador> educadores = educadorService.listarTodos();
         if (educadores.isEmpty()) {
             return ResponseEntity.status(204).build();
         }
         List<EducadorListagemDTO> listaAuxiliar = EducadorMapper.toDto(educadores);
         return ResponseEntity.status(200).body(listaAuxiliar);
     }
+
+    @DeleteMapping
+    public ResponseEntity excluir (@PathVariable @Valid int id){
+        if (educadorRepository.existsById(id)){
+            educadorService.excluir(id);
+            return ok().build();
+        } else {
+            return notFound().build();
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity atualizar(@PathVariable("id") @Valid int id,
+                                    @RequestBody @Valid Educador educadorAlterado) {
+        if (educadorRepository.existsById(id)) {
+            educadorService.atualizar(educadorAlterado, id);
+            return ok().build();
+        } else {
+            return notFound().build();
+        }
+    }
+
+
 
 }

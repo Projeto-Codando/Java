@@ -20,6 +20,18 @@ public class EducadorMapper {
         return listagemDTO;
     }
 
+//    public static EducadorCadastroDTO toDto(Educador entity) {
+//        if (entity == null) return null;
+//
+//        EducadorCadastroDTO criacaoDto = new EducadorCadastroDTO();
+////        criacaoDto.setIdEducador(entity.getIdEducador());
+//        criacaoDto.setNome(entity.getNome());
+//        criacaoDto.setSobrenome(entity.getSobrenome());
+//        criacaoDto.setEmail(entity.getEmail());
+//
+//        return criacaoDto;
+//    }
+
     public static Educador toEntity(EducadorCadastroDTO dto) {
         if (dto == null) return null;
 
