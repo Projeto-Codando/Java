@@ -14,9 +14,12 @@ import school.sptech.apicodando.mapper.AlunoMapper;
 import school.sptech.apicodando.entity.Aluno;
 import school.sptech.apicodando.repository.AlunoRepository;
 import jakarta.validation.Valid;
+import school.sptech.apicodando.service.arrayService.Array;
+
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.ResponseEntity.*;
 import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -29,39 +32,43 @@ public class AlunoController {
     @Autowired
     private AlunoService alunoService;
 
+    @Autowired
+    private Array array;
+
     @PostMapping
     public ResponseEntity<Void> criar(@RequestBody @Valid AlunoCadastroDTO novoAluno) {
         this.alunoService.criar(novoAluno);
-        return ResponseEntity.status(201).build();
+        return status(201).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AlunoListagemDTO> buscaPorId(@PathVariable int id) {
         Optional<Aluno> alunoOpt = alunoService.listarUmPorId(id);
         if (alunoOpt.isEmpty()) {
-            return ResponseEntity.status(404).build();
+            return status(404).build();
         }
         AlunoListagemDTO dto = AlunoMapper.toDto(alunoOpt.get());
-        return ResponseEntity.status(200).body(dto);
+        return status(200).body(dto);
     }
 
     @GetMapping
     public ResponseEntity<List<AlunoListagemDTO>> listar() {
-        List<Aluno> alunos = alunoService.listarTodos() ;
-        if (alunos.isEmpty()) {
-            return ResponseEntity.status(204).build();
+        Array<Aluno> alunos = alunoService.listarTodos();
+
+        if (array.isEmpty()) {
+            return status(204).build();
         }
-        List<AlunoListagemDTO> listaAuxiliar = AlunoMapper.toDto(alunos);
-        return ResponseEntity.status(200).body(listaAuxiliar);
+        List<AlunoListagemDTO> listaAuxiliar = AlunoMapper.toDto((List<Aluno>) alunos);
+        return status(200).body(listaAuxiliar);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir (@PathVariable @Valid int id){
         if (alunoRepository.existsById(id)){
             alunoService.excluir(id);
-            return ok().build();
+            return status(200).build();
         } else {
-            return notFound().build();
+            return status(404).build();
         }
     }
 
@@ -70,10 +77,9 @@ public class AlunoController {
                                     @RequestBody @Valid Aluno alunoAlterado) {
         if (alunoRepository.existsById(id)) {
             alunoService.atualizar(alunoAlterado, id);
-            return ok().build();
+            return status(200).build();
         } else {
-            return notFound().build();
+            return status(404).build();
         }
     }
-
 }

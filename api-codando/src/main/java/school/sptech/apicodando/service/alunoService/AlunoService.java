@@ -8,6 +8,7 @@ import school.sptech.apicodando.mapper.AlunoMapper;
 import school.sptech.apicodando.mapper.EducadorMapper;
 import school.sptech.apicodando.repository.AlunoRepository;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
+import school.sptech.apicodando.service.arrayService.Array;
 import school.sptech.apicodando.service.educadorService.dto.EducadorCadastroDTO;
 
 import java.util.List;
@@ -17,6 +18,9 @@ import java.util.Optional;
 public class AlunoService {
     @Autowired
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    private Array array;
 
     public void criar(AlunoCadastroDTO alunoCadastroDTO) {
         final Aluno novoAluno = AlunoMapper.toEntity(alunoCadastroDTO);
@@ -36,7 +40,11 @@ public class AlunoService {
         return alunoRepository.findById(id);
     }
 
-    public List<Aluno> listarTodos(){
-        return alunoRepository.findAll();
+    public Array<Aluno> listarTodos(){
+        for (int i = 0; i < alunoRepository.findAll().size(); i++) {
+            array.addAll(alunoRepository.findAll());
+        }
+        return array;
     }
+
 }
