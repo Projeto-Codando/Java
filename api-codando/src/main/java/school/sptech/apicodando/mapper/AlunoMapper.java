@@ -3,9 +3,12 @@ package school.sptech.apicodando.mapper;
 import school.sptech.apicodando.entity.Aluno;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
+import school.sptech.apicodando.service.autenticacao.dto.AlunoTokenDto;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class AlunoMapper {
     public static Aluno toEntity(AlunoCadastroDTO dto) {
@@ -44,5 +47,17 @@ public class AlunoMapper {
             dtos.add(toDto(e));
         }
         return dtos;
+    }
+
+    public static AlunoTokenDto of(Aluno aluno, String token){
+
+        AlunoTokenDto alunoTokenDto = new AlunoTokenDto();
+
+        alunoTokenDto.setUserId(aluno.getIdAluno());
+        alunoTokenDto.setToken(token);
+        alunoTokenDto.setApelido(aluno.getApelido());
+        alunoTokenDto.setNome(aluno.getNome());
+
+        return alunoTokenDto;
     }
 }
