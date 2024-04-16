@@ -1,6 +1,7 @@
 package school.sptech.apicodando.service.alunoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import school.sptech.apicodando.entity.Aluno;
 import school.sptech.apicodando.entity.Educador;
@@ -15,11 +16,17 @@ import java.util.Optional;
 
 @Service
 public class AlunoService {
+
+
     @Autowired
     private AlunoRepository alunoRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void criar(AlunoCadastroDTO alunoCadastroDTO) {
         final Aluno novoAluno = AlunoMapper.toEntity(alunoCadastroDTO);
+        String senhaCriptografada = passwordEncoder.encode(novoAluno.getSenha());
+        novoAluno.setSenha(senhaCriptografada);
         this.alunoRepository.save(novoAluno);
     }
 
