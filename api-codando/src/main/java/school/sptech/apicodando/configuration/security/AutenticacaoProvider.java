@@ -1,5 +1,6 @@
 package school.sptech.apicodando.configuration.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +13,9 @@ import school.sptech.apicodando.service.autenticacao.AutenticacaoService;
 import java.net.PasswordAuthentication;
 
 public class AutenticacaoProvider implements AuthenticationProvider {
+//    @Autowired
     private final AutenticacaoService alunoAutentitacacaoService;
+//    @Autowired
     private final PasswordEncoder passwordEncoder;
 
     public AutenticacaoProvider(AutenticacaoService alunoAutentitacacaoService, PasswordEncoder passwordEncoder) {
@@ -22,8 +25,10 @@ public class AutenticacaoProvider implements AuthenticationProvider {
 
 
 
+
+
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
 
         final String username = authentication.getName();
         final String password = authentication.getCredentials().toString();

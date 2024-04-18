@@ -1,7 +1,6 @@
-package school.sptech.apicodando.config;
+package school.sptech.apicodando.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -9,34 +8,29 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import school.sptech.apicodando.configuration.security.AutenticacaoEntryPoint;
-import school.sptech.apicodando.configuration.security.AutenticacaoFilter;
-import school.sptech.apicodando.configuration.security.AutenticacaoProvider;
 import school.sptech.apicodando.configuration.security.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.service.autenticacao.AutenticacaoService;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfiguracao {
 
     private static final String ORIGENS_PERMITIDAS = "*";
@@ -44,7 +38,7 @@ public class SecurityConfiguracao {
     @Autowired
     private AutenticacaoService autenticacaoService;
     @Autowired
-    private AuthenticationEntryPoint authenticationEntryPoint;
+    private AutenticacaoEntryPoint authenticationEntryPoint;
 
     private static final AntPathRequestMatcher[] URLS_PERMITIDAS = {
 
@@ -66,7 +60,10 @@ public class SecurityConfiguracao {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(Customizer.withDefaults()).csrf(CsrfConfigurer<HttpSecurity>::disable)
+        http.cors(Customizer.withDefaults())
+                .headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+                .csrf(CsrfConfigurer<HttpSecurity>::disable)
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(URLS_PERMITIDAS).permitAll().anyRequest().authenticated()
                 )
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEntryPoint))

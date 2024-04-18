@@ -4,10 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 
 public class AlunoLoginDTO {
 
-    @NotBlank
     private String apelido;
 
-    @NotBlank
     private String senha;
 
     public String getApelido() {

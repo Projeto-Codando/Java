@@ -69,12 +69,8 @@ public class AlunoController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
                                     @RequestBody @Valid Aluno alunoAlterado) {
-        if (alunoRepository.existsById(id)) {
-            alunoService.atualizar(alunoAlterado, id);
-            return ok().build();
-        } else {
-            return notFound().build();
-        }
+        alunoService.atualizar(alunoAlterado, id);
+        return ResponseEntity.noContent().build();
     }
 
 //    @GetMapping("/ordenarAZ")
