@@ -63,7 +63,6 @@ public class GerenciadorTokenJwt {
     private Claims getAllClaimsFromToken(String token){
         return Jwts.parser()
                 .setSigningKey(parseSecret())
-                .build()
                 .parseClaimsJws(token).getBody();
 
     }

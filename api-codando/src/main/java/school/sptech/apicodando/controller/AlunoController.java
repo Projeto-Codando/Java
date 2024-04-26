@@ -15,6 +15,9 @@ import school.sptech.apicodando.mapper.AlunoMapper;
 import school.sptech.apicodando.entity.Aluno;
 import school.sptech.apicodando.repository.AlunoRepository;
 import jakarta.validation.Valid;
+import school.sptech.apicodando.service.autenticacao.dto.AlunoLoginDTO;
+import school.sptech.apicodando.service.autenticacao.dto.AlunoTokenDto;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -31,9 +34,18 @@ public class AlunoController {
     private AlunoService alunoService;
 
     @PostMapping
+//    @SecurityRequirement(name = "Bearer")
+
     public ResponseEntity<Void> criar(@RequestBody @Valid AlunoCadastroDTO novoAluno) {
         this.alunoService.criar(novoAluno);
         return ResponseEntity.status(201).build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AlunoTokenDto> login(@RequestBody AlunoLoginDTO usuarioLoginDto) {
+        AlunoTokenDto usuarioTokenDto = this.alunoService.autenticar(usuarioLoginDto);
+
+        return ResponseEntity.status(200).body(usuarioTokenDto);
     }
 
     @GetMapping("/{id}")
