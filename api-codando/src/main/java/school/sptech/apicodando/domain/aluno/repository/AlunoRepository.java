@@ -1,7 +1,7 @@
-package school.sptech.apicodando.repository;
+package school.sptech.apicodando.domain.aluno.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import school.sptech.apicodando.entity.Aluno;
+import school.sptech.apicodando.domain.aluno.Aluno;
 
 import java.util.Optional;
 

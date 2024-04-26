@@ -1,19 +1,17 @@
 package school.sptech.apicodando.controller;
 
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import school.sptech.apicodando.entity.Educador;
 import school.sptech.apicodando.service.alunoService.AlunoService;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 import school.sptech.apicodando.mapper.AlunoMapper;
-import school.sptech.apicodando.entity.Aluno;
-import school.sptech.apicodando.repository.AlunoRepository;
+import school.sptech.apicodando.domain.aluno.Aluno;
+import school.sptech.apicodando.domain.aluno.repository.AlunoRepository;
 import jakarta.validation.Valid;
 import school.sptech.apicodando.service.autenticacao.dto.AlunoLoginDTO;
 import school.sptech.apicodando.service.autenticacao.dto.AlunoTokenDto;

@@ -1,6 +1,6 @@
 package school.sptech.apicodando.mapper;
 
-import school.sptech.apicodando.entity.Educador;
+import school.sptech.apicodando.domain.educador.Educador;
 import school.sptech.apicodando.service.educadorService.dto.EducadorCadastroDTO;
 import school.sptech.apicodando.service.educadorService.dto.EducadorListagemDTO;
 

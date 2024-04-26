@@ -1,4 +1,4 @@
-package school.sptech.apicodando.entity;
+package school.sptech.apicodando.domain.progressoAluno;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

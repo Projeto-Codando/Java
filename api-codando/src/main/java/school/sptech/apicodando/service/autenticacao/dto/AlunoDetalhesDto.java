@@ -2,7 +2,7 @@ package school.sptech.apicodando.service.autenticacao.dto;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import school.sptech.apicodando.entity.Aluno;
+import school.sptech.apicodando.domain.aluno.Aluno;
 
 import java.util.Collection;
 

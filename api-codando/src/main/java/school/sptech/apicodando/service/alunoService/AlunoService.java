@@ -1,7 +1,6 @@
 package school.sptech.apicodando.service.alunoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,15 +10,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apicodando.configuration.security.jwt.GerenciadorTokenJwt;
-import school.sptech.apicodando.entity.Aluno;
-import school.sptech.apicodando.entity.Educador;
+import school.sptech.apicodando.domain.aluno.Aluno;
 import school.sptech.apicodando.mapper.AlunoMapper;
-import school.sptech.apicodando.mapper.EducadorMapper;
-import school.sptech.apicodando.repository.AlunoRepository;
+import school.sptech.apicodando.domain.aluno.repository.AlunoRepository;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.autenticacao.dto.AlunoLoginDTO;
 import school.sptech.apicodando.service.autenticacao.dto.AlunoTokenDto;
-import school.sptech.apicodando.service.educadorService.dto.EducadorCadastroDTO;
 
 import java.util.List;
 import java.util.Optional;

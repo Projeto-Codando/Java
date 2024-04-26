@@ -1,4 +1,4 @@
-package school.sptech.apicodando.entity;
+package school.sptech.apicodando.domain.turma;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

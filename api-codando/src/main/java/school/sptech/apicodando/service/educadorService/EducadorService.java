@@ -2,9 +2,9 @@ package school.sptech.apicodando.service.educadorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import school.sptech.apicodando.entity.Educador;
+import school.sptech.apicodando.domain.educador.Educador;
 import school.sptech.apicodando.mapper.EducadorMapper;
-import school.sptech.apicodando.repository.EducadorRepository;
+import school.sptech.apicodando.domain.educador.repository.EducadorRepository;
 import school.sptech.apicodando.service.educadorService.dto.EducadorCadastroDTO;
 
 import java.util.List;
