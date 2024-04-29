@@ -11,23 +11,21 @@ import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 import school.sptech.apicodando.mapper.AlunoMapper;
 import school.sptech.apicodando.domain.aluno.Aluno;
-import school.sptech.apicodando.domain.aluno.repository.AlunoRepository;
 import jakarta.validation.Valid;
-import school.sptech.apicodando.service.autenticacao.dto.AlunoLoginDTO;
-import school.sptech.apicodando.service.autenticacao.dto.AlunoTokenDto;
+import school.sptech.apicodando.service.alunoService.dto.dtoAluno.AlunoLoginDTO;
+import school.sptech.apicodando.service.alunoService.dto.dtoAluno.AlunoTokenDto;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/alunos")
 public class AlunoController {
 
-    @Autowired
-    private AlunoRepository alunoRepository;
+//    @Autowired
+//    private AlunoRepository alunoRepository;
     @Autowired
     private AlunoService alunoService;
 
@@ -58,7 +56,7 @@ public class AlunoController {
 
     @GetMapping
     public ResponseEntity<List<AlunoListagemDTO>> listar() {
-        List<Aluno> alunos = alunoService.listarTodos() ;
+        List<Aluno> alunos = alunoService.listarTodos();
         if (alunos.isEmpty()) {
             return ResponseEntity.status(204).build();
         }
@@ -67,18 +65,14 @@ public class AlunoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir (@PathVariable @Valid int id){
-        if (alunoRepository.existsById(id)){
-            alunoService.excluir(id);
-            return ok().build();
-        } else {
-            return notFound().build();
-        }
+    public ResponseEntity<Void> excluir(@PathVariable @Valid int id) {
+        alunoService.excluir(id);
+        return ok().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
-                                    @RequestBody @Valid Aluno alunoAlterado) {
+                                          @RequestBody @Valid Aluno alunoAlterado) {
         alunoService.atualizar(alunoAlterado, id);
         return ResponseEntity.noContent().build();
     }

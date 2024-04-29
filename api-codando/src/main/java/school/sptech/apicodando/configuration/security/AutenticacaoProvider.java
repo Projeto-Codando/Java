@@ -1,6 +1,5 @@
 package school.sptech.apicodando.configuration.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,17 +7,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import school.sptech.apicodando.service.autenticacao.AutenticacaoService;
-
-import java.net.PasswordAuthentication;
+import school.sptech.apicodando.service.autenticacao.AutenticacaoAlunoService;
 
 public class AutenticacaoProvider implements AuthenticationProvider {
 //    @Autowired
-    private final AutenticacaoService alunoAutentitacacaoService;
+    private final AutenticacaoAlunoService alunoAutentitacacaoService;
 //    @Autowired
     private final PasswordEncoder passwordEncoder;
 
-    public AutenticacaoProvider(AutenticacaoService alunoAutentitacacaoService, PasswordEncoder passwordEncoder) {
+    public AutenticacaoProvider(AutenticacaoAlunoService alunoAutentitacacaoService, PasswordEncoder passwordEncoder) {
         this.alunoAutentitacacaoService = alunoAutentitacacaoService;
         this.passwordEncoder = passwordEncoder;
     }

@@ -8,10 +8,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -24,7 +22,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import school.sptech.apicodando.configuration.security.jwt.GerenciadorTokenJwt;
-import school.sptech.apicodando.service.autenticacao.AutenticacaoService;
+import school.sptech.apicodando.service.autenticacao.AutenticacaoAlunoService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +34,7 @@ public class SecurityConfiguracao {
     private static final String ORIGENS_PERMITIDAS = "*";
 
     @Autowired
-    private AutenticacaoService autenticacaoService;
+    private AutenticacaoAlunoService autenticacaoAlunoService;
     @Autowired
     private AutenticacaoEntryPoint authenticationEntryPoint;
 
@@ -80,7 +78,7 @@ public class SecurityConfiguracao {
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.authenticationProvider(new
-                AutenticacaoProvider(autenticacaoService, passwordEncoder()));
+                AutenticacaoProvider(autenticacaoAlunoService, passwordEncoder()));
         return authenticationManagerBuilder.build();
     }
 
@@ -93,7 +91,7 @@ public class SecurityConfiguracao {
 
     @Bean
     public AutenticacaoFilter jwtAuthenticationFilterBean() {
-        return new AutenticacaoFilter(autenticacaoService, jwtAuthenticationUtilBean());
+        return new AutenticacaoFilter(autenticacaoAlunoService, jwtAuthenticationUtilBean());
     }
 
 

@@ -7,11 +7,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import school.sptech.apicodando.domain.aluno.Aluno;
 import school.sptech.apicodando.domain.aluno.repository.AlunoRepository;
-import school.sptech.apicodando.service.autenticacao.dto.AlunoDetalhesDto;
+import school.sptech.apicodando.service.alunoService.dto.dtoAluno.AlunoDetalhesDto;
 
 import java.util.Optional;
 @Service
-public class AutenticacaoService implements UserDetailsService {
+    public class AutenticacaoAlunoService implements UserDetailsService {
 
     @Autowired
     private AlunoRepository alunoRepository;
@@ -24,4 +24,6 @@ public class AutenticacaoService implements UserDetailsService {
         }
         return new AlunoDetalhesDto(alunoOpt.get());
     }
+
+
 }

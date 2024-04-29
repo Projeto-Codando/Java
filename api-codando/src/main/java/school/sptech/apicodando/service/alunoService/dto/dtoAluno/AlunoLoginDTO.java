@@ -1,6 +1,4 @@
-package school.sptech.apicodando.service.autenticacao.dto;
-
-import jakarta.validation.constraints.NotBlank;
+package school.sptech.apicodando.service.alunoService.dto.dtoAluno;
 
 public class AlunoLoginDTO {
 

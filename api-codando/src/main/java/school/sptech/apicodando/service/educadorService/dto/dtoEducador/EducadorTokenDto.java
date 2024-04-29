@@ -1,10 +1,10 @@
-package school.sptech.apicodando.service.autenticacao.dto;
+package school.sptech.apicodando.service.educadorService.dto.dtoEducador;
 
-public class AlunoTokenDto {
+public class EducadorTokenDto {
 
     private Integer userId;
     private String nome;
-    private String apelido;
+    private String email;
     private String token;
 
     public Integer getUserId() {
@@ -23,12 +23,12 @@ public class AlunoTokenDto {
         this.nome = nome;
     }
 
-    public String getApelido() {
-        return apelido;
+    public String getEmail() {
+        return email;
     }
 
-    public void setApelido(String apelido) {
-        this.apelido = apelido;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getToken() {
