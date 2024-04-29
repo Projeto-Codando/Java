@@ -32,8 +32,8 @@ public class AlunoController {
     @Autowired
     private AlunoService alunoService;
 
-    @Autowired
-    private Array array;
+//    @Autowired
+//    private Array array;
 
     @PostMapping
 //    @SecurityRequirement(name = "Bearer")
@@ -60,16 +60,16 @@ public class AlunoController {
         return status(200).body(dto);
     }
 
-    @GetMapping
-    public ResponseEntity<List<AlunoListagemDTO>> listar() {
-        Array<Aluno> alunos = alunoService.listarTodos();
-
-        if (array.isEmpty()) {
-            return status(204).build();
-        }
-        List<AlunoListagemDTO> listaAuxiliar = AlunoMapper.toDto((List<Aluno>) alunos);
-        return status(200).body(listaAuxiliar);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<AlunoListagemDTO>> listar() {
+//        Array<Aluno> alunos = alunoService.listarTodos();
+//
+//        if (array.isEmpty()) {
+//            return status(204).build();
+//        }
+//        List<AlunoListagemDTO> listaAuxiliar = AlunoMapper.toDto((List<Aluno>) alunos);
+//        return status(200).body(listaAuxiliar);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir (@PathVariable @Valid int id){

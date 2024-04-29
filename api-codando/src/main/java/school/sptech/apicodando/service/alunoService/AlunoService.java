@@ -35,8 +35,8 @@ public class AlunoService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private Array array;
+//    @Autowired
+//    private Array array;
 
     public void criar(AlunoCadastroDTO alunoCadastroDTO) {
         final Aluno novoAluno = AlunoMapper.toEntity(alunoCadastroDTO);
@@ -85,11 +85,11 @@ public class AlunoService {
         return alunoRepository.findById(id);
     }
 
-    public Array<Aluno> listarTodos(){
-        for (int i = 0; i < alunoRepository.findAll().size(); i++) {
-            array.addAll(alunoRepository.findAll());
-        }
-        return array;
-    }
+//    public Array<Aluno> listarTodos(){
+//        for (int i = 0; i < alunoRepository.findAll().size(); i++) {
+//            array.addAll(alunoRepository.findAll());
+//        }
+//        return array;
+//    }
 
 }
