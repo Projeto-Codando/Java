@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import school.sptech.apicodando.entity.Educador;
 import school.sptech.apicodando.service.alunoService.AlunoService;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 import school.sptech.apicodando.mapper.AlunoMapper;
-import school.sptech.apicodando.entity.Aluno;
-import school.sptech.apicodando.repository.AlunoRepository;
+import school.sptech.apicodando.domain.aluno.Aluno;
+import school.sptech.apicodando.domain.aluno.repository.AlunoRepository;
 import jakarta.validation.Valid;
-import school.sptech.apicodando.service.arrayService.Array;
+import school.sptech.apicodando.service.autenticacao.dto.AlunoLoginDTO;
+import school.sptech.apicodando.service.autenticacao.dto.AlunoTokenDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,9 +36,18 @@ public class AlunoController {
     private Array array;
 
     @PostMapping
+//    @SecurityRequirement(name = "Bearer")
+
     public ResponseEntity<Void> criar(@RequestBody @Valid AlunoCadastroDTO novoAluno) {
         this.alunoService.criar(novoAluno);
         return status(201).build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AlunoTokenDto> login(@RequestBody AlunoLoginDTO usuarioLoginDto) {
+        AlunoTokenDto usuarioTokenDto = this.alunoService.autenticar(usuarioLoginDto);
+
+        return ResponseEntity.status(200).body(usuarioTokenDto);
     }
 
     @GetMapping("/{id}")
@@ -75,11 +84,12 @@ public class AlunoController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
                                     @RequestBody @Valid Aluno alunoAlterado) {
-        if (alunoRepository.existsById(id)) {
-            alunoService.atualizar(alunoAlterado, id);
-            return status(200).build();
-        } else {
-            return status(404).build();
-        }
+        alunoService.atualizar(alunoAlterado, id);
+        return ResponseEntity.noContent().build();
     }
+
+//    @GetMapping("/ordenarAZ")
+//    public ResponseEntity
+
+
 }

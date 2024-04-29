@@ -77,7 +77,7 @@ public class AlunoCadastroDTO {
     }
 
     public int getMoedas() {
-        return moedas;
+        return 0;
     }
 
     public void setMoedas(int moedas) {

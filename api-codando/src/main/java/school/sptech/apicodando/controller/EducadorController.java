@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 import school.sptech.apicodando.service.educadorService.EducadorService;
 import school.sptech.apicodando.service.educadorService.dto.EducadorCadastroDTO;
 import school.sptech.apicodando.service.educadorService.dto.EducadorListagemDTO;
-import school.sptech.apicodando.repository.EducadorRepository;
+import school.sptech.apicodando.domain.educador.repository.EducadorRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.apicodando.mapper.EducadorMapper;
-import school.sptech.apicodando.entity.Educador;
+import school.sptech.apicodando.domain.educador.Educador;
 
 import jakarta.validation.Valid;
 import java.util.List;
