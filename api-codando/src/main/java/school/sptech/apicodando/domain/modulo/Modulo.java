@@ -11,13 +11,13 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Modulo {
 
-    @NotBlank
+//    @NotBlank
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idModulo;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
+//    @NotBlank
+//    @Size(min = 3, max = 255)
+//    @NotNull
     protected String nome;
 
     public Modulo() {

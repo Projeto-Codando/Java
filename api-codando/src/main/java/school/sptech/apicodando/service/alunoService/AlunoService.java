@@ -39,6 +39,9 @@ public class AlunoService {
         final Aluno novoAluno = AlunoMapper.toEntity(alunoCadastroDTO);
         String senhaCriptografada = passwordEncoder.encode(novoAluno.getSenha());
         novoAluno.setSenha(senhaCriptografada);
+
+
+
         this.alunoRepository.save(novoAluno);
     }
 
