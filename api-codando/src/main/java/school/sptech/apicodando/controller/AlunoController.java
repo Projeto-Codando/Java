@@ -12,8 +12,8 @@ import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 import school.sptech.apicodando.mapper.AlunoMapper;
 import school.sptech.apicodando.domain.aluno.Aluno;
 import jakarta.validation.Valid;
-import school.sptech.apicodando.service.alunoService.dto.dtoAluno.AlunoLoginDTO;
-import school.sptech.apicodando.service.alunoService.dto.dtoAluno.AlunoTokenDto;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLoginDTO;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
 
 import java.util.List;
 import java.util.Optional;

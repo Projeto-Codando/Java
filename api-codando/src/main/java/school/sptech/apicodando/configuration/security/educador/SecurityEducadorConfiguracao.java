@@ -1,6 +1,7 @@
-package school.sptech.apicodando.configuration.security;
+package school.sptech.apicodando.configuration.security.educador;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -21,22 +22,23 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import school.sptech.apicodando.configuration.security.jwt.GerenciadorTokenJwt;
-import school.sptech.apicodando.service.autenticacao.AutenticacaoAlunoService;
+import school.sptech.apicodando.configuration.security.educador.jwt.GerenciadorTokenJwt;
+import school.sptech.apicodando.service.autenticacao.AutenticacaoEducadorService;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguracao {
+public class SecurityEducadorConfiguracao {
 
     private static final String ORIGENS_PERMITIDAS = "*";
 
     @Autowired
-    private AutenticacaoAlunoService autenticacaoAlunoService;
+    private AutenticacaoEducadorService autenticacaoEducadorService;
     @Autowired
-    private AutenticacaoEntryPoint authenticationEntryPoint;
+    @Qualifier("autenticacaoEducadorEntryPoint")
+    private AutenticacaoEducadorEntryPoint authenticationEducadorEntryPoint;
 
     private static final AntPathRequestMatcher[] URLS_PERMITIDAS = {
 
@@ -51,10 +53,10 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/webjars/**"),
             new AntPathRequestMatcher("/v3/api-docs/**"),
             new AntPathRequestMatcher("/actuator/*"),
-            new AntPathRequestMatcher("/alunos/login/**"),
+            new AntPathRequestMatcher("/educadores/login/**"),
             new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/error/**"),
-            new AntPathRequestMatcher("/alunos"),
+            new AntPathRequestMatcher("/educadores"),
     };
 
     @Bean
@@ -65,7 +67,7 @@ public class SecurityConfiguracao {
                 .csrf(CsrfConfigurer<HttpSecurity>::disable)
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(URLS_PERMITIDAS).permitAll().anyRequest().authenticated()
                 )
-                .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEntryPoint))
+                .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEducadorEntryPoint))
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtAuthenticationFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
@@ -78,20 +80,20 @@ public class SecurityConfiguracao {
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.authenticationProvider(new
-                AutenticacaoProvider(autenticacaoAlunoService, passwordEncoder()));
+                AutenticacaoEducadorProvider(autenticacaoEducadorService, passwordEncoder()));
         return authenticationManagerBuilder.build();
     }
 
 
     @Bean
-    public AutenticacaoEntryPoint jwtAuthenticationEntryPointBean() {
-        return new AutenticacaoEntryPoint();
+    public AutenticacaoEducadorEntryPoint jwtAuthenticationEntryPointBean() {
+        return new AutenticacaoEducadorEntryPoint();
 
     }
 
     @Bean
-    public AutenticacaoFilter jwtAuthenticationFilterBean() {
-        return new AutenticacaoFilter(autenticacaoAlunoService, jwtAuthenticationUtilBean());
+    public AutenticacaoEducadorFilter jwtAuthenticationFilterBean() {
+        return new AutenticacaoEducadorFilter(autenticacaoEducadorService, jwtAuthenticationUtilBean());
     }
 
 

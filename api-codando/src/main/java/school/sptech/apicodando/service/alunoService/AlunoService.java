@@ -9,13 +9,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import school.sptech.apicodando.configuration.security.jwt.GerenciadorTokenJwt;
+import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.domain.aluno.Aluno;
 import school.sptech.apicodando.mapper.AlunoMapper;
 import school.sptech.apicodando.domain.aluno.repository.AlunoRepository;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
-import school.sptech.apicodando.service.alunoService.dto.dtoAluno.AlunoLoginDTO;
-import school.sptech.apicodando.service.alunoService.dto.dtoAluno.AlunoTokenDto;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLoginDTO;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -90,6 +90,13 @@ public class AlunoService {
         return alunoRepository.existsById(id);
     }
 
+    public Boolean existePorApelido(String apelido) {
+        if (alunoRepository.findByApelido(apelido).isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     public Optional<Aluno> listarUmPorId(int id) {
         return alunoRepository.findById(id);
     }
@@ -98,11 +105,6 @@ public class AlunoService {
         return alunoRepository.findAll();
     }
 
-    public Boolean existePorApelido(String apelido) {
-        if (alunoRepository.findByApelido(apelido).isEmpty()) {
-            return false;
-        }
-        return true;
-    }
+
 
 }

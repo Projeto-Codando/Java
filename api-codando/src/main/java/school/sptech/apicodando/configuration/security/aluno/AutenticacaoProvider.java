@@ -1,4 +1,4 @@
-package school.sptech.apicodando.configuration.security;
+package school.sptech.apicodando.configuration.security.aluno;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

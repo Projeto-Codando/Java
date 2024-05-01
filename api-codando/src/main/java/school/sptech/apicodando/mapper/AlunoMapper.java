@@ -3,7 +3,7 @@ package school.sptech.apicodando.mapper;
 import school.sptech.apicodando.domain.aluno.Aluno;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
-import school.sptech.apicodando.service.alunoService.dto.dtoAluno.AlunoTokenDto;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
 
 import java.util.ArrayList;
 import java.util.List;

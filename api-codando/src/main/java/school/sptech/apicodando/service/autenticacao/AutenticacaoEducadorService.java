@@ -7,12 +7,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import school.sptech.apicodando.domain.educador.Educador;
 import school.sptech.apicodando.domain.educador.repository.EducadorRepository;
-import school.sptech.apicodando.service.alunoService.dto.dtoAluno.AlunoDetalhesDto;
 import school.sptech.apicodando.service.educadorService.dto.dtoEducador.EducadorDetalhesDto;
 
 import java.util.Optional;
 @Service
-public class AutentificacaoEducadorService implements UserDetailsService {
+public class AutenticacaoEducadorService implements UserDetailsService {
 
 
     @Autowired
@@ -22,7 +21,7 @@ public class AutentificacaoEducadorService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Educador> educadorOptional = educadorRepository.findByEmail(email);
         if (educadorOptional.isEmpty()) {
-            throw new UsernameNotFoundException(String.format("Aluno %s não encontrado", email));
+            throw new UsernameNotFoundException(String.format("Educador %s não encontrado", email));
         }
         return new EducadorDetalhesDto(educadorOptional.get());
     }

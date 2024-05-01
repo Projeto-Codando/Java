@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import school.sptech.apicodando.domain.aluno.Aluno;
 import school.sptech.apicodando.domain.aluno.repository.AlunoRepository;
-import school.sptech.apicodando.service.alunoService.dto.dtoAluno.AlunoDetalhesDto;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoDetalhesDto;
 
 import java.util.Optional;
 @Service

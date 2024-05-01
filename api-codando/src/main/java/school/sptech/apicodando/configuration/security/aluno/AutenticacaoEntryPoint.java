@@ -1,4 +1,4 @@
-package school.sptech.apicodando.configuration.security;
+package school.sptech.apicodando.configuration.security.aluno;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

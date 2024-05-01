@@ -22,8 +22,8 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping("/educadores")
 public class EducadorController {
-    @Autowired
-    private EducadorRepository educadorRepository;
+//    @Autowired
+//    private EducadorRepository educadorRepository;
     @Autowired
     private EducadorService educadorService;
 
@@ -69,7 +69,7 @@ public class EducadorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir (@PathVariable @Valid int id){
-        if (educadorRepository.existsById(id)){
+        if (educadorService.existePorId(id)){
             educadorService.excluir(id);
             return ok().build();
         } else {
@@ -80,12 +80,11 @@ public class EducadorController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
                                     @RequestBody @Valid Educador educadorAlterado) {
-        if (educadorRepository.existsById(id)) {
+        if (educadorService.existePorId(id)) {
             educadorService.atualizar(educadorAlterado, id);
             return ok().build();
-        } else {
-            return notFound().build();
         }
+            return notFound().build();
     }
 
 

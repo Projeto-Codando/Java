@@ -1,4 +1,4 @@
-package school.sptech.apicodando.configuration.security.jwt;
+package school.sptech.apicodando.configuration.security.aluno.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -9,8 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.crypto.SecretKey;
-import javax.naming.spi.Resolver;
-import java.awt.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.function.Function;
