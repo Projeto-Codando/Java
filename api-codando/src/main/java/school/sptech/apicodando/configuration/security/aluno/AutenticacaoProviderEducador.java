@@ -1,4 +1,4 @@
-package school.sptech.apicodando.configuration.security.educador;
+package school.sptech.apicodando.configuration.security.aluno;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -7,16 +7,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import school.sptech.apicodando.service.autenticacao.AutenticacaoEducadorService;
+import school.sptech.apicodando.service.autenticacao.AutenticacaoAlunoService;
 
-public class AutenticacaoEducadorProvider implements AuthenticationProvider {
+public class AutenticacaoProvider implements AuthenticationProvider {
 //    @Autowired
-    private final AutenticacaoEducadorService educadorAutentitacacaoService;
+    private final AutenticacaoAlunoService alunoAutentitacacaoService;
 //    @Autowired
     private final PasswordEncoder passwordEncoder;
 
-    public AutenticacaoEducadorProvider(AutenticacaoEducadorService educadorAutentitacacaoService, PasswordEncoder passwordEncoder) {
-        this.educadorAutentitacacaoService = educadorAutentitacacaoService;
+    public AutenticacaoProvider(AutenticacaoAlunoService alunoAutentitacacaoService, PasswordEncoder passwordEncoder) {
+        this.alunoAutentitacacaoService = alunoAutentitacacaoService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -30,7 +30,7 @@ public class AutenticacaoEducadorProvider implements AuthenticationProvider {
         final String username = authentication.getName();
         final String password = authentication.getCredentials().toString();
 
-        UserDetails userDetails = this.educadorAutentitacacaoService.loadUserByUsername(username);
+        UserDetails userDetails = this.alunoAutentitacacaoService.loadUserByUsername(username);
 
         if (this.passwordEncoder.matches(password, userDetails.getPassword())){
             return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
