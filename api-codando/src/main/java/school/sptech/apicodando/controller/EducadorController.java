@@ -3,6 +3,8 @@ package school.sptech.apicodando.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLoginDTO;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
 import school.sptech.apicodando.service.educadorService.EducadorService;
 import school.sptech.apicodando.service.educadorService.dto.EducadorCadastroDTO;
 import school.sptech.apicodando.service.educadorService.dto.EducadorListagemDTO;
@@ -13,6 +15,9 @@ import school.sptech.apicodando.mapper.EducadorMapper;
 import school.sptech.apicodando.domain.educador.Educador;
 
 import jakarta.validation.Valid;
+import school.sptech.apicodando.service.educadorService.dto.EducadorLoginDTO;
+import school.sptech.apicodando.service.educadorService.dto.dtoEducador.EducadorTokenDto;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +48,13 @@ public class EducadorController {
     public ResponseEntity<Void> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
         this.educadorService.criar(novoEducador);
         return ResponseEntity.status(201).build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<EducadorTokenDto> login(@RequestBody EducadorLoginDTO usuarioLoginDto) {
+        EducadorTokenDto usuarioTokenDto = this.educadorService.autenticar(usuarioLoginDto);
+
+        return ResponseEntity.status(200).body(usuarioTokenDto);
     }
 
 

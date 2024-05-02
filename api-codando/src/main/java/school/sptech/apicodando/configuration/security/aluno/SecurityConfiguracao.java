@@ -23,6 +23,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.service.autenticacao.AutenticacaoAlunoService;
+import school.sptech.apicodando.service.autenticacao.AutenticacaoEducadorService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +38,8 @@ public class SecurityConfiguracao {
     private AutenticacaoAlunoService autenticacaoAlunoService;
     @Autowired
     private AutenticacaoEntryPoint authenticationEntryPoint;
+    @Autowired
+    private AutenticacaoEducadorService autenticacaoEducadorService;
 
     private static final AntPathRequestMatcher[] URLS_PERMITIDAS = {
 
@@ -54,7 +57,9 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/alunos/login/**"),
             new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/error/**"),
-            new AntPathRequestMatcher("/alunos"),
+//            new AntPathRequestMatcher("/alunos"),
+//            new AntPathRequestMatcher("/educadores")
+            new AntPathRequestMatcher("/educadores/login/**"),
     };
 
     @Bean
@@ -68,6 +73,8 @@ public class SecurityConfiguracao {
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEntryPoint))
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtAuthenticationFilterBean(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new AutenticacaoFilterEducador(autenticacaoEducadorService, jwtAuthenticationUtilBean()),
+                UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
 
@@ -79,6 +86,8 @@ public class SecurityConfiguracao {
                 http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.authenticationProvider(new
                 AutenticacaoProvider(autenticacaoAlunoService, passwordEncoder()));
+        authenticationManagerBuilder.authenticationProvider(new
+                AutenticacaoProviderEducador(autenticacaoEducadorService, passwordEncoder()));
         return authenticationManagerBuilder.build();
     }
 

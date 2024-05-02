@@ -4,22 +4,22 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-
 public class GerenciadorTokenJwt {
     @Value("${jwt.secret}")
     private String secret;
-//    @Value("${jwt.validity}")
-//    private long jwtTokenValidity;
+    @Value("${jwt.validity}")
+    private long jwtTokenValidity;
 
     public String getUsernameFromToken(String token) {
         return getClaimForToken(token, Claims::getSubject);
@@ -29,18 +29,6 @@ public class GerenciadorTokenJwt {
         return getClaimForToken(token, Claims::getExpiration);
     }
 
-//    public String generateToken(final Authentication authentication) {
-//
-////        final String authorities = authentication.
-//
-//        final String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
-//
-//        return Jwts.builder().setSubject(authentication.getName())
-//                .signWith(parseSecret()).setIssuedAt(new Date(System.currentTimeMillis()))
-//                .setExpiration(new Date(System.currentTimeMillis() + jwtTokenValidity * 1_000))
-//                .compact();
-//
-//    }
     public String generateToken(final Authentication authentication) {
 
 //        final String authorities = authentication.
@@ -49,10 +37,22 @@ public class GerenciadorTokenJwt {
 
         return Jwts.builder().setSubject(authentication.getName())
                 .signWith(parseSecret()).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtTokenValidity * 1_000))
                 .compact();
 
     }
+//    public String generateToken(final Authentication authentication) {
+//
+////        final String authorities = authentication.
+//
+//        final String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
+//
+//        return Jwts.builder().setSubject(authentication.getName())
+//                .signWith(parseSecret()).setIssuedAt(new Date(System.currentTimeMillis()))
+//                .setExpiration(new Date(System.currentTimeMillis()))
+//                .compact();
+
+
 
     // Para verificacoes de permissões;
 

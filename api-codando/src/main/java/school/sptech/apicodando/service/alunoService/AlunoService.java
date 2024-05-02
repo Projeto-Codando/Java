@@ -41,7 +41,7 @@ public class AlunoService {
         novoAluno.setSenha(senhaCriptografada);
 
         if (existePorApelido(alunoCadastroDTO.getApelido())){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Aluno já cadastrado");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Aluno já cadastrado.");
         }
 
         this.alunoRepository.save(novoAluno);

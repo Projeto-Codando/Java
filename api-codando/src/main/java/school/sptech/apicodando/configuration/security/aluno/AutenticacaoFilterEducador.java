@@ -1,7 +1,6 @@
 package school.sptech.apicodando.configuration.security.aluno;
 
 import io.jsonwebtoken.ExpiredJwtException;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,18 +14,19 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.service.autenticacao.AutenticacaoAlunoService;
+import school.sptech.apicodando.service.autenticacao.AutenticacaoEducadorService;
 
 import java.io.IOException;
 import java.util.Objects;
 
-public class AutenticacaoFilter extends OncePerRequestFilter {
+public class AutenticacaoFilterEducador extends OncePerRequestFilter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AutenticacaoFilter.class);
-    private final AutenticacaoAlunoService autenticacaoAlunoService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AutenticacaoFilterEducador.class);
+    private final AutenticacaoEducadorService autenticacaoEducadorService;
     private final GerenciadorTokenJwt jwtTokenManager;
 
-    public AutenticacaoFilter(AutenticacaoAlunoService autenticacaoAlunoService, GerenciadorTokenJwt jwtTokenManager) {
-        this.autenticacaoAlunoService = autenticacaoAlunoService;
+    public AutenticacaoFilterEducador(AutenticacaoEducadorService autenticacaoEducadorService, GerenciadorTokenJwt jwtTokenManager) {
+        this.autenticacaoEducadorService = autenticacaoEducadorService;
         this.jwtTokenManager = jwtTokenManager;
     }
 
@@ -61,7 +61,7 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
     }
 
     private void addUsernameInContext(HttpServletRequest request, String username, String jwtToken) {
-        UserDetails userDetails = autenticacaoAlunoService.loadUserByUsername(username);
+        UserDetails userDetails = autenticacaoEducadorService.loadUserByUsername(username);
 
         if (jwtTokenManager.validateToken(jwtToken, userDetails)) {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,

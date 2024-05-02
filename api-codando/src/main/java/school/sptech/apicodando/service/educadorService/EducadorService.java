@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
+//import school.sptech.apicodando.configuration.security.educador.jwt.GerenciadorTokenEducadorJwt;
 import school.sptech.apicodando.domain.aluno.Aluno;
 import school.sptech.apicodando.domain.educador.Educador;
 import school.sptech.apicodando.mapper.AlunoMapper;
@@ -36,12 +37,15 @@ public class EducadorService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-    @Autowired
-    private GerenciadorTokenJwt gerenciadorTokenJwt;
+    private final GerenciadorTokenJwt gerenciadorTokenJwt;
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    public EducadorService(GerenciadorTokenJwt gerenciadorTokenJwt) {
+        this.gerenciadorTokenJwt = gerenciadorTokenJwt;
+    }
 
     public void criar(EducadorCadastroDTO educadorCadastroDTO) {
         final Educador novoEducador = EducadorMapper.toEntity(educadorCadastroDTO);
@@ -49,7 +53,7 @@ public class EducadorService {
         novoEducador.setSenha(senhaCriptografada);
 
         if (existePorApelido(educadorCadastroDTO.getEmail())){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Aluno já cadastrado");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Educador já cadastrado.");
         }
 
         this.educadorRepository.save(novoEducador);
