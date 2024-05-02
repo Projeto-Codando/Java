@@ -7,7 +7,6 @@ import school.sptech.apicodando.domain.csvFile.CsvFile;
 import java.util.List;
 
 public interface CsvFileRepository extends JpaRepository<CsvFile, Integer> {
-    List<CsvFile> findByNM_DIRETORIA(String NM_DIRETORIA);
-
+    List<CsvFile> findBynmDiretoria(String nm_diretoria);
 
 }

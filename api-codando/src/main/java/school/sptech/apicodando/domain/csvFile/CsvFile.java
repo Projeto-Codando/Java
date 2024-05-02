@@ -17,64 +17,62 @@ public class CsvFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    private Integer ANO_LETIVO;
+    private Integer anoLetivo;
 
     @NotBlank
     @Size(max = 23)
-    private String NM_DIRETORIA;
+    private String nmDiretoria;
 
     @NotBlank
     @Size(max = 26)
-    private String NM_MUNICIPIO;
+    private String nmMunicipio;
 
     @NotNull
-    private Boolean CD_REDE_ENSINO;
+    private Boolean cdRedeEnsino;
 
     @NotNull
-    private Integer CD_ESCOLA;
+    private Integer cdEscola;
 
     @NotBlank
     @Size(max = 80)
-    private String NM_COMPLETO_ESCOLA;
+    private String nmCompletoEscola;
 
     @NotNull
-    private Integer CD_TP_IDENTIFICADOR;
-
-    @NotNull
-    @Size(max = 5)
-    private Double APR_1;
+    private Integer cdTpIdentificador;
 
     @NotNull
     @Size(max = 5)
-    private Double REP_1;
+    private Double apr1;
 
     @NotNull
     @Size(max = 5)
-    private Double ABA_1;
+    private Double rep1;
 
     @NotNull
     @Size(max = 5)
-    private Double APR_2;
+    private Double aba1;
 
     @NotNull
     @Size(max = 5)
-    private Double REP_2;
+    private Double apr2;
 
     @NotNull
     @Size(max = 5)
-    private Double ABA_2;
+    private Double rep2;
 
     @NotNull
     @Size(max = 5)
-    private Double APR_3;
+    private Double aba2;
 
     @NotNull
     @Size(max = 5)
-    private Double REP_3;
+    private Double apr3;
 
     @NotNull
     @Size(max = 5)
-    private Double ABA_3;
+    private Double rep3;
 
-
+    @NotNull
+    @Size(max = 5)
+    private Double aba3;
 }

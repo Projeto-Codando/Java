@@ -85,11 +85,8 @@ public class AlunoService {
         return alunoRepository.findById(id);
     }
 
-//    public Array<Aluno> listarTodos(){
-//        for (int i = 0; i < alunoRepository.findAll().size(); i++) {
-//            array.addAll(alunoRepository.findAll());
-//        }
-//        return array;
-//    }
+    public List<Aluno> listarTodos(){
+        return alunoRepository.findAll();
+    }
 
 }

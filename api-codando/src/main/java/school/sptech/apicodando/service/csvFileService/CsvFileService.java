@@ -13,7 +13,7 @@ public class CsvFileService {
     private CsvFileRepository csvFileRepository;
 
     public void listarPorDiretoria(String diretoria) {
-        csvFileRepository.findByNM_DIRETORIA(diretoria);
+        csvFileRepository.findBynmDiretoria(diretoria);
     }
 
     public List<CsvFile> quickSortByDiretoriaAndByREP_2() {
@@ -35,8 +35,8 @@ public class CsvFileService {
         CsvFile pivot = csvFiles.get(high);
         int i = (low - 1);
         for (int j = low; j <= high - 1; j++) {
-            if (csvFiles.get(j).getNM_DIRETORIA().compareTo(pivot.getNM_DIRETORIA()) < 0 ||
-                    (csvFiles.get(j).getNM_DIRETORIA().equals(pivot.getNM_DIRETORIA()) && csvFiles.get(j).getREP_2() < pivot.getREP_2())) {
+            if (csvFiles.get(j).getNmDiretoria().compareTo(pivot.getNmDiretoria()) < 0 ||
+                    (csvFiles.get(j).getNmDiretoria().equals(pivot.getNmDiretoria()) && csvFiles.get(j).getRep2() < pivot.getRep2())) {
                 i++;
 
                 CsvFile temp = csvFiles.get(i);
