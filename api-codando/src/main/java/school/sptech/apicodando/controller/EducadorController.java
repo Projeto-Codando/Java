@@ -1,5 +1,6 @@
 package school.sptech.apicodando.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +45,7 @@ public class EducadorController {
 
 
     @PostMapping
-//    @SecurityRequeriment perguntar pro prof isso
+    @SecurityRequirement(name = "Bearer")
     public ResponseEntity<Void> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
         this.educadorService.criar(novoEducador);
         return ResponseEntity.status(201).build();
