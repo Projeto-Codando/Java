@@ -7,16 +7,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import school.sptech.apicodando.service.autenticacao.AutenticacaoAlunoService;
+import school.sptech.apicodando.service.autenticacao.AutenticacaoService;
 
 public class AutenticacaoProvider implements AuthenticationProvider {
 //    @Autowired
-    private final AutenticacaoAlunoService alunoAutentitacacaoService;
+    private final AutenticacaoService autentitacacaoService;
 //    @Autowired
     private final PasswordEncoder passwordEncoder;
 
-    public AutenticacaoProvider(AutenticacaoAlunoService alunoAutentitacacaoService, PasswordEncoder passwordEncoder) {
-        this.alunoAutentitacacaoService = alunoAutentitacacaoService;
+    public AutenticacaoProvider(AutenticacaoService autentitacacaoService, PasswordEncoder passwordEncoder) {
+        this.autentitacacaoService = autentitacacaoService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -30,7 +30,7 @@ public class AutenticacaoProvider implements AuthenticationProvider {
         final String username = authentication.getName();
         final String password = authentication.getCredentials().toString();
 
-        UserDetails userDetails = this.alunoAutentitacacaoService.loadUserByUsername(username);
+        UserDetails userDetails = this.autentitacacaoService.loadUserByUsername(username);
 
         if (this.passwordEncoder.matches(password, userDetails.getPassword())){
             return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

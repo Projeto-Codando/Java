@@ -12,13 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 //import school.sptech.apicodando.configuration.security.educador.jwt.GerenciadorTokenEducadorJwt;
-import school.sptech.apicodando.domain.aluno.Aluno;
 import school.sptech.apicodando.domain.educador.Educador;
-import school.sptech.apicodando.mapper.AlunoMapper;
 import school.sptech.apicodando.mapper.EducadorMapper;
 import school.sptech.apicodando.domain.educador.repository.EducadorRepository;
-import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLoginDTO;
-import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
 import school.sptech.apicodando.service.educadorService.dto.EducadorCadastroDTO;
 import school.sptech.apicodando.service.educadorService.dto.EducadorLoginDTO;
 import school.sptech.apicodando.service.educadorService.dto.dtoEducador.EducadorTokenDto;
@@ -52,7 +48,7 @@ public class EducadorService {
         String senhaCriptografada = passwordEncoder.encode(novoEducador.getSenha());
         novoEducador.setSenha(senhaCriptografada);
 
-        if (existePorApelido(educadorCadastroDTO.getEmail())){
+        if (existePorEmail(educadorCadastroDTO.getEmail())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Educador já cadastrado.");
         }
 
@@ -100,7 +96,7 @@ public class EducadorService {
         return educadorRepository.existsById(id);
     }
 
-    public Boolean existePorApelido(String email) {
+    public Boolean existePorEmail(String email) {
         if (educadorRepository.findByEmail(email).isEmpty()) {
             return false;
         }

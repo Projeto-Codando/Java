@@ -22,8 +22,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
-import school.sptech.apicodando.service.autenticacao.AutenticacaoAlunoService;
-import school.sptech.apicodando.service.autenticacao.AutenticacaoEducadorService;
+import school.sptech.apicodando.service.autenticacao.AutenticacaoService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,15 +30,14 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguracao {
-
     private static final String ORIGENS_PERMITIDAS = "*";
 
     @Autowired
-    private AutenticacaoAlunoService autenticacaoAlunoService;
+    private AutenticacaoService autenticacaoService;
     @Autowired
     private AutenticacaoEntryPoint authenticationEntryPoint;
-    @Autowired
-    private AutenticacaoEducadorService autenticacaoEducadorService;
+//    @Autowired
+//    private AutenticacaoEducadorService autenticacaoEducadorService;
 
     private static final AntPathRequestMatcher[] URLS_PERMITIDAS = {
 
@@ -73,8 +71,7 @@ public class SecurityConfiguracao {
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEntryPoint))
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtAuthenticationFilterBean(), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(new AutenticacaoFilterEducador(autenticacaoEducadorService, jwtAuthenticationUtilBean()),
-                UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
 
@@ -85,9 +82,8 @@ public class SecurityConfiguracao {
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.authenticationProvider(new
-                AutenticacaoProvider(autenticacaoAlunoService, passwordEncoder()));
-        authenticationManagerBuilder.authenticationProvider(new
-                AutenticacaoProviderEducador(autenticacaoEducadorService, passwordEncoder()));
+                AutenticacaoProvider(autenticacaoService, passwordEncoder()));
+
         return authenticationManagerBuilder.build();
     }
 
@@ -100,7 +96,7 @@ public class SecurityConfiguracao {
 
     @Bean
     public AutenticacaoFilter jwtAuthenticationFilterBean() {
-        return new AutenticacaoFilter(autenticacaoAlunoService, jwtAuthenticationUtilBean());
+        return new AutenticacaoFilter(autenticacaoService, jwtAuthenticationUtilBean());
     }
 
 

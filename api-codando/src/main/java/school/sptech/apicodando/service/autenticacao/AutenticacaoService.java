@@ -14,7 +14,7 @@ import school.sptech.apicodando.service.educadorService.dto.dtoEducador.Educador
 
 import java.util.Optional;
 @Service
-    public class AutenticacaoAlunoService implements UserDetailsService {
+    public class AutenticacaoService implements UserDetailsService {
 
     @Autowired
     private AlunoRepository alunoRepository;
@@ -30,7 +30,7 @@ import java.util.Optional;
             throw new UsernameNotFoundException(String.format("Usuário não encontrado", username));
         }
 
-        if (alunoOpt.isPresent()){
+        if (!alunoOpt.isEmpty()){
             return new AlunoDetalhesDto(alunoOpt.get());
         } else {
             return new EducadorDetalhesDto(educadorOpt.get());

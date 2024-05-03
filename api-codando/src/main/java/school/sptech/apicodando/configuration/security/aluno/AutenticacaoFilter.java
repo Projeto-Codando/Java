@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
-import school.sptech.apicodando.service.autenticacao.AutenticacaoAlunoService;
+import school.sptech.apicodando.service.autenticacao.AutenticacaoService;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -22,11 +22,11 @@ import java.util.Objects;
 public class AutenticacaoFilter extends OncePerRequestFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AutenticacaoFilter.class);
-    private final AutenticacaoAlunoService autenticacaoAlunoService;
+    private final AutenticacaoService autenticacaoService;
     private final GerenciadorTokenJwt jwtTokenManager;
 
-    public AutenticacaoFilter(AutenticacaoAlunoService autenticacaoAlunoService, GerenciadorTokenJwt jwtTokenManager) {
-        this.autenticacaoAlunoService = autenticacaoAlunoService;
+    public AutenticacaoFilter(AutenticacaoService autenticacaoService, GerenciadorTokenJwt jwtTokenManager) {
+        this.autenticacaoService = autenticacaoService;
         this.jwtTokenManager = jwtTokenManager;
     }
 
@@ -61,7 +61,7 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
     }
 
     private void addUsernameInContext(HttpServletRequest request, String username, String jwtToken) {
-        UserDetails userDetails = autenticacaoAlunoService.loadUserByUsername(username);
+        UserDetails userDetails = autenticacaoService.loadUserByUsername(username);
 
         if (jwtTokenManager.validateToken(jwtToken, userDetails)) {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,
