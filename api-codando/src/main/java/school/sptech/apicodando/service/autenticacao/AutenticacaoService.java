@@ -27,10 +27,10 @@ import java.util.Optional;
         Optional<Educador> educadorOpt = educadorRepository.findByEmail(username);
 
         if (alunoOpt.isEmpty() && educadorOpt.isEmpty()){
-            throw new UsernameNotFoundException(String.format("Usuário não encontrado", username));
+            throw new UsernameNotFoundException(String.format("Usuário %s não encontrado", username));
         }
 
-        if (!alunoOpt.isEmpty()){
+        if (alunoOpt.isPresent()){
             return new AlunoDetalhesDto(alunoOpt.get());
         } else {
             return new EducadorDetalhesDto(educadorOpt.get());

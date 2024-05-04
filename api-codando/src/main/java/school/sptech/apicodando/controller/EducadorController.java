@@ -22,17 +22,15 @@ import school.sptech.apicodando.service.educadorService.dto.dtoEducador.Educador
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.notFound;
-import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/educadores")
 public class EducadorController {
-//    @Autowired
+    //    @Autowired
 //    private EducadorRepository educadorRepository;
     @Autowired
     private EducadorService educadorService;
-
 
 
 //    @PostMapping
@@ -46,60 +44,45 @@ public class EducadorController {
 
     @PostMapping
     @SecurityRequirement(name = "Bearer")
-    public ResponseEntity<Void> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
+    public ResponseEntity<EducadorCadastroDTO> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
         this.educadorService.criar(novoEducador);
-        return ResponseEntity.status(201).build();
+        return created(null).body(novoEducador);
     }
 
     @PostMapping("/login")
     public ResponseEntity<EducadorTokenDto> login(@RequestBody EducadorLoginDTO usuarioLoginDto) {
         EducadorTokenDto usuarioTokenDto = this.educadorService.autenticar(usuarioLoginDto);
-
-        return ResponseEntity.status(200).body(usuarioTokenDto);
+        return ok(usuarioTokenDto);
     }
-
 
 
     @GetMapping("/{id}")
     public ResponseEntity<EducadorListagemDTO> buscaPorId(@PathVariable int id) {
         Optional<Educador> educadorOpt = educadorService.listarUmPorId(id);
-        if (educadorOpt.isEmpty()) {
-            return ResponseEntity.status(404).build();
-        }
         EducadorListagemDTO dto = EducadorMapper.toDto(educadorOpt.get());
-        return ResponseEntity.status(200).body(dto);
+        return ok(dto);
     }
 
     @GetMapping
     public ResponseEntity<List<EducadorListagemDTO>> listar() {
         List<Educador> educadores = educadorService.listarTodos();
-        if (educadores.isEmpty()) {
-            return ResponseEntity.status(204).build();
-        }
         List<EducadorListagemDTO> listaAuxiliar = EducadorMapper.toDto(educadores);
-        return ResponseEntity.status(200).body(listaAuxiliar);
+        return ok(listaAuxiliar);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir (@PathVariable @Valid int id){
-        if (educadorService.existePorId(id)){
-            educadorService.excluir(id);
-            return ok().build();
-        } else {
-            return notFound().build();
-        }
+    public ResponseEntity<Void> excluir(@PathVariable @Valid int id) {
+        educadorService.excluir(id);
+        return ok().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
-                                    @RequestBody @Valid Educador educadorAlterado) {
-        if (educadorService.existePorId(id)) {
-            educadorService.atualizar(educadorAlterado, id);
-            return ok().build();
-        }
-            return notFound().build();
-    }
+                                          @RequestBody @Valid EducadorCadastroDTO educadorAlterado) {
+        educadorService.atualizar(educadorAlterado, id);
+        return ok().build();
 
+    }
 
 
 }

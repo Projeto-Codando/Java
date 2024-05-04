@@ -19,7 +19,7 @@ import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoToken
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/alunos")
@@ -41,27 +41,20 @@ public class AlunoController {
     public ResponseEntity<AlunoTokenDto> login(@RequestBody AlunoLoginDTO usuarioLoginDto) {
         AlunoTokenDto usuarioTokenDto = this.alunoService.autenticar(usuarioLoginDto);
 
-        return ResponseEntity.status(200).body(usuarioTokenDto);
+        return ok(usuarioTokenDto);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AlunoListagemDTO> buscaPorId(@PathVariable int id) {
-        Optional<Aluno> alunoOpt = alunoService.listarUmPorId(id);
-        if (alunoOpt.isEmpty()) {
-            return ResponseEntity.status(404).build();
-        }
-        AlunoListagemDTO dto = AlunoMapper.toDto(alunoOpt.get());
-        return ResponseEntity.status(200).body(dto);
+        AlunoListagemDTO dto = AlunoMapper.toDto(alunoService.listarUmPorId(id).get());
+        return ok(dto);
     }
 
     @GetMapping
     public ResponseEntity<List<AlunoListagemDTO>> listar() {
         List<Aluno> alunos = alunoService.listarTodos();
-        if (alunos.isEmpty()) {
-            return ResponseEntity.status(204).build();
-        }
         List<AlunoListagemDTO> listaAuxiliar = AlunoMapper.toDto(alunos);
-        return ResponseEntity.status(200).body(listaAuxiliar);
+        return ok(listaAuxiliar);
     }
 
     @DeleteMapping("/{id}")

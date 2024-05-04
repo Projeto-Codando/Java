@@ -35,6 +35,8 @@ public class AlunoService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+
+
     public void criar(AlunoCadastroDTO alunoCadastroDTO) {
         final Aluno novoAluno = AlunoMapper.toEntity(alunoCadastroDTO);
         String senhaCriptografada = passwordEncoder.encode(novoAluno.getSenha());
@@ -98,10 +100,16 @@ public class AlunoService {
     }
 
     public Optional<Aluno> listarUmPorId(int id) {
+        if (!existePorId(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
         return alunoRepository.findById(id);
     }
 
     public List<Aluno> listarTodos() {
+        if (alunoRepository.findAll().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
         return alunoRepository.findAll();
     }
 
