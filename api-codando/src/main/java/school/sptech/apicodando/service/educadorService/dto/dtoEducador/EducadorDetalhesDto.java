@@ -1,23 +1,23 @@
-package school.sptech.apicodando.service.autenticacao.dto;
+package school.sptech.apicodando.service.educadorService.dto.dtoEducador;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import school.sptech.apicodando.domain.aluno.Aluno;
+import school.sptech.apicodando.domain.educador.Educador;
 
 import java.util.Collection;
 
-public class AlunoDetalhesDto implements UserDetails {
+public class EducadorDetalhesDto implements UserDetails {
 
 
 
     private final String nome;
-    private final String apelido;
+    private final String email;
     private final String senha;
 
-    public AlunoDetalhesDto(Aluno aluno) {
-        this.nome = aluno.getNome();
-        this.apelido = aluno.getApelido();
-        this.senha = aluno.getSenha();
+    public EducadorDetalhesDto(Educador educador) {
+        this.nome = educador.getNome();
+        this.email = educador.getEmail();
+        this.senha = educador.getSenha();
     }
 
     public String getNome() {
@@ -36,7 +36,7 @@ public class AlunoDetalhesDto implements UserDetails {
 
     @Override
     public String getUsername() {
-        return apelido;
+        return email;
     }
 
     @Override

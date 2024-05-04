@@ -1,4 +1,4 @@
-package school.sptech.apicodando.configuration.security;
+package school.sptech.apicodando.configuration.security.aluno;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
-import school.sptech.apicodando.configuration.security.jwt.GerenciadorTokenJwt;
+import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.service.autenticacao.AutenticacaoService;
 
 import java.io.IOException;

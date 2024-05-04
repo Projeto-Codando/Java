@@ -1,4 +1,4 @@
-package school.sptech.apicodando.service.autenticacao.dto;
+package school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno;
 
 public class AlunoTokenDto {
 

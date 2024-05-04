@@ -1,4 +1,4 @@
-package school.sptech.apicodando.configuration.security;
+package school.sptech.apicodando.configuration.security.aluno;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,10 +8,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,7 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import school.sptech.apicodando.configuration.security.jwt.GerenciadorTokenJwt;
+import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.service.autenticacao.AutenticacaoService;
 
 import java.util.Arrays;
@@ -32,13 +30,14 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguracao {
-
     private static final String ORIGENS_PERMITIDAS = "*";
 
     @Autowired
     private AutenticacaoService autenticacaoService;
     @Autowired
     private AutenticacaoEntryPoint authenticationEntryPoint;
+//    @Autowired
+//    private AutenticacaoEducadorService autenticacaoEducadorService;
 
     private static final AntPathRequestMatcher[] URLS_PERMITIDAS = {
 
@@ -56,7 +55,10 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/alunos/login/**"),
             new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/error/**"),
-            new AntPathRequestMatcher("/alunos"),
+//            new AntPathRequestMatcher("/alunos"),
+//            new AntPathRequestMatcher("/educadores")
+            new AntPathRequestMatcher("/educadores/login/**"),
+            new AntPathRequestMatcher("/educadores/**", HttpMethod.POST.name())
     };
 
     @Bean
@@ -71,6 +73,7 @@ public class SecurityConfiguracao {
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtAuthenticationFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
+
         return http.build();
 
     }
@@ -81,6 +84,7 @@ public class SecurityConfiguracao {
                 http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.authenticationProvider(new
                 AutenticacaoProvider(autenticacaoService, passwordEncoder()));
+
         return authenticationManagerBuilder.build();
     }
 

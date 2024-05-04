@@ -9,13 +9,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import school.sptech.apicodando.configuration.security.jwt.GerenciadorTokenJwt;
+import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.domain.aluno.Aluno;
 import school.sptech.apicodando.mapper.AlunoMapper;
 import school.sptech.apicodando.domain.aluno.repository.AlunoRepository;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
-import school.sptech.apicodando.service.autenticacao.dto.AlunoLoginDTO;
-import school.sptech.apicodando.service.autenticacao.dto.AlunoTokenDto;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLoginDTO;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,20 +35,32 @@ public class AlunoService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+
+
     public void criar(AlunoCadastroDTO alunoCadastroDTO) {
         final Aluno novoAluno = AlunoMapper.toEntity(alunoCadastroDTO);
         String senhaCriptografada = passwordEncoder.encode(novoAluno.getSenha());
         novoAluno.setSenha(senhaCriptografada);
+
+        if (existePorApelido(alunoCadastroDTO.getApelido())){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Aluno já cadastrado.");
+        }
+
         this.alunoRepository.save(novoAluno);
     }
 
     public void excluir(int id) {
+
+        if (!existePorId(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
         alunoRepository.deleteById(id);
     }
 
-    public void atualizar(Aluno alunoAtualizado, int id){
+    public void atualizar(Aluno alunoAtualizado, int id) {
         if (!alunoRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Não encontrado");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado");
         }
         alunoAtualizado.setIdAluno(id);
         alunoRepository.save(alunoAtualizado);
@@ -59,7 +71,7 @@ public class AlunoService {
         final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
                 usuarioLoginDto.getApelido(), usuarioLoginDto.getSenha());
 
-            final Authentication authentication = this.authenticationManager.authenticate(credentials);
+        final Authentication authentication = this.authenticationManager.authenticate(credentials);
 
         Aluno usuarioAutenticado =
                 alunoRepository.findByApelido(usuarioLoginDto.getApelido())
@@ -74,15 +86,33 @@ public class AlunoService {
         return AlunoMapper.of(usuarioAutenticado, token);
     }
 
+    //metodos de apoio
+
     public boolean existePorId(int id) {
         return alunoRepository.existsById(id);
     }
 
-    public Optional<Aluno> listarUmPorId(int id){
+    public Boolean existePorApelido(String apelido) {
+        if (alunoRepository.findByApelido(apelido).isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public Optional<Aluno> listarUmPorId(int id) {
+        if (!existePorId(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
         return alunoRepository.findById(id);
     }
 
-    public List<Aluno> listarTodos(){
+    public List<Aluno> listarTodos() {
+        if (alunoRepository.findAll().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
         return alunoRepository.findAll();
     }
+
+
+
 }

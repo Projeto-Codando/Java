@@ -3,6 +3,7 @@ package school.sptech.apicodando.mapper;
 import school.sptech.apicodando.domain.educador.Educador;
 import school.sptech.apicodando.service.educadorService.dto.EducadorCadastroDTO;
 import school.sptech.apicodando.service.educadorService.dto.EducadorListagemDTO;
+import school.sptech.apicodando.service.educadorService.dto.dtoEducador.EducadorTokenDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,5 +51,17 @@ public class EducadorMapper {
             dtos.add(toDto(e));
         }
         return dtos;
+    }
+
+    public static EducadorTokenDto of(Educador aluno, String token){
+
+        EducadorTokenDto educadorTokenDto = new EducadorTokenDto();
+
+        educadorTokenDto.setUserId(aluno.getIdEducador());
+        educadorTokenDto.setToken(token);
+        educadorTokenDto.setEmail(aluno.getEmail());
+        educadorTokenDto.setNome(aluno.getNome());
+
+        return educadorTokenDto;
     }
 }
