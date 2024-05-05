@@ -59,6 +59,8 @@ public class SecurityConfiguracao {
 //            new AntPathRequestMatcher("/educadores")
             new AntPathRequestMatcher("/educadores/login/**"),
             new AntPathRequestMatcher("/educadores/**", HttpMethod.POST.name())
+            new AntPathRequestMatcher("/alunos/pesquisaEscolas"),
+            new AntPathRequestMatcher("/alunos/gerarCSV"),
     };
 
     @Bean
