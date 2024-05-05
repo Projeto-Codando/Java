@@ -1,6 +1,11 @@
 package school.sptech.apicodando.domain.aluno;
 
 import jakarta.persistence.*;
+import school.sptech.apicodando.domain.escolaridade.Escolaridade;
+import school.sptech.apicodando.domain.turma.Turma;
+
+import java.net.Inet4Address;
+import java.util.List;
 
 @Entity
 public class Aluno {
@@ -32,12 +37,10 @@ public class Aluno {
 //    @NotBlank
 //    @PositiveOrZero
     protected Integer moedas;
-//    @ManyToOne
-//    @JoinColumn(name ="idTurma")
-//    protected Integer fkTurma;
-//    @OneToMany
-//    @JoinColumn(name ="idTurma")
-//    protected Integer fkEscolaridade;
+    @ManyToOne
+    protected Turma fkTurma;
+    @OneToMany
+    protected List<Escolaridade> fkEscolaridade;
 
     public Aluno() {
     }
