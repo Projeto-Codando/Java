@@ -56,4 +56,5 @@ public class AlunoListagemDTO {
     public void setMoedas(Integer moedas) {
         this.moedas = moedas;
     }
+
 }
