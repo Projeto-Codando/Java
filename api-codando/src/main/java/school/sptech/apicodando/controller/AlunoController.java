@@ -122,9 +122,9 @@ public class AlunoController {
 
     @GetMapping("/gerarCSV")
     public ResponseEntity<Resource> gerarEbaixarCSV() {
-        List<Aluno> alunoss = alunoService.listarTodos();
+        List<Aluno> alunosNoDTO = alunoService.listarTodos();
 
-        List<AlunoListagemDTO> alunos = AlunoMapper.toDto(alunoss);
+        List<AlunoListagemDTO> alunos = AlunoMapper.toDto(alunosNoDTO);
 
         if(alunos.isEmpty()){
             System.out.println("Lista vazia");
@@ -169,16 +169,13 @@ public class AlunoController {
             }
         }
 
-        // Carregar o arquivo do sistema de arquivos
         Path path = Paths.get(fileName);
         Resource resource = new FileSystemResource(path);
 
-        // Criar cabeçalho para o download
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
         headers.add(HttpHeaders.CONTENT_TYPE, "text/csv");
 
-        // Retornar o arquivo para download
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(resource);

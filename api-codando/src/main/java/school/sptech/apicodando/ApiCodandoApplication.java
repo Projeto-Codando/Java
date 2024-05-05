@@ -10,4 +10,4 @@ public class ApiCodandoApplication {
 		SpringApplication.run(ApiCodandoApplication.class, args);
 	}
 
-}	
+}
