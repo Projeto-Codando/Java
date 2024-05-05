@@ -1,6 +1,8 @@
 package school.sptech.apicodando.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +25,7 @@ import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/alunos")
+@SecurityRequirement(name = "bearerAuth")
 public class AlunoController {
 
 //    @Autowired
@@ -30,6 +33,7 @@ public class AlunoController {
     @Autowired
     private AlunoService alunoService;
 
+    @Operation(summary = "Cadastrar", description = "Método que cadastra o aluno!", tags = "Aluno")
     @PostMapping
     @SecurityRequirement(name = "Bearer")
     public ResponseEntity<Void> criar(@RequestBody @Valid AlunoCadastroDTO novoAluno) {
@@ -37,6 +41,7 @@ public class AlunoController {
         return ResponseEntity.status(201).build();
     }
 
+    @Operation(summary = "Login", description = "Método realiza o login do aluno!", tags = "Aluno")
     @PostMapping("/login")
     public ResponseEntity<AlunoTokenDto> login(@RequestBody AlunoLoginDTO usuarioLoginDto) {
         AlunoTokenDto usuarioTokenDto = this.alunoService.autenticar(usuarioLoginDto);
@@ -44,12 +49,14 @@ public class AlunoController {
         return ok(usuarioTokenDto);
     }
 
+    @Operation(summary = "Busca por ID", description = "Método que retorna o aluno buscado por ID!", tags = "Aluno")
     @GetMapping("/{id}")
     public ResponseEntity<AlunoListagemDTO> buscaPorId(@PathVariable int id) {
         AlunoListagemDTO dto = AlunoMapper.toDto(alunoService.listarUmPorId(id).get());
         return ok(dto);
     }
 
+    @Operation(summary = "Listar", description = "Método que retorna todos os alunos!", tags = "Aluno")
     @GetMapping
     public ResponseEntity<List<AlunoListagemDTO>> listar() {
         List<Aluno> alunos = alunoService.listarTodos();
@@ -57,12 +64,14 @@ public class AlunoController {
         return ok(listaAuxiliar);
     }
 
+    @Operation(summary = "Excluir", description = "Método que apaga um aluno!", tags = "Aluno")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable @Valid int id) {
         alunoService.excluir(id);
         return ok().build();
     }
 
+    @Operation(summary = "Atualizar", description = "Método que atualiza o aluno!", tags = "Aluno")
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
                                           @RequestBody @Valid Aluno alunoAlterado) {

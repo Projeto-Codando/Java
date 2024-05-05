@@ -1,5 +1,6 @@
 package school.sptech.apicodando.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/educadores")
+@SecurityRequirement(name = "bearerAuth")
 public class EducadorController {
     //    @Autowired
 //    private EducadorRepository educadorRepository;
@@ -41,7 +43,7 @@ public class EducadorController {
 //        return ResponseEntity.status(201).body(listagemDto);
 //    }
 
-
+    @Operation(summary = "Cadastrar", description = "Método que cadastra o educador!", tags = "Educador")
     @PostMapping
     @SecurityRequirement(name = "Bearer")
     public ResponseEntity<EducadorCadastroDTO> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
@@ -49,6 +51,7 @@ public class EducadorController {
         return created(null).body(novoEducador);
     }
 
+    @Operation(summary = "Login", description = "Método realiza o login do educador!", tags = "Educador")
     @PostMapping("/login")
     public ResponseEntity<EducadorTokenDto> login(@RequestBody EducadorLoginDTO usuarioLoginDto) {
         EducadorTokenDto usuarioTokenDto = this.educadorService.autenticar(usuarioLoginDto);
@@ -56,6 +59,7 @@ public class EducadorController {
     }
 
 
+    @Operation(summary = "Busca por ID", description = "Método que retorna o educador buscado por ID!", tags = "Educador")
     @GetMapping("/{id}")
     public ResponseEntity<EducadorListagemDTO> buscaPorId(@PathVariable int id) {
         Optional<Educador> educadorOpt = educadorService.listarUmPorId(id);
@@ -63,6 +67,7 @@ public class EducadorController {
         return ok(dto);
     }
 
+    @Operation(summary = "Listar", description = "Método que retorna todos os educadores!", tags = "Educador")
     @GetMapping
     public ResponseEntity<List<EducadorListagemDTO>> listar() {
         List<Educador> educadores = educadorService.listarTodos();
@@ -70,12 +75,14 @@ public class EducadorController {
         return ok(listaAuxiliar);
     }
 
+    @Operation(summary = "Excluir", description = "Método que apaga um educador!", tags = "Educador")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable @Valid int id) {
         educadorService.excluir(id);
         return ok().build();
     }
 
+    @Operation(summary = "Atualizar", description = "Método que atualiza um educador!", tags = "Educador")
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
                                           @RequestBody @Valid EducadorCadastroDTO educadorAlterado) {
