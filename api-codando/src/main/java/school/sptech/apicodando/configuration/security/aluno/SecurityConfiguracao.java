@@ -55,10 +55,9 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/alunos/login/**"),
             new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/error/**"),
-//            new AntPathRequestMatcher("/alunos"),
-//            new AntPathRequestMatcher("/educadores")
             new AntPathRequestMatcher("/educadores/login/**"),
-            new AntPathRequestMatcher("/educadores/**", HttpMethod.POST.name())
+            new AntPathRequestMatcher("/educadores/**", HttpMethod.POST.name()),
+            new AntPathRequestMatcher("/alunos/**", HttpMethod.POST.name()),
             new AntPathRequestMatcher("/alunos/pesquisaEscolas"),
             new AntPathRequestMatcher("/alunos/gerarCSV"),
     };
