@@ -27,7 +27,7 @@ import java.util.Optional;
         Optional<Educador> educadorOpt = educadorRepository.findByEmail(username);
 
         if (alunoOpt.isEmpty() && educadorOpt.isEmpty()){
-            throw new UsernameNotFoundException(String.format("Usuário %s não encontrado", username));
+            throw new UsernameNotFoundException(String.format("Usuário %s não encontrado, verifique se o usuário dono do Token está válido.", username));
         }
 
         if (alunoOpt.isPresent()){
