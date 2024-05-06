@@ -92,6 +92,7 @@ public class AlunoController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Listar Escolas", description = "Método que lista escolas do JSON!", tags = "Escola")
     @GetMapping("/pesquisaEscolas")
     public ResponseEntity<Object> getJsonFile() {
         try {
@@ -104,6 +105,7 @@ public class AlunoController {
         }
     }
 
+    @Operation(summary = "Baixar Arquivo", description = "Método que realiza o download do JSON!", tags = "Escola")
     @GetMapping("/download/{filename}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
         Path path = Paths.get("caminho/para/o/arquivo", filename + ".csv");
@@ -120,6 +122,7 @@ public class AlunoController {
                 .body(resource);
     }
 
+    @Operation(summary = "Gerar Arquivo", description = "Método que gera o arquivo CSV!", tags = "Escola")
     @GetMapping("/gerarCSV")
     public ResponseEntity<Resource> gerarEbaixarCSV() {
         List<Aluno> alunosNoDTO = alunoService.listarTodos();
