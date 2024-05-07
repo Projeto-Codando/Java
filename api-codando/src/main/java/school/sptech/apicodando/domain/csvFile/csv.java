@@ -13,10 +13,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class CsvFile {
+public class csv {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
+    private Integer id;
+
+    @NotBlank
+    @Size(max = 4)
     private Integer anoLetivo;
 
     @NotBlank

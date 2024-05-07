@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import school.sptech.apicodando.domain.csvFile.csv;
 import school.sptech.apicodando.service.alunoService.AlunoService;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
@@ -23,6 +24,7 @@ import school.sptech.apicodando.domain.aluno.Aluno;
 import jakarta.validation.Valid;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLoginDTO;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
+import school.sptech.apicodando.service.csvFileService.CsvFileService;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -45,6 +47,9 @@ public class AlunoController {
 //    private AlunoRepository alunoRepository;
     @Autowired
     private AlunoService alunoService;
+
+    @Autowired
+    private CsvFileService csvFileService;
 
     @Operation(summary = "Cadastrar", description = "Método que cadastra o aluno!", tags = "Aluno")
     @PostMapping
@@ -183,6 +188,14 @@ public class AlunoController {
                 .headers(headers)
                 .body(resource);
     }
+
+    @Operation(summary = "Listar por Diretoria", description = "Método que lista alunos por diretoria!", tags = "Aluno")
+    @GetMapping("/listarPorREP2")
+    public ResponseEntity<List<csv>> listarPorREP2() {
+        List<csv> csvs = csvFileService.quickSortByDiretoriaAndByREP_2();
+        return ok(csvs);
+    }
+
 
 
 }

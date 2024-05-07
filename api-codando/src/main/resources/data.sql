@@ -15,3 +15,11 @@ VALUES ('usuarioTeste', 300, 'Ana', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZ
 
 INSERT INTO Educador (nome, sobrenome, email, senha)
 VALUES ('nome1', 'sobrenome1', 'email@email.com', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC');
+
+INSERT INTO csv (ano_letivo, aba1, aba2, aba3, apr1, apr2, apr3, cd_escola, cd_rede_ensino, cd_tp_identificador, nm_completo_escola, nm_diretoria, nm_municipio, rep1, rep2, rep3) VALUES
+(2021, 0, 0, 0, 0, 99.56, 0, 34344, true, 8, 'QUINZINHO CAMARGO PREFEITO', 'PIRAJU', 'PIRAJU', 0, 1, 0),
+(2021, 0, 0, 0, 0, 100, 0, 34356, true, 8, 'NHONHO BRAGA CORONEL', 'PIRAJU', 'PIRAJU', 0, 2, 0),
+(2021, 0, 0, 0, 0, 100, 0, 34459, true, 8, 'ATALIBA LEONEL', 'PIRAJU', 'PIRAJU', 0, 3, 0),
+(2021, 0, 0, 0, 100, 0, 0, 17152, true, 8, 'MAURA ARRUDA GUIDOLIN PROFA', 'AMERICANA', 'AMERICANA', 0, 4, 0),
+(2021, 0, 0, 0, 100, 0, 0, 17164, true, 8, 'JOAO DE CASTRO GONCALVES DR', 'AMERICANA', 'AMERICANA', 0, 5, 0),
+(2021, 0, 0, 0, 94.74, 93.35, 0, 17176, true, 8, 'MAGI MONSENHOR', 'AMERICANA', 'AMERICANA', 5.26, 6.65, 0);

@@ -1,12 +1,11 @@
 package school.sptech.apicodando.domain.csvFile.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import school.sptech.apicodando.domain.aula.Aula;
-import school.sptech.apicodando.domain.csvFile.CsvFile;
+import school.sptech.apicodando.domain.csvFile.csv;
 
 import java.util.List;
 
-public interface CsvFileRepository extends JpaRepository<CsvFile, Integer> {
-    List<CsvFile> findBynmDiretoria(String nm_diretoria);
+public interface CsvFileRepository extends JpaRepository<csv, Integer> {
+    List<csv> findBynmDiretoria(String nm_diretoria);
 
 }
