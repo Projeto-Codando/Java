@@ -5,10 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import school.sptech.apicodando.domain.aluno.Aluno;
-import school.sptech.apicodando.domain.aluno.repository.AlunoRepository;
-import school.sptech.apicodando.domain.educador.Educador;
-import school.sptech.apicodando.domain.educador.repository.EducadorRepository;
+import school.sptech.apicodando.api.domain.aluno.Aluno;
+import school.sptech.apicodando.api.domain.aluno.repository.AlunoRepository;
+import school.sptech.apicodando.api.domain.educador.Educador;
+import school.sptech.apicodando.api.domain.educador.repository.EducadorRepository;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoDetalhesDto;
 import school.sptech.apicodando.service.educadorService.dto.dtoEducador.EducadorDetalhesDto;
 

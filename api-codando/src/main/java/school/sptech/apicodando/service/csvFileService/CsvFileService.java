@@ -2,8 +2,8 @@ package school.sptech.apicodando.service.csvFileService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import school.sptech.apicodando.domain.csvFile.csv;
-import school.sptech.apicodando.domain.csvFile.repository.CsvFileRepository;
+import school.sptech.apicodando.api.domain.csvFile.csv;
+import school.sptech.apicodando.api.domain.csvFile.repository.CsvFileRepository;
 
 import java.util.List;
 
