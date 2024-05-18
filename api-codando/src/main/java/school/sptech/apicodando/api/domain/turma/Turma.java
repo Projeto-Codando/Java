@@ -21,7 +21,7 @@ public class Turma {
     @NotBlank
     @Size(min = 3, max = 255)
     @NotNull
-    protected String sobrenome;
+    protected String senha;
     @ManyToOne
     @JoinColumn(name ="idEscolaridade")
     protected Escolaridade fkEscolaridade;
@@ -48,12 +48,12 @@ public class Turma {
         this.nome = nome;
     }
 
-    public String getSobrenome() {
-        return sobrenome;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
 //    public Integer getFkEscolaridade() {

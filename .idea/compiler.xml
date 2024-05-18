@@ -8,16 +8,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="api-codando" />
+        <module name="crud-usuario" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="crud-usuario" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-codando" options="-parameters" />
-      <module name="crud-usuario" options="-parameters" />
+      <module name="crud-usuario" options="" />
     </option>
   </component>
 </project>
