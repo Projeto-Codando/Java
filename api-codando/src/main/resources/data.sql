@@ -1,28 +1,31 @@
 INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas)
-VALUES ('aluno1', 'sobrenome1', 'apelido1', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'status1', 51);
+VALUES ('aluno1', 'sobrenome1', 'apelido1', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 51);
 
 INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
-VALUES ('Jojo', 100, 'João', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Silva', 'ativo');
+VALUES ('Jojo', 100, 'João', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Silva', 'true');
 
 INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
-VALUES ('Mari', 200, 'Maria', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Santos', 'ativo');
+VALUES ('Mari', 200, 'Maria', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Santos', 'true');
 
 INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
-VALUES ('Carl', 150, 'Carlos', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Pereira', 'ativo');
+VALUES ('Carl', 150, 'Carlos', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Pereira', 'true');
 
 INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
-VALUES ('usuarioTeste', 300, 'Ana', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Silva', 'ativo');
+VALUES ('usuarioTeste', 300, 'Ana', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Silva', 'true');
 
 INSERT INTO Educador (nome, sobrenome, email, senha)
 VALUES ('nome1', 'sobrenome1', 'email@email.com', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC');
 
-INSERT INTO escolaridade (descricao) VALUES ('Ensino Fundamental');
+INSERT INTO escolaridade (descricao) VALUES ('6º Ano');
+INSERT INTO escolaridade (descricao) VALUES ('7º Ano');
+INSERT INTO escolaridade (descricao) VALUES ('8º Ano');
+INSERT INTO escolaridade (descricao) VALUES ('9º Ano');
 
-INSERT INTO Turma (nome, senha, id_escolaridade, fk_educador_id_educador, status_turma)
+INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma)
 VALUES ('Turma 1', 'senha123', 1, 1, true);
 
-INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, turma_id_turma)
-VALUES ('aluno2', 'sobrenome2', 'apelido2', 'senha123', 'ativo', 50, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma)
+VALUES ('aluno2', 'sobrenome2', 'apelido2', 'senha123', 'true', 50, 1);
 
 INSERT INTO csv (ano_letivo, aba1, aba2, aba3, apr1, apr2, apr3, cd_escola, cd_rede_ensino, cd_tp_identificador, nm_completo_escola, nm_diretoria, nm_municipio, rep1, rep2, rep3) VALUES
 (2021, 0, 0, 0, 0, 99.56, 0, 34344, true, 8, 'QUINZINHO CAMARGO PREFEITO', 'PIRAJU', 'PIRAJU', 0, 1, 0),

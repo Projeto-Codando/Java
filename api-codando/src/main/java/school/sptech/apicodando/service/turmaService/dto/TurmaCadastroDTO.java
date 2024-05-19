@@ -28,7 +28,7 @@ public class TurmaCadastroDTO {
     protected int fkEscolaridade;
     @ManyToOne
     @JoinColumn(name ="idEducador")
-    protected Educador fkEducador;
+    protected int fkEducador;
     @OneToMany
     protected List<Aluno> alunos;
 

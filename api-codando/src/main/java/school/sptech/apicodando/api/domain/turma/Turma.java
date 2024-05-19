@@ -17,19 +17,24 @@ public class Turma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idTurma;
+
     @NotBlank
     @Size(min = 3, max = 255)
     @NotNull
     protected String nome;
+
     @NotBlank
     @Size(min = 3, max = 255)
     @NotNull
     protected String senha;
+
     @ManyToOne
     @JoinColumn(name = "idEscolaridade")
-    protected Escolaridade Escolaridade;
+    protected Escolaridade escolaridade;
+
     @ManyToOne
-    protected Educador fkEducador;
+    @JoinColumn(name = "idEducador")
+    protected Educador educador;
 
     protected boolean statusTurma;
 
@@ -41,6 +46,10 @@ public class Turma {
     }
 
     public void setEscolaridade(Escolaridade escolaridade) {
-        Escolaridade = escolaridade;
+        this.escolaridade = escolaridade;
+    }
+
+    public void setEducador(Educador educador) {
+        this.educador = educador;
     }
 }

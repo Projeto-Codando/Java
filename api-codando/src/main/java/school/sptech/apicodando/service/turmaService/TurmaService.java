@@ -1,10 +1,11 @@
 package school.sptech.apicodando.service.turmaService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import school.sptech.apicodando.api.domain.educador.Educador;
+import school.sptech.apicodando.api.domain.educador.repository.EducadorRepository;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.escolaridade.repository.EscolaridadeRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
@@ -22,13 +23,16 @@ public class TurmaService {
 
     private final TurmaRepository turmaRepository;
     private final EscolaridadeRepository escolaridadeRepository;
+    private final EducadorRepository educadorRepository;
 
     public void criar(TurmaCadastroDTO turmaCadastro) {
         Escolaridade escolaridade = escolaridadeRepository.findById(turmaCadastro.getFkEscolaridade())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Escolaridade não encontrada."));
 
-        final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade);
-        novaTurma.setEscolaridade(escolaridade);
+        Educador educador = educadorRepository.findById(turmaCadastro.getFkEducador())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Educador não encontrado."));
+
+        final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade, educador);
 
         if (existeTurmaByCodigo(turmaCadastro.getSenha())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");
@@ -69,15 +73,31 @@ public class TurmaService {
     }
 
     public Optional<Turma> listarPorIdAndProfessor(int idTurma, int idProfessor) {
-        return this.turmaRepository.findByIdTurmaAndFkEducadorIdEducador(idTurma, idProfessor);
+        return this.turmaRepository.findByIdTurmaAndEducadorIdEducador(idTurma, idProfessor);
     }
 
     public List<Turma> listarPorProfessor(int idProfessor) {
-        return this.turmaRepository.findByFkEducadorIdEducador(idProfessor);
+        return this.turmaRepository.findByEducadorIdEducador(idProfessor);
     }
 
     // Metodo para verificar se a Turma já existe.
     public boolean existeTurmaByCodigo(String codigo){
         return this.turmaRepository.findBySenha(codigo).isPresent();
+    }
+
+    public Integer getIdPorSenha(String senha){
+        Optional<Turma> turma = this.turmaRepository.findBySenha(senha);
+        if (turma.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
+        return turma.get().getIdTurma();
+    }
+
+    public Turma findBySenha(String senha){
+        Optional<Turma> turma = this.turmaRepository.findBySenha(senha);
+        if (turma.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
+        return turma.get();
     }
 }

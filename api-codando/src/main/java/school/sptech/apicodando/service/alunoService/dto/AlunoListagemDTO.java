@@ -6,7 +6,7 @@ public class AlunoListagemDTO {
     private String nome;
     private String sobrenome;
     private String apelido;
-    private String status;
+    private Boolean status;
     private Integer moedas;
 
     public Integer getIdAluno() {
@@ -42,11 +42,7 @@ public class AlunoListagemDTO {
     }
 
     public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+        return status ? "Ativo" : "Inativo";
     }
 
     public Integer getMoedas() {

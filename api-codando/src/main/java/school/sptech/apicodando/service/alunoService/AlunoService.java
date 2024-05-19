@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.mapper.AlunoMapper;
@@ -16,6 +17,7 @@ import school.sptech.apicodando.api.domain.aluno.repository.AlunoRepository;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLoginDTO;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
+import school.sptech.apicodando.service.turmaService.TurmaService;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +28,9 @@ public class AlunoService {
 
     @Autowired
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    private TurmaService turmaService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -37,9 +42,21 @@ public class AlunoService {
 
 
     public void criar(AlunoCadastroDTO alunoCadastroDTO) {
+        if(alunoCadastroDTO == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dados inválidos.");
+        }
+
+        Turma turmaEncontrada = turmaService.findBySenha(alunoCadastroDTO.getSenhaTurma());
+
+        if (turmaEncontrada == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
+
         final Aluno novoAluno = AlunoMapper.toEntity(alunoCadastroDTO);
+        novoAluno.setTurma(turmaEncontrada);
         String senhaCriptografada = passwordEncoder.encode(novoAluno.getSenha());
         novoAluno.setSenha(senhaCriptografada);
+
 
         if (existePorApelido(alunoCadastroDTO.getApelido())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Aluno já cadastrado.");

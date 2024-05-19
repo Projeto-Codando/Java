@@ -1,12 +1,14 @@
 package school.sptech.apicodando.api.domain.aluno;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.turma.Turma;
 
 import java.util.List;
 
 @Entity
+@Data
 public class Aluno {
 
 //    @NotBlank
@@ -32,87 +34,22 @@ public class Aluno {
 //    @NotBlank
 //    @Size(min = 3, max = 255)
 //    @NotNull
-    protected String status;
+    protected Boolean status;
 //    @NotBlank
 //    @PositiveOrZero
     protected Integer moedas;
+    protected String senhaTurma;
+
     @ManyToOne
+    @JoinColumn(name = "idTurma")
     protected Turma turma;
     @OneToOne
+    @JoinColumn(name = "idEscolaridade")
     protected Escolaridade escolaridade;
 
     public Aluno() {
+        this.status = true;
+        this.moedas = 0;
     }
 
-    public Integer getIdAluno() {
-        return idAluno;
-    }
-
-    public void setIdAluno(Integer idAluno) {
-        this.idAluno = idAluno;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getApelido() {
-        return apelido;
-    }
-
-    public void setApelido(String apelido) {
-        this.apelido = apelido;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Integer getMoedas() {
-        return moedas;
-    }
-
-    public void setMoedas(Integer moedas) {
-        this.moedas = moedas;
-    }
-
-//    public Integer getFkTurma() {
-//        return fkTurma;
-//    }
-//
-//    public void setFkTurma(Integer fkTurma) {
-//        this.fkTurma = fkTurma;
-//    }
-
-//    public Integer getFkEscolaridade() {
-//        return fkEscolaridade;
-//    }
-//
-//    public void setFkEscolaridade(Integer fkEscolaridade) {
-//        this.fkEscolaridade = fkEscolaridade;
-//    }
 }

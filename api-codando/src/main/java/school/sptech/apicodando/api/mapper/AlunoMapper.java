@@ -24,8 +24,7 @@ public class AlunoMapper {
         aluno.setSobrenome(dto.getSobrenome());
         aluno.setApelido(dto.getApelido());
         aluno.setSenha(dto.getSenha());
-        aluno.setStatus(dto.getStatus());
-        aluno.setMoedas(dto.getMoedas());
+        aluno.setSenhaTurma(dto.getSenhaTurma());
 
         return aluno;
     }
@@ -38,7 +37,6 @@ public class AlunoMapper {
         listagemDto.setNome(entidade.getNome());
         listagemDto.setSobrenome(entidade.getSobrenome());
         listagemDto.setApelido(entidade.getApelido());
-        listagemDto.setStatus(entidade.getStatus());
         listagemDto.setMoedas(entidade.getMoedas());
 
         return listagemDto;

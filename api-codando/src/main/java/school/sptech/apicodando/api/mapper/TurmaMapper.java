@@ -1,6 +1,7 @@
 package school.sptech.apicodando.api.mapper;
 
 import school.sptech.apicodando.api.domain.aluno.Aluno;
+import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TurmaMapper {
-    public static Turma toEntity(TurmaCadastroDTO dto, Escolaridade escolaridade) {
+    public static Turma toEntity(TurmaCadastroDTO dto, Escolaridade escolaridade, Educador educador) {
         if (dto == null) {
             return null;
         }
@@ -23,7 +24,7 @@ public class TurmaMapper {
         turma.setNome(dto.getNome());
         turma.setSenha(dto.getSenha());
         turma.setEscolaridade(escolaridade);
-        turma.setFkEducador(dto.getFkEducador());
+        turma.setEducador(educador);
         turma.setAlunos(dto.getAlunos());
 
         return turma;
@@ -51,8 +52,8 @@ public class TurmaMapper {
         listagemDto.setIdTurma(entidade.getIdTurma());
         listagemDto.setNome(entidade.getNome());
         listagemDto.setSenha(entidade.getSenha());
-        listagemDto.setFkEscolaridade(entidade.getEscolaridade().getIdEscolaridade());
-        listagemDto.setFkEducador(entidade.getFkEducador());
+        listagemDto.setFkEscolaridade(toEscolaridadeDto(entidade.getEscolaridade()));
+        listagemDto.setFkEducador(toEducadorDto(entidade.getEducador()));
         listagemDto.setStatusTurma(entidade.isStatusTurma());
 
         listagemDto.setAlunos(toAlunoDto(entidade.getAlunos()));
@@ -75,6 +76,25 @@ public class TurmaMapper {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    private static TurmaListagemDTO.EscolaridadeListagemDTO toEscolaridadeDto(Escolaridade entidades){
+        if (entidades == null) return null;
+
+        TurmaListagemDTO.EscolaridadeListagemDTO dto = new TurmaListagemDTO.EscolaridadeListagemDTO();
+        dto.setIdEscolaridade(entidades.getIdEscolaridade());
+        dto.setDescricao(entidades.getDescricao());
+        return dto;
+    }
+
+    private static TurmaListagemDTO.EducadorListagemDTO toEducadorDto(Educador entidades){
+        if (entidades == null) return null;
+
+        TurmaListagemDTO.EducadorListagemDTO dto = new TurmaListagemDTO.EducadorListagemDTO();
+        dto.setIdEducador(entidades.getIdEducador());
+        dto.setNome(entidades.getNome());
+        dto.setSobrenome(entidades.getSobrenome());
+        return dto;
     }
 
     public static List<TurmaListagemDTO> toDto(List<Turma> entidade) {

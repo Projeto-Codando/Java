@@ -34,10 +34,7 @@ public class AlunoCadastroDTO {
     @NotBlank
     @Size(min = 3, max = 255)
     @NotNull
-    private String status;
+    private String senhaTurma;
 
-//    @NotBlank
-    @PositiveOrZero
-    private int moedas;
 
 }
