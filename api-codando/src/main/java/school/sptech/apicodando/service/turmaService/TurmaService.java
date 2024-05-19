@@ -4,50 +4,72 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
-import school.sptech.apicodando.api.mapper.AlunoMapper;
-import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
+import school.sptech.apicodando.api.mapper.TurmaMapper;
+import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
+import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
-import javax.crypto.spec.OAEPParameterSpec;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TurmaService {
 
-    @Autowired
-    private TurmaRepository turmaRepository;
+    private final TurmaRepository turmaRepository;
 
-    public void criar(Turma turmaCadastro) {
+    @Autowired
+    public TurmaService(TurmaRepository turmaRepository) {
+        this.turmaRepository = turmaRepository;
+    }
+
+    public void criar(TurmaCadastroDTO turmaCadastro) {
+        final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro);
+
         if (existeTurmaByCodigo(turmaCadastro.getSenha())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");
         }
-        this.turmaRepository.save(turmaCadastro);
+        turmaRepository.save(novaTurma);
     }
 
-    public List<Turma> listar() {
-        return this.turmaRepository.findAll();
+    public Turma desativar(int id, int idProfessor) {
+        Optional<Turma> turma = listarPorIdAndProfessor(id, idProfessor);
+        if (turma.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        } else {
+            turma.get().setStatusTurma(false);
+            return this.turmaRepository.save(turma.get());
+        }
     }
 
-    public void excluir(int id) {
-        if (!listarPorID(id).isPresent()){
+    public void atualizar(Turma turmaAtualizada, int id, int idProfessor){
+        Optional<Turma> turma = listarPorIdAndProfessor(id, idProfessor);
+        if(turma.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        } else {
+            turmaAtualizada.setIdTurma(id);
+            this.turmaRepository.save(turmaAtualizada);
+        }
+    }
+
+    public List<TurmaListagemDTO> listarTodasTurmasPorProfessor(int idProfessor) {
+        List<Turma> turmas = this.listarPorProfessor(idProfessor);
+
+        final List<TurmaListagemDTO> turmasListagem = TurmaMapper.toDto(turmas);
+
+        if (turmas.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        this.turmaRepository.deleteById(id);
+
+        return turmasListagem;
     }
 
-    public void atualizar(Turma turmaAtualizada, int id) {
-        if (!listarPorID(id).isPresent()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        turmaAtualizada.setIdTurma(id);
-        this.turmaRepository.save(turmaAtualizada);
+    public Optional<Turma> listarPorIdAndProfessor(int idTurma, int idProfessor) {
+        return this.turmaRepository.findByIdTurmaAndFkEducadorIdEducador(idTurma, idProfessor);
     }
 
-    public Optional<Turma> listarPorID(int id) {
-        return this.turmaRepository.findById(id);
+    public List<Turma> listarPorProfessor(int idProfessor) {
+        return this.turmaRepository.findByFkEducadorIdEducador(idProfessor);
     }
 
     // Metodo para verificar se a Turma já existe.

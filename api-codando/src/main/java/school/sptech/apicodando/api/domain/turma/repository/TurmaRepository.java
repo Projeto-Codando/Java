@@ -8,5 +8,8 @@ import java.util.Optional;
 
 public interface TurmaRepository extends JpaRepository<Turma, Integer> {
     Optional<Turma> findBySenha(String senha);
+    Optional<Turma> findByIdTurmaAndFkEducadorIdEducador(int idTurma, int idProfessor);
+
+    List<Turma> findByFkEducadorIdEducador(int idProfessor);
 
 }

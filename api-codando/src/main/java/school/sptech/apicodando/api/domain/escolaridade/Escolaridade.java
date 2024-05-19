@@ -12,9 +12,7 @@ public class Escolaridade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idEscolaridade;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
+
     protected String descricao;
 
     public Escolaridade() {

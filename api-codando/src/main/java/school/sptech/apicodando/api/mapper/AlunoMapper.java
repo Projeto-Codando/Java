@@ -1,13 +1,16 @@
 package school.sptech.apicodando.api.mapper;
 
 import school.sptech.apicodando.api.domain.aluno.Aluno;
+import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
+import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
+import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 
 public class AlunoMapper {

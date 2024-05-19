@@ -37,11 +37,9 @@ public class Aluno {
 //    @PositiveOrZero
     protected Integer moedas;
     @ManyToOne
-    @JoinColumn(name = "idTurma")
-    protected Turma fkTurma;
+    protected Turma turma;
     @OneToOne
-    @JoinColumn(name = "idEscolaridade")
-    protected Escolaridade fkEscolaridade;
+    protected Escolaridade escolaridade;
 
     public Aluno() {
     }

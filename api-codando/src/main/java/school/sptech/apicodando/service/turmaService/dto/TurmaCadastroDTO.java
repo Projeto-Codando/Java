@@ -1,4 +1,4 @@
-package school.sptech.apicodando.api.domain.turma;
+package school.sptech.apicodando.service.turmaService.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -8,16 +8,13 @@ import lombok.Data;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
-import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
+import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 
+import java.util.ArrayList;
 import java.util.List;
-
-@Entity
 @Data
-public class Turma {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idTurma;
+public class TurmaCadastroDTO {
+
     @NotBlank
     @Size(min = 3, max = 255)
     @NotNull
@@ -27,17 +24,20 @@ public class Turma {
     @NotNull
     protected String senha;
     @ManyToOne
+    @JoinColumn(name ="idEscolaridade")
     protected Escolaridade fkEscolaridade;
     @ManyToOne
+    @JoinColumn(name ="idEducador")
     protected Educador fkEducador;
+    @OneToMany
+    protected List<Aluno> alunos;
 
     protected boolean statusTurma;
 
-    @OneToMany(mappedBy = "turma")
-    protected List<Aluno> alunos;
-
-    public Turma() {
+    public TurmaCadastroDTO() {
+        this.alunos = new ArrayList<>();
         statusTurma = true;
     }
+
 
 }
