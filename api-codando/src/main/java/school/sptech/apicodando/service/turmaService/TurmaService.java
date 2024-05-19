@@ -1,9 +1,12 @@
 package school.sptech.apicodando.service.turmaService;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
+import school.sptech.apicodando.api.domain.escolaridade.repository.EscolaridadeRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.TurmaMapper;
@@ -14,17 +17,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TurmaService {
 
     private final TurmaRepository turmaRepository;
-
-    @Autowired
-    public TurmaService(TurmaRepository turmaRepository) {
-        this.turmaRepository = turmaRepository;
-    }
+    private final EscolaridadeRepository escolaridadeRepository;
 
     public void criar(TurmaCadastroDTO turmaCadastro) {
-        final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro);
+        Escolaridade escolaridade = escolaridadeRepository.findById(turmaCadastro.getFkEscolaridade())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Escolaridade não encontrada."));
+
+        final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade);
+        novaTurma.setEscolaridade(escolaridade);
 
         if (existeTurmaByCodigo(turmaCadastro.getSenha())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");

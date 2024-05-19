@@ -25,7 +25,7 @@ public class TurmaCadastroDTO {
     protected String senha;
     @ManyToOne
     @JoinColumn(name ="idEscolaridade")
-    protected Escolaridade fkEscolaridade;
+    protected int fkEscolaridade;
     @ManyToOne
     @JoinColumn(name ="idEducador")
     protected Educador fkEducador;

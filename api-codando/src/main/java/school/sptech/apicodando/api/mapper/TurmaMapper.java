@@ -1,6 +1,7 @@
 package school.sptech.apicodando.api.mapper;
 
 import school.sptech.apicodando.api.domain.aluno.Aluno;
+import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
 import school.sptech.apicodando.api.mapper.AlunoMapper;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TurmaMapper {
-    public static Turma toEntity(TurmaCadastroDTO dto) {
+    public static Turma toEntity(TurmaCadastroDTO dto, Escolaridade escolaridade) {
         if (dto == null) {
             return null;
         }
@@ -21,7 +22,7 @@ public class TurmaMapper {
         Turma turma = new Turma();
         turma.setNome(dto.getNome());
         turma.setSenha(dto.getSenha());
-        turma.setFkEscolaridade(dto.getFkEscolaridade());
+        turma.setEscolaridade(escolaridade);
         turma.setFkEducador(dto.getFkEducador());
         turma.setAlunos(dto.getAlunos());
 
@@ -50,7 +51,7 @@ public class TurmaMapper {
         listagemDto.setIdTurma(entidade.getIdTurma());
         listagemDto.setNome(entidade.getNome());
         listagemDto.setSenha(entidade.getSenha());
-        listagemDto.setFkEscolaridade(entidade.getFkEscolaridade());
+        listagemDto.setFkEscolaridade(entidade.getEscolaridade().getIdEscolaridade());
         listagemDto.setFkEducador(entidade.getFkEducador());
         listagemDto.setStatusTurma(entidade.isStatusTurma());
 
@@ -83,9 +84,5 @@ public class TurmaMapper {
         }
         return dtos;
     }
-
-
-
-
 
 }

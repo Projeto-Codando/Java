@@ -18,7 +18,7 @@ VALUES ('nome1', 'sobrenome1', 'email@email.com', '$2a$10$0/TKTGxdREbWaWjWYhwf6e
 
 INSERT INTO escolaridade (descricao) VALUES ('Ensino Fundamental');
 
-INSERT INTO Turma (nome, senha, fk_escolaridade_id_escolaridade, fk_educador_id_educador, status_turma)
+INSERT INTO Turma (nome, senha, id_escolaridade, fk_educador_id_educador, status_turma)
 VALUES ('Turma 1', 'senha123', 1, 1, true);
 
 INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, turma_id_turma)

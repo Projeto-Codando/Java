@@ -21,7 +21,7 @@ public class TurmaListagemDTO {
     private int idTurma;
     private String nome;
     private String senha;
-    private Escolaridade fkEscolaridade;
+    private int fkEscolaridade;
     private Educador fkEducador;
     private List<AlunoListagemDTO> alunos;
     private boolean statusTurma;

@@ -8,7 +8,6 @@ import lombok.Data;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
-import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
 import java.util.List;
 
@@ -27,7 +26,8 @@ public class Turma {
     @NotNull
     protected String senha;
     @ManyToOne
-    protected Escolaridade fkEscolaridade;
+    @JoinColumn(name = "idEscolaridade")
+    protected Escolaridade Escolaridade;
     @ManyToOne
     protected Educador fkEducador;
 
@@ -40,4 +40,7 @@ public class Turma {
         statusTurma = true;
     }
 
+    public void setEscolaridade(Escolaridade escolaridade) {
+        Escolaridade = escolaridade;
+    }
 }
