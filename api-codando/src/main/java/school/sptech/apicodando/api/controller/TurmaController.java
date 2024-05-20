@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.apicodando.api.domain.turma.Turma;
+import school.sptech.apicodando.api.mapper.TurmaMapper;
 import school.sptech.apicodando.service.turmaService.TurmaService;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
@@ -38,17 +39,22 @@ public class TurmaController {
     }
 
     @Operation(summary = "Editar", description = "Método que edita uma turma!", tags = "Turma")
-    @PutMapping("/{idProfessor}/{id}")
-    public ResponseEntity<Void> editar(@RequestBody @Valid Turma turmaAtualizada, @PathVariable int idProfessor, @PathVariable int id) {
-        this.turmaService.atualizar(turmaAtualizada, id, idProfessor);
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> editar(@RequestBody @Valid Turma turmaAtualizada, @PathVariable int id) {
+        this.turmaService.atualizar(turmaAtualizada, id);
         return status(200).build();
     }
 
     @Operation(summary = "Desativar", description = "Método que seta o status da turma como desativado!", tags = "Turma")
     @PostMapping("/desativar/{idProfessor}/{id}")
-    public ResponseEntity<Turma> desativar(@PathVariable int id, @PathVariable int idProfessor){
-        return status(200).body(this.turmaService.desativar(id, idProfessor));
+    public ResponseEntity<TurmaListagemDTO> desativar(@PathVariable int id, @PathVariable int idProfessor){
+        return status(200).body(TurmaMapper.toDto(this.turmaService.desativar(id, idProfessor)));
     }
 
+    @Operation(summary = "Listar por ID" , description = "Método que retorna a turma buscada por ID!", tags = "Turma")
+    @GetMapping("/buscaPorId/{idProfessor}/{id}")
+    public ResponseEntity<TurmaListagemDTO> buscaPorId(@PathVariable int id, @PathVariable int idProfessor){
+        return status(200).body(this.turmaService.listarPorIdAndProfessor(id, idProfessor));
+    }
 
 }

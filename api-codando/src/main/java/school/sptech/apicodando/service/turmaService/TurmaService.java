@@ -11,6 +11,7 @@ import school.sptech.apicodando.api.domain.escolaridade.repository.EscolaridadeR
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.TurmaMapper;
+import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
@@ -41,24 +42,25 @@ public class TurmaService {
     }
 
     public Turma desativar(int id, int idProfessor) {
-        Optional<Turma> turma = listarPorIdAndProfessor(id, idProfessor);
-        if (turma.isEmpty()){
+        Turma turma = buscarPorIdTurmaAndIdProfessor(id, idProfessor);
+        if (turma == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         } else {
-            turma.get().setStatusTurma(false);
-            return this.turmaRepository.save(turma.get());
+            turma.setStatusTurma(false);
+            return this.turmaRepository.save(turma);
         }
     }
 
-    public void atualizar(Turma turmaAtualizada, int id, int idProfessor){
-        Optional<Turma> turma = listarPorIdAndProfessor(id, idProfessor);
-        if(turma.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
-        } else {
-            turmaAtualizada.setIdTurma(id);
-            this.turmaRepository.save(turmaAtualizada);
-        }
-    }
+// ARRUMAR METODO ATUALIZAR.
+//    public void atualizar(TurmaAtualizaDTO turmaAtualizada, int id){
+//        Turma turma = buscarPorIdTurmaAndIdProfessor(id, turmaAtualizada.getEducador().getIdEducador());
+//        if(turma == null){
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+//        } else {
+//            turmaAtualizada.setIdTurma(id);
+//            this.turmaRepository.save(turmaAtualizada);
+//        }
+//    }
 
     public List<TurmaListagemDTO> listarTodasTurmasPorProfessor(int idProfessor) {
         List<Turma> turmas = this.listarPorProfessor(idProfessor);
@@ -72,8 +74,14 @@ public class TurmaService {
         return turmasListagem;
     }
 
-    public Optional<Turma> listarPorIdAndProfessor(int idTurma, int idProfessor) {
-        return this.turmaRepository.findByIdTurmaAndEducadorIdEducador(idTurma, idProfessor);
+    public TurmaListagemDTO listarPorIdAndProfessor(int idTurma, int idProfessor) {
+        Optional<Turma> turma = this.turmaRepository.findByIdTurmaAndEducadorIdEducador(idTurma, idProfessor);
+
+        if (turma.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
+
+        return TurmaMapper.toDto(turma.get());
     }
 
     public List<Turma> listarPorProfessor(int idProfessor) {
@@ -95,6 +103,14 @@ public class TurmaService {
 
     public Turma findBySenha(String senha){
         Optional<Turma> turma = this.turmaRepository.findBySenha(senha);
+        if (turma.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
+        return turma.get();
+    }
+
+    public Turma buscarPorIdTurmaAndIdProfessor(int idTurma, int idProfessor){
+        Optional<Turma> turma = this.turmaRepository.findByIdTurmaAndEducadorIdEducador(idTurma, idProfessor);
         if (turma.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         }
