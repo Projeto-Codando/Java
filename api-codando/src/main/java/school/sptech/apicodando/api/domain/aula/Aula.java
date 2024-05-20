@@ -5,9 +5,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import school.sptech.apicodando.api.domain.tema.Tema;
 
 @Entity
+@Data
 public class Aula {
 
     @NotBlank
@@ -33,52 +35,4 @@ public class Aula {
 
     public Aula() {
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Integer getNivelDificuldade() {
-        return nivelDificuldade;
-    }
-
-    public void setNivelDificuldade(Integer nivelDificuldade) {
-        this.nivelDificuldade = nivelDificuldade;
-    }
-
-    public Integer getPontuacaoMaxima() {
-        return pontuacaoMaxima;
-    }
-
-    public void setPontuacaoMaxima(Integer pontuacaoMaxima) {
-        this.pontuacaoMaxima = pontuacaoMaxima;
-    }
-
-//    public Integer getFkTema() {
-//        return fkTema;
-//    }
-//
-//    public void setFkTema(Integer fkTema) {
-//        this.fkTema = fkTema;
-//    }
 }

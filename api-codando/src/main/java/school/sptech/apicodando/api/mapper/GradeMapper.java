@@ -5,7 +5,8 @@ import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.api.domain.turma.Turma;
-import school.sptech.apicodando.service.gradeService.dto.GradeCriacaoDto;
+import school.sptech.apicodando.service.gradeService.dto.GradeCadastroDto;
+import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,39 +14,41 @@ import java.util.List;
 public class GradeMapper {
 
     // METOODS DE CONVERSAO DE DTO PARA ENTITY
-    public static Grade toEntity(GradeCriacaoDto gradeCriacaoDto, Turma turma, List<Modulo> modulosNovos) {
+    public static Grade toEntity(GradeCadastroDto gradeListagemDto, Turma turma) {
+        if (gradeListagemDto == null) {
+            return null;
+        }
+
         Grade grade = new Grade();
-        grade.setIdGrade(gradeCriacaoDto.getIdGrade());
         grade.setFkTurma(turma);
-        grade.setModulos(modulosNovos);
         return grade;
     }
 
-    public static Modulo toModulo(GradeCriacaoDto.ModuloListagemGradeDto moduloListagemGradeDto) {
+    public static Modulo toModulo(GradeListagemDto.ModuloListagemGradeDto moduloListagemGradeDto) {
         Modulo modulo = new Modulo();
         modulo.setIdModulo(moduloListagemGradeDto.getIdModulo());
         modulo.setNome(moduloListagemGradeDto.getNome());
         List<Tema> temas = new ArrayList<>();
-        for (GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto temaListagemGradeDto : moduloListagemGradeDto.getTemas()) {
+        for (GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto temaListagemGradeDto : moduloListagemGradeDto.getTemas()) {
             temas.add(toTema(temaListagemGradeDto));
         }
         modulo.setTemas(temas);
         return modulo;
     }
 
-    public static Tema toTema(GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto temaListagemGradeDto) {
+    public static Tema toTema(GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto temaListagemGradeDto) {
         Tema tema = new Tema();
         tema.setIdTema(temaListagemGradeDto.getIdTema());
         tema.setNome(temaListagemGradeDto.getNome());
         List<Aula> aulas = new ArrayList<>();
-        for (GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto aulaListagemGradeDto : temaListagemGradeDto.getAulas()) {
+        for (GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto aulaListagemGradeDto : temaListagemGradeDto.getAulas()) {
             aulas.add(toAula(aulaListagemGradeDto));
         }
         tema.setAulas(aulas);
         return tema;
     }
 
-    public static Aula toAula(GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto aulaListagemGradeDto) {
+    public static Aula toAula(GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto aulaListagemGradeDto) {
         Aula aula = new Aula();
         aula.setId(aulaListagemGradeDto.getId());
         aula.setTitulo(aulaListagemGradeDto.getTitulo());
@@ -57,20 +60,20 @@ public class GradeMapper {
 
     // METOODS DE CONVERSAO DE ENTITY PARA DTO
 
-    public static GradeCriacaoDto toGradeCriacaoDto(Grade grade) {
-        GradeCriacaoDto gradeCriacaoDto = new GradeCriacaoDto();
-        gradeCriacaoDto.setIdGrade(grade.getIdGrade());
-        gradeCriacaoDto.setTurma(grade.getFkTurma());
-        List<GradeCriacaoDto.ModuloListagemGradeDto> modulos = new ArrayList<>();
+    public static GradeListagemDto toGradeCriacaoDto(Grade grade) {
+        GradeListagemDto gradeListagemDto = new GradeListagemDto();
+        gradeListagemDto.setIdGrade(grade.getIdGrade());
+        gradeListagemDto.setTurma(grade.getFkTurma());
+        List<GradeListagemDto.ModuloListagemGradeDto> modulos = new ArrayList<>();
         for (Modulo modulo : grade.getModulos()) {
             modulos.add(toModuloListagemDto(modulo));
         }
-        gradeCriacaoDto.setModulo(modulos);
-        return gradeCriacaoDto;
+        gradeListagemDto.setModulo(modulos);
+        return gradeListagemDto;
     }
 
-    public static GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto toAulaListagemDto(Aula aula) {
-        GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto aulaListagemGradeDto = new GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto();
+    public static GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto toAulaListagemDto(Aula aula) {
+        GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto aulaListagemGradeDto = new GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto();
         aulaListagemGradeDto.setId(aula.getId());
         aulaListagemGradeDto.setTitulo(aula.getTitulo());
         aulaListagemGradeDto.setDescricao(aula.getDescricao());
@@ -79,11 +82,11 @@ public class GradeMapper {
         return aulaListagemGradeDto;
     }
 
-    public static GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto toTemaListagemDto(Tema tema) {
-        GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto temaListagemGradeDto = new GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto();
+    public static GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto toTemaListagemDto(Tema tema) {
+        GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto temaListagemGradeDto = new GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto();
         temaListagemGradeDto.setIdTema(tema.getIdTema());
         temaListagemGradeDto.setNome(tema.getNome());
-        List<GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto> aulas = new ArrayList<>();
+        List<GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto> aulas = new ArrayList<>();
         for (Aula aula : tema.getAulas()) {
             aulas.add(toAulaListagemDto(aula));
         }
@@ -91,16 +94,27 @@ public class GradeMapper {
         return temaListagemGradeDto;
     }
 
-    public static GradeCriacaoDto.ModuloListagemGradeDto toModuloListagemDto(Modulo modulo) {
-        GradeCriacaoDto.ModuloListagemGradeDto moduloListagemGradeDto = new GradeCriacaoDto.ModuloListagemGradeDto();
+    public static GradeListagemDto.ModuloListagemGradeDto toModuloListagemDto(Modulo modulo) {
+        GradeListagemDto.ModuloListagemGradeDto moduloListagemGradeDto = new GradeListagemDto.ModuloListagemGradeDto();
         moduloListagemGradeDto.setIdModulo(modulo.getIdModulo());
         moduloListagemGradeDto.setNome(modulo.getNome());
-        List<GradeCriacaoDto.ModuloListagemGradeDto.TemaListagemGradeDto> temas = new ArrayList<>();
+        List<GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto> temas = new ArrayList<>();
         for (Tema tema : modulo.getTemas()) {
             temas.add(toTemaListagemDto(tema));
         }
         moduloListagemGradeDto.setTemas(temas);
         return moduloListagemGradeDto;
+    }
+
+    public static GradeListagemDto toDto(Grade grade) {
+        if (grade == null) {
+            return null;
+        }
+
+        GradeListagemDto gradeListagemDto = new GradeListagemDto();
+        gradeListagemDto.setIdGrade(grade.getIdGrade());
+        gradeListagemDto.setTurma(grade.getFkTurma());
+        return gradeListagemDto;
     }
 
 

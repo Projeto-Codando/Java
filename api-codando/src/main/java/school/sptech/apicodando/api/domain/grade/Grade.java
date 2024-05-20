@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class Grade {
 
-    @NotBlank
+//    @NotBlank
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idGrade;

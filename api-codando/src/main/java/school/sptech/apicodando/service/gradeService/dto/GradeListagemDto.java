@@ -5,7 +5,7 @@ import school.sptech.apicodando.api.domain.turma.Turma;
 
 import java.util.List;
 @Data
-public class GradeCriacaoDto {
+public class GradeListagemDto {
     private Integer idGrade;
     private List<ModuloListagemGradeDto> modulo;
     private Turma turma;

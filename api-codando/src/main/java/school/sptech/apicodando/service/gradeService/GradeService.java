@@ -15,7 +15,8 @@ import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.GradeMapper;
-import school.sptech.apicodando.service.gradeService.dto.GradeCriacaoDto;
+import school.sptech.apicodando.service.gradeService.dto.GradeCadastroDto;
+import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
 
 import java.util.List;
 
@@ -29,29 +30,18 @@ public class GradeService {
     private final AulaRepository aulaRepository;
     private final TurmaRepository turmaRepository;
 
-    public Grade criar(GradeCriacaoDto gradeCriacaoDto){
-        Turma turma = turmaRepository.findById(gradeCriacaoDto.getTurma().getIdTurma())
+    public Grade criar(GradeCadastroDto gradeCadastroDto){
+        Turma turma = turmaRepository.findById(gradeCadastroDto.getFkTurma())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."));
-
-       List<Modulo> modulos = moduloRepository.findByGradeIdGrade(gradeCriacaoDto.getIdGrade());
-        if (modulos.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Modulo não encontrado.");
-        }
-
-        for (Modulo modulo : modulos){
-            List<Tema> temas = temaRepository.findByModuloIdModulo(modulo.getIdModulo());
-            if (temas.isEmpty()){
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.");
-            }
-            for (Tema tema : temas){
-                List<Aula> aulas = aulaRepository.findByTemaIdTema(tema.getIdTema());
-                if (aulas.isEmpty()){
-                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aula não encontrada.");
-                }
-            }
-
-        }
-        final Grade novaGrade = GradeMapper.toEntity(gradeCriacaoDto, turma, modulos);
-        return gradeRepository.save(novaGrade);
+         final Grade novaGrade = GradeMapper.toEntity(gradeCadastroDto, turma);
+         return gradeRepository.save(novaGrade);
     }
+
+    public GradeListagemDto listarPorId(int id){
+        Grade grade = gradeRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
+        return GradeMapper.toDto(grade);
+    }
+
+
 }
