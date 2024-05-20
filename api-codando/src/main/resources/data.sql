@@ -26,6 +26,7 @@ VALUES ('Turma 1', 'senha123', 1, 1, true);
 
 INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma)
 VALUES ('aluno2', 'sobrenome2', 'apelido2', 'senha123', 'true', 50, 1);
+
 INSERT INTO Modulo (nome)
 VALUES ('Nome do Modulo');
 
