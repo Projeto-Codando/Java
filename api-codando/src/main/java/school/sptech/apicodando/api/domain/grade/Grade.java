@@ -2,10 +2,16 @@ package school.sptech.apicodando.api.domain.grade;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.api.domain.turma.Turma;
 
+import java.util.List;
+
 @Entity
+@Data
 public class Grade {
 
     @NotBlank
@@ -13,36 +19,12 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idGrade;
     @ManyToOne
-    @JoinColumn(name ="idTurma")
+//    @Column(name = "gradeTurma")
     protected Turma fkTurma;
-    @ManyToOne
-    @JoinColumn(name ="idTema")
-    protected Tema fkTema;
+    @OneToMany(mappedBy = "grade")
+//    @Column(name = "gradeModulos")
+    protected List<Modulo> modulos;
 
     public Grade() {
     }
-
-    public Integer getIdGrade() {
-        return idGrade;
-    }
-
-    public void setIdGrade(Integer idGrade) {
-        this.idGrade = idGrade;
-    }
-
-//    public Integer getFkTurma() {
-//        return fkTurma;
-//    }
-//
-//    public void setFkTurma(Integer fkTurma) {
-//        this.fkTurma = fkTurma;
-//    }
-//
-//    public Integer getFkTema() {
-//        return fkTema;
-//    }
-//
-//    public void setFkTema(Integer fkTema) {
-//        this.fkTema = fkTema;
-//    }
 }

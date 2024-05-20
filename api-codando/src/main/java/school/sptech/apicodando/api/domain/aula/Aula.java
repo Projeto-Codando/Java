@@ -28,9 +28,8 @@ public class Aula {
     @NotBlank
     @PositiveOrZero
     protected Integer pontuacaoMaxima;
-    @OneToOne
-    @JoinColumn(name ="idTema")
-    protected Tema fkTema;
+    @ManyToOne
+    private Tema tema;
 
     public Aula() {
     }

@@ -52,10 +52,10 @@ public class TurmaMapper {
         listagemDto.setIdTurma(entidade.getIdTurma());
         listagemDto.setNome(entidade.getNome());
         listagemDto.setSenha(entidade.getSenha());
-        listagemDto.setFkEscolaridade(toEscolaridadeDto(entidade.getEscolaridade()));
-        listagemDto.setFkEducador(toEducadorDto(entidade.getEducador()));
         listagemDto.setStatusTurma(entidade.isStatusTurma());
 
+        listagemDto.setFkEscolaridade(toEscolaridadeDto(entidade.getEscolaridade()));
+        listagemDto.setFkEducador(toEducadorDto(entidade.getEducador()));
         listagemDto.setAlunos(toAlunoDto(entidade.getAlunos()));
 
         return listagemDto;
