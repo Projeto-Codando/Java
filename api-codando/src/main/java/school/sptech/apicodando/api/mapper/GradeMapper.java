@@ -1,15 +1,21 @@
 package school.sptech.apicodando.api.mapper;
 
+import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.aula.Aula;
+import school.sptech.apicodando.api.domain.educador.Educador;
+import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.service.gradeService.dto.GradeCadastroDto;
 import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
+import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class GradeMapper {
 
@@ -60,17 +66,6 @@ public class GradeMapper {
 
     // METOODS DE CONVERSAO DE ENTITY PARA DTO
 
-    public static GradeListagemDto toGradeCriacaoDto(Grade grade) {
-        GradeListagemDto gradeListagemDto = new GradeListagemDto();
-        gradeListagemDto.setIdGrade(grade.getIdGrade());
-        gradeListagemDto.setTurma(grade.getFkTurma());
-        List<GradeListagemDto.ModuloListagemGradeDto> modulos = new ArrayList<>();
-        for (Modulo modulo : grade.getModulos()) {
-            modulos.add(toModuloListagemDto(modulo));
-        }
-        gradeListagemDto.setModulo(modulos);
-        return gradeListagemDto;
-    }
 
     public static GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto toAulaListagemDto(Aula aula) {
         GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto aulaListagemGradeDto = new GradeListagemDto.ModuloListagemGradeDto.TemaListagemGradeDto.AulaListagemGradeDto();
@@ -113,10 +108,61 @@ public class GradeMapper {
 
         GradeListagemDto gradeListagemDto = new GradeListagemDto();
         gradeListagemDto.setIdGrade(grade.getIdGrade());
-        gradeListagemDto.setTurma(grade.getFkTurma());
+        gradeListagemDto.setTurma(toDto(grade.getFkTurma()));
         return gradeListagemDto;
+
+
     }
 
+    public static GradeListagemDto.TurmaListagemDTO toDto(Turma turma) {
+        if (turma == null) {
+            return null;
+        }
 
+        GradeListagemDto.TurmaListagemDTO turmaListagemDTO = new GradeListagemDto.TurmaListagemDTO();
+        turmaListagemDTO.setIdTurma(turma.getIdTurma());
+        turmaListagemDTO.setNome(turma.getNome());
+        turmaListagemDTO.setSenha(turma.getSenha());
+        turmaListagemDTO.setFkEscolaridade(toEscolaridadeDto(turma.getEscolaridade()));
+        turmaListagemDTO.setFkEducador(toEducadorDto(turma.getEducador()));
+        turmaListagemDTO.setAlunos(toAlunoDto(turma.getAlunos()));
+        turmaListagemDTO.setStatusTurma(turma.isStatusTurma());
+        return turmaListagemDTO;
+    }
 
+    public static GradeListagemDto.TurmaListagemDTO.EscolaridadeListagemDTO toEscolaridadeDto(Escolaridade entidades){
+        if (entidades == null) return null;
+
+        GradeListagemDto.TurmaListagemDTO.EscolaridadeListagemDTO dto = new GradeListagemDto.TurmaListagemDTO.EscolaridadeListagemDTO();
+        dto.setIdEscolaridade(entidades.getIdEscolaridade());
+        dto.setDescricao(entidades.getDescricao());
+        return dto;
+    }
+
+    private static GradeListagemDto.TurmaListagemDTO.EducadorListagemDTO toEducadorDto(Educador entidades){
+        if (entidades == null) return null;
+
+        GradeListagemDto.TurmaListagemDTO.EducadorListagemDTO dto = new GradeListagemDto.TurmaListagemDTO.EducadorListagemDTO();
+        dto.setIdEducador(entidades.getIdEducador());
+        dto.setNome(entidades.getNome());
+        dto.setSobrenome(entidades.getSobrenome());
+        return dto;
+    }
+
+    private static List<GradeListagemDto.TurmaListagemDTO.AlunoListagemDTO> toAlunoDto(List<Aluno> entidades){
+        if (entidades == null) return null;
+
+        List<GradeListagemDto.TurmaListagemDTO.AlunoListagemDTO> dtos = new ArrayList<>();
+        for (Aluno e : entidades) {
+            GradeListagemDto.TurmaListagemDTO.AlunoListagemDTO dto = new GradeListagemDto.TurmaListagemDTO.AlunoListagemDTO();
+            dto.setIdAluno(e.getIdAluno());
+            dto.setNome(e.getNome());
+            dto.setSobrenome(e.getSobrenome());
+            dto.setApelido(e.getApelido());
+            dto.setStatus(e.getStatus());
+            dto.setMoedas(e.getMoedas());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
 }

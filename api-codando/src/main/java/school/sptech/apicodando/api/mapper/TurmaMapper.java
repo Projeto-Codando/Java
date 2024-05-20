@@ -78,7 +78,7 @@ public class TurmaMapper {
         return dtos;
     }
 
-    private static TurmaListagemDTO.EscolaridadeListagemDTO toEscolaridadeDto(Escolaridade entidades){
+    public static TurmaListagemDTO.EscolaridadeListagemDTO toEscolaridadeDto(Escolaridade entidades){
         if (entidades == null) return null;
 
         TurmaListagemDTO.EscolaridadeListagemDTO dto = new TurmaListagemDTO.EscolaridadeListagemDTO();
