@@ -94,19 +94,6 @@ public class AlunoController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Listar Escolas", description = "Método que lista escolas do JSON!", tags = "Escola")
-    @GetMapping("/pesquisaEscolas")
-    public ResponseEntity<Object> getJsonFile() {
-        try {
-            Resource resource = new ClassPathResource("resultado.json");
-            ObjectMapper mapper = new ObjectMapper();
-            return ResponseEntity.ok(mapper.readValue(resource.getInputStream(), Object.class));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
     @Operation(summary = "Baixar Arquivo", description = "Método que realiza o download do JSON!", tags = "Escola")
     @GetMapping("/download/{filename}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
@@ -123,76 +110,4 @@ public class AlunoController {
                 .headers(headers)
                 .body(resource);
     }
-
-    @Operation(summary = "Gerar Arquivo", description = "Método que gera o arquivo CSV!", tags = "Escola")
-    @GetMapping("/gerarCSV")
-    public ResponseEntity<Resource> gerarEbaixarCSV() {
-        List<Aluno> alunosNoDTO = alunoService.listarTodos();
-
-        List<AlunoListagemDTO> alunos = AlunoMapper.toDto(alunosNoDTO);
-
-        if(alunos.isEmpty()){
-            System.out.println("Lista vazia");
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-
-        FileWriter file = null;
-        Formatter saida = null;
-        Boolean badWay = false;
-
-        String fileName = "alunos.csv";
-
-        try {
-            file = new FileWriter(fileName);
-            saida = new Formatter(file);
-        } catch (Exception e) {
-            System.out.println("Erro ao criar arquivo: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        try {
-            for (AlunoListagemDTO aluno : alunos) {
-                saida.format("%d;%s;%s\n", aluno.getIdAluno(), aluno.getNome(), aluno.getApelido());
-            }
-
-        } catch (Exception e) {
-            System.out.println("Erro ao gravar no arquivo: " + e.getMessage());
-            e.printStackTrace();
-            badWay = true;
-        } finally {
-            saida.close();
-            try {
-                file.close();
-            } catch (IOException e) {
-                System.out.println("Erro ao fechar arquivo: " + e.getMessage());
-                e.printStackTrace();
-                badWay = true;
-            }
-            if (badWay) {
-                System.exit(1);
-            }
-        }
-
-        Path path = Paths.get(fileName);
-        Resource resource = new FileSystemResource(path);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
-        headers.add(HttpHeaders.CONTENT_TYPE, "text/csv");
-
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
-
-    @Operation(summary = "Listar por Diretoria", description = "Método que lista alunos por diretoria!", tags = "Aluno")
-    @GetMapping("/listarPorREP2")
-    public ResponseEntity<List<csv>> listarPorREP2() {
-        List<csv> csvs = csvFileService.quickSortByDiretoriaAndByREP_2();
-        return ok(csvs);
-    }
-
-
-
 }

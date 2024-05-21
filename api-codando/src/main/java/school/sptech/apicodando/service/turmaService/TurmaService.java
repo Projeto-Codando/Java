@@ -1,7 +1,11 @@
 package school.sptech.apicodando.service.turmaService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apicodando.api.domain.educador.Educador;
@@ -15,6 +19,11 @@ import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Formatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +44,7 @@ public class TurmaService {
 
         final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade, educador);
 
-        if (existeTurmaByCodigo(turmaCadastro.getSenha())){
+        if (existeTurmaByCodigo(turmaCadastro.getSenha())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");
         }
         turmaRepository.save(novaTurma);
@@ -43,7 +52,7 @@ public class TurmaService {
 
     public Turma desativar(int id, int idProfessor) {
         Turma turma = buscarPorIdTurmaAndIdProfessor(id, idProfessor);
-        if (turma == null){
+        if (turma == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         } else {
             turma.setStatusTurma(false);
@@ -51,7 +60,6 @@ public class TurmaService {
         }
     }
 
-// ARRUMAR METODO ATUALIZAR.
 //    public void atualizar(TurmaAtualizaDTO turmaAtualizada, int id){
 //        Turma turma = buscarPorIdTurmaAndIdProfessor(id, turmaAtualizada.getEducador().getIdEducador());
 //        if(turma == null){
@@ -67,7 +75,7 @@ public class TurmaService {
 
         final List<TurmaListagemDTO> turmasListagem = TurmaMapper.toDto(turmas);
 
-        if (turmas.isEmpty()){
+        if (turmas.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
@@ -77,7 +85,7 @@ public class TurmaService {
     public TurmaListagemDTO listarPorIdAndProfessor(int idTurma, int idProfessor) {
         Optional<Turma> turma = this.turmaRepository.findByIdTurmaAndEducadorIdEducador(idTurma, idProfessor);
 
-        if (turma.isEmpty()){
+        if (turma.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         }
 
@@ -89,31 +97,34 @@ public class TurmaService {
     }
 
     // Metodo para verificar se a Turma já existe.
-    public boolean existeTurmaByCodigo(String codigo){
+    public boolean existeTurmaByCodigo(String codigo) {
         return this.turmaRepository.findBySenha(codigo).isPresent();
     }
 
-    public Integer getIdPorSenha(String senha){
+    public Integer getIdPorSenha(String senha) {
         Optional<Turma> turma = this.turmaRepository.findBySenha(senha);
-        if (turma.isEmpty()){
+        if (turma.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         }
         return turma.get().getIdTurma();
     }
 
-    public Turma findBySenha(String senha){
+    public Turma findBySenha(String senha) {
         Optional<Turma> turma = this.turmaRepository.findBySenha(senha);
-        if (turma.isEmpty()){
+        if (turma.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         }
         return turma.get();
     }
 
-    public Turma buscarPorIdTurmaAndIdProfessor(int idTurma, int idProfessor){
+    public Turma buscarPorIdTurmaAndIdProfessor(int idTurma, int idProfessor) {
         Optional<Turma> turma = this.turmaRepository.findByIdTurmaAndEducadorIdEducador(idTurma, idProfessor);
-        if (turma.isEmpty()){
+        if (turma.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         }
         return turma.get();
     }
+
+
+
 }
