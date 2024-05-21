@@ -8,6 +8,7 @@ import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.api.domain.turma.Turma;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,5 +27,6 @@ public class Grade {
     protected List<Modulo> modulos;
 
     public Grade() {
+        this.modulos = new ArrayList<>();
     }
 }

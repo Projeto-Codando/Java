@@ -1,6 +1,9 @@
-package school.sptech.apicodando.api.domain.aula;
+package school.sptech.apicodando.service.aulaService.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -8,14 +11,10 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import school.sptech.apicodando.api.domain.tema.Tema;
 
-@Entity
 @Data
-public class Aula {
+public class AulaCriacaoDTO {
 
-//    @NotBlank
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+
     @NotBlank
     @Size(min = 3, max = 255)
     @NotNull
@@ -31,8 +30,6 @@ public class Aula {
     @PositiveOrZero
     protected Integer pontuacaoMaxima;
     @ManyToOne
-    private Tema tema;
+    private Integer temaId;
 
-    public Aula() {
-    }
 }

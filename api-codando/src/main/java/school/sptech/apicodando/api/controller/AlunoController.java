@@ -42,6 +42,7 @@ public class AlunoController {
 
 //    @Autowired
 //    private AlunoRepository alunoRepository;
+    //seloko ja logo mandei o trindade sentar aqui para nao correr o risco de "alguem" sentar
     @Autowired
     private AlunoService alunoService;
 

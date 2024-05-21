@@ -43,5 +43,9 @@ public class GradeService {
         return GradeMapper.toDto(grade);
     }
 
+//    public GradeListagemDto.ModuloListagemGradeDto listarModuloPorIdGrade(int idGrade){
+//        List<Modulo> modulos = moduloRepository.findAllByFkGrade(idGrade);
+//    }
+
 
 }
