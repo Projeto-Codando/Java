@@ -1,8 +1,9 @@
-package school.sptech.apicodando.service.temaService.dto;
+package school.sptech.apicodando.api.mapper;
 
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.tema.Tema;
-import school.sptech.apicodando.service.aulaService.dto.AulaMapper;
+import school.sptech.apicodando.service.temaService.dto.TemaCadastroDTO;
+import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 
 import java.util.List;
 

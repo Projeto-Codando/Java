@@ -8,7 +8,7 @@ import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.aula.repository.AulaRepository;
 import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
 import school.sptech.apicodando.service.aulaService.dto.AulaCriacaoDTO;
-import school.sptech.apicodando.service.aulaService.dto.AulaMapper;
+import school.sptech.apicodando.api.mapper.AulaMapper;
 
 import java.util.List;
 

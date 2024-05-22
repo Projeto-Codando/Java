@@ -9,7 +9,7 @@ import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
 import school.sptech.apicodando.service.temaService.dto.TemaCadastroDTO;
 import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
-import school.sptech.apicodando.service.temaService.dto.TemaMapper;
+import school.sptech.apicodando.api.mapper.TemaMapper;
 
 import java.util.List;
 

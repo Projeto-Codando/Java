@@ -25,15 +25,12 @@ import java.util.List;
 public class GradeService {
 
     private final GradeRepository gradeRepository;
-    private final ModuloRepository moduloRepository;
-    private final TemaRepository temaRepository;
-    private final AulaRepository aulaRepository;
     private final TurmaRepository turmaRepository;
 
     public Grade criar(GradeCadastroDto gradeCadastroDto){
         Turma turma = turmaRepository.findById(gradeCadastroDto.getFkTurma())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."));
-         final Grade novaGrade = GradeMapper.toEntity(gradeCadastroDto, turma);
+         final Grade novaGrade = GradeMapper.toEntity(gradeCadastroDto);
          return gradeRepository.save(novaGrade);
     }
 

@@ -2,7 +2,6 @@ package school.sptech.apicodando.api.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,7 @@ import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.service.aulaService.AulaService;
 import school.sptech.apicodando.service.aulaService.dto.AulaCriacaoDTO;
 import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
-import school.sptech.apicodando.service.aulaService.dto.AulaMapper;
-import school.sptech.apicodando.service.temaService.TemaService;
+import school.sptech.apicodando.api.mapper.AulaMapper;
 
 import java.util.List;
 

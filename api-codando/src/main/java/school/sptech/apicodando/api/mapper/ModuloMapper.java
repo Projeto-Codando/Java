@@ -1,8 +1,10 @@
-package school.sptech.apicodando.service.moduloService.dto;
+package school.sptech.apicodando.api.mapper;
 
 import lombok.Data;
 import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
+import school.sptech.apicodando.service.moduloService.dto.ModuloCadastroDTO;
+import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;

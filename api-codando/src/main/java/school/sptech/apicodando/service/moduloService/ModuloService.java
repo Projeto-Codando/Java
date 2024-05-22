@@ -9,7 +9,7 @@ import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
 import school.sptech.apicodando.service.moduloService.dto.ModuloCadastroDTO;
 import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
-import school.sptech.apicodando.service.moduloService.dto.ModuloMapper;
+import school.sptech.apicodando.api.mapper.ModuloMapper;
 
 import java.util.List;
 
