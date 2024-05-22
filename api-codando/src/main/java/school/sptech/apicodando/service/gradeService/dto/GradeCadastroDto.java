@@ -14,6 +14,6 @@ public class GradeCadastroDto {
     private List<Modulo> modulo;
     @ManyToOne
     @JoinColumn(name = "idTurma")
-    private int fkTurma;
+    private Integer fkTurma;
 
 }

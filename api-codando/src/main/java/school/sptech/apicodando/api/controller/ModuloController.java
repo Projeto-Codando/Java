@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import school.sptech.apicodando.service.gradeService.GradeService;
 import school.sptech.apicodando.service.moduloService.ModuloService;
 import school.sptech.apicodando.service.moduloService.dto.ModuloCadastroDTO;
+import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/modulos")
@@ -17,13 +20,14 @@ public class ModuloController {
     private final ModuloService moduloService;
 
     @PostMapping
-    public ResponseEntity<ModuloCadastroDTO> criar(ModuloCadastroDTO moduloCadastro) {
+    public ResponseEntity<ModuloCadastroDTO> criar(@RequestBody ModuloCadastroDTO moduloCadastro) {
         moduloService.criar(moduloCadastro, moduloCadastro.getGradeId());
-        return ResponseEntity.ok(moduloCadastro);
+
+        return ResponseEntity.created(null).body(moduloCadastro);
     }
 
     @GetMapping
-    public ResponseEntity<String> listarModulos() {
+    public ResponseEntity<List<ModuloListagemDTO>> listarModulos() {
 
         return ResponseEntity.ok(moduloService.listarModulos());
     }

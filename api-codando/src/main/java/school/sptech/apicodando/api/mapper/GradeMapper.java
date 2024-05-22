@@ -25,8 +25,11 @@ public class GradeMapper {
         return dto;
     }
 
+
     public static Grade toEntity(GradeCadastroDto gradeCadastroDto) {
         Grade grade = new Grade();
+//        grade.setFkTurma(gradeCadastroDto.getFkTurma());
+
         return grade;
     }
 

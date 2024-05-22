@@ -15,6 +15,7 @@ import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.GradeMapper;
+import school.sptech.apicodando.api.mapper.ModuloMapper;
 import school.sptech.apicodando.service.gradeService.dto.GradeCadastroDto;
 import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
 
@@ -28,15 +29,21 @@ public class GradeService {
     private final TurmaRepository turmaRepository;
 
     public Grade criar(GradeCadastroDto gradeCadastroDto){
+        if (gradeCadastroDto.getFkTurma() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Turma ID nao pode  ser nulo");
+        }
         Turma turma = turmaRepository.findById(gradeCadastroDto.getFkTurma())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."));
-         final Grade novaGrade = GradeMapper.toEntity(gradeCadastroDto);
-         return gradeRepository.save(novaGrade);
+        final Grade novaGrade = GradeMapper.toEntity(gradeCadastroDto);
+        novaGrade.setFkTurma(turma);
+        return gradeRepository.save(novaGrade);
     }
 
-    public GradeListagemDto listarPorId(int id){
+    public GradeListagemDto listarPorId(Integer id){
         Grade grade = gradeRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
+        GradeListagemDto gradeListagemDto = GradeMapper.toDto(grade);
+        gradeListagemDto.setModulo(ModuloMapper.toDto(grade.getModulos()));
         return GradeMapper.toDto(grade);
     }
 

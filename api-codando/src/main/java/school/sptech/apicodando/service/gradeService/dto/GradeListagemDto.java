@@ -16,7 +16,7 @@ public class GradeListagemDto {
     public GradeListagemDto(){
         this.modulo = new ArrayList<>();
     }
-
+    @Data
     public static class TurmaListagemDTO {
         private Integer idTurma;
     }

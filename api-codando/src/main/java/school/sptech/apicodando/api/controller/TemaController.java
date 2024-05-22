@@ -3,10 +3,7 @@ package school.sptech.apicodando.api.controller;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.service.moduloService.ModuloService;
 import school.sptech.apicodando.service.temaService.TemaService;
@@ -30,7 +27,7 @@ public class TemaController {
     }
 
     @PostMapping("/id")
-    public ResponseEntity<Tema> criar(TemaCadastroDTO dto){
+    public ResponseEntity<Tema> criar(@RequestBody TemaCadastroDTO dto){
         return ResponseEntity.created(null).body(temaService.criar(dto, dto.getModuloId()));
     }
 
