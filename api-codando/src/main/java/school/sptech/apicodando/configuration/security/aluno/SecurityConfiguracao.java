@@ -63,7 +63,8 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/alunos/gerarCSV"),
             new AntPathRequestMatcher("/alunos/listarPorREP2"),
             new AntPathRequestMatcher("/turmas/**"),
-new AntPathRequestMatcher("/grades/**"),
+            new AntPathRequestMatcher("/grades/**"),
+            new AntPathRequestMatcher("/temas/**"),
 
     };
 

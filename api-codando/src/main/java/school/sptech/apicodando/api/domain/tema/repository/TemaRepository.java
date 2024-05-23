@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TemaRepository extends JpaRepository<Tema, Integer> {
-    @Override
-    Optional<Tema> findById(Integer integer);
 
-    ;
+    List<Tema> findAllByModulo_IdModulo(Integer integer);
 }

@@ -5,7 +5,10 @@ import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.service.aulaService.dto.AulaCriacaoDTO;
 import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.Collection;
 
 public class AulaMapper {
 
@@ -22,24 +25,29 @@ public class AulaMapper {
         aulaListagemDTO.setNivelDificuldade(aula.getNivelDificuldade());
         aulaListagemDTO.setPontuacaoMaxima(aula.getPontuacaoMaxima());
 
-        aulaListagemDTO.setTema(toTemaDto(aula.getTema()));
+//        aulaListagemDTO.setTema(toTemaDto(aula.getTema()));
         return aulaListagemDTO;
     }
 
-    private static AulaListagemDTO.TemaDto toTemaDto(Tema tema) {
-
-        if (tema == null) {
-            return null;
-        }
-
-        AulaListagemDTO.TemaDto temaDto = new AulaListagemDTO.TemaDto();
-        temaDto.setId(tema.getIdTema());
-        temaDto.setNome(tema.getNome());
-
-        return temaDto;
-    }
+//    private static AulaListagemDTO.TemaDto toTemaDto(Tema tema) {
+//
+//        if (tema == null) {
+//            return null;
+//        }
+//
+//        AulaListagemDTO.TemaDto temaDto = new AulaListagemDTO.TemaDto();
+//        temaDto.setId(tema.getIdTema());
+//        temaDto.setNome(tema.getNome());
+//
+//        return temaDto;
+//    }
 
     public static List<AulaListagemDTO> toDto(List<Aula> aulas) {
+
+        if (aulas == null) {
+            return new ArrayList<>();
+        }
+
         return aulas.stream().map(AulaMapper::toDto).toList();
     }
 

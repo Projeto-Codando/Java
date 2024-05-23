@@ -4,12 +4,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import school.sptech.apicodando.api.domain.aula.Aula;
+import school.sptech.apicodando.api.domain.aula.repository.AulaRepository;
+import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.grade.repository.GradeRepository;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
+import school.sptech.apicodando.api.domain.tema.Tema;
+import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
+import school.sptech.apicodando.api.mapper.AulaMapper;
+import school.sptech.apicodando.api.mapper.GradeMapper;
+import school.sptech.apicodando.api.mapper.TemaMapper;
+import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
+import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
 import school.sptech.apicodando.service.moduloService.dto.ModuloCadastroDTO;
 import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 import school.sptech.apicodando.api.mapper.ModuloMapper;
+import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 
 import java.util.List;
 
@@ -19,6 +30,8 @@ public class ModuloService {
 
     private final ModuloRepository moduloRepository;
     private final GradeRepository gradeRepository;
+    private final TemaRepository temaRepository;
+    private final AulaRepository aulaRepository;
 
     public void criar(ModuloCadastroDTO moduloCadastro, Integer idGrade) {
 
@@ -37,6 +50,30 @@ public class ModuloService {
     public List<ModuloListagemDTO> listarModulos() {
 
         return ModuloMapper.toDto(moduloRepository.findAll());
+    }
+
+    public List<ModuloListagemDTO> listarPorGrade(Integer idGrade) {
+        Grade grade = gradeRepository.findById(idGrade)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
+
+        List<Modulo> modulos = moduloRepository.findAllByGrade_IdGrade(grade.getIdGrade());
+        List<ModuloListagemDTO> modulosDto = ModuloMapper.toDto(modulos);
+
+        for (ModuloListagemDTO moduloDto : modulosDto) {
+            List<Tema> temas = temaRepository.findAllByModulo_IdModulo(moduloDto.getIdModulo());
+            List<TemaListagemDTO> temasDto = TemaMapper.toDto(temas);
+
+            for (TemaListagemDTO temaDto : temasDto) {
+                List<Aula> aulas = aulaRepository.findAllByTema_IdTema(temaDto.getIdTema());
+                List<AulaListagemDTO> aulasDto = AulaMapper.toDto(aulas);
+
+                temaDto.setAulas(aulasDto); // Definindo as aulas para o tema
+            }
+
+            moduloDto.setTemas(temasDto); // Definindo os temas para o módulo
+        }
+
+        return modulosDto;
     }
 
 

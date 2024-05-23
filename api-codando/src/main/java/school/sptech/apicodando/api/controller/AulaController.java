@@ -1,6 +1,7 @@
 package school.sptech.apicodando.api.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +32,18 @@ public class AulaController {
         return ResponseEntity.ok(aulas.stream().map(AulaMapper::toDto).toList());
     }
 
-    @PostMapping("/id")
-    public ResponseEntity<Aula> criar(@RequestBody AulaCriacaoDTO aulaNova){
-
-        Aula aula = aulaService.criar(aulaNova, aulaNova.getTemaId());
-
-        return ResponseEntity.created(null).body(aula);
+    @GetMapping("/{idTema}")
+    public ResponseEntity<List<AulaListagemDTO>> listarAulasPorTema(@PathVariable Integer idTema) {
+        List<Aula> aulas = aulaService.listarAulasPorTema(idTema);
+        if (aulas.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(aulas.stream().map(AulaMapper::toDto).toList());
     }
 
-
+    @PostMapping()
+    public ResponseEntity<AulaListagemDTO> criar(@RequestBody @Valid AulaCriacaoDTO aulaNova){
+        Aula aula = aulaService.criar(aulaNova);
+        return ResponseEntity.created(null).body(AulaMapper.toDto(aula));
+    }
 }

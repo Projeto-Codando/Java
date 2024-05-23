@@ -6,6 +6,7 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 
+import java.util.ArrayList;
 import java.util.List;
 @Data
 public class GradeCadastroDto {
@@ -16,4 +17,7 @@ public class GradeCadastroDto {
     @JoinColumn(name = "idTurma")
     private Integer fkTurma;
 
+    public GradeCadastroDto() {
+        this.modulo = new ArrayList<>();
+    }
 }

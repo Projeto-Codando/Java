@@ -18,6 +18,8 @@ import school.sptech.apicodando.api.mapper.GradeMapper;
 import school.sptech.apicodando.api.mapper.ModuloMapper;
 import school.sptech.apicodando.service.gradeService.dto.GradeCadastroDto;
 import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
+import school.sptech.apicodando.service.moduloService.ModuloService;
+import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 
 import java.util.List;
 
@@ -27,6 +29,12 @@ public class GradeService {
 
     private final GradeRepository gradeRepository;
     private final TurmaRepository turmaRepository;
+    private final ModuloRepository moduloRepository;
+    private final TemaRepository temaRepository;
+    private final AulaRepository aulaRepository;
+    private final ModuloService moduloService;
+
+
 
     public Grade criar(GradeCadastroDto gradeCadastroDto){
         if (gradeCadastroDto.getFkTurma() == null) {
@@ -42,9 +50,21 @@ public class GradeService {
     public GradeListagemDto listarPorId(Integer id){
         Grade grade = gradeRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
-        GradeListagemDto gradeListagemDto = GradeMapper.toDto(grade);
-        gradeListagemDto.setModulo(ModuloMapper.toDto(grade.getModulos()));
         return GradeMapper.toDto(grade);
+    }
+
+    public List<GradeListagemDto> listarTodos(){
+
+        List<Grade> grades = gradeRepository.findAll();
+
+        List<GradeListagemDto> dtos = GradeMapper.toDto(grades);
+
+        for (GradeListagemDto dto : dtos) {
+            dto.setModulo(moduloService.listarPorGrade(dto.getIdGrade()));
+
+        }
+
+        return dtos;
     }
 
 //    public GradeListagemDto.ModuloListagemGradeDto listarModuloPorIdGrade(int idGrade){

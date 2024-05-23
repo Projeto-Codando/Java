@@ -11,14 +11,14 @@ import java.util.List;
 public class GradeListagemDto {
     private Integer idGrade;
     private List<ModuloListagemDTO> modulo;
-    private TurmaListagemDTO turma;
+    private Integer idTurma;
 
     public GradeListagemDto(){
         this.modulo = new ArrayList<>();
     }
-    @Data
-    public static class TurmaListagemDTO {
-        private Integer idTurma;
-    }
+//    @Data
+//    public static class TurmaListagemDTO {
+//        private Integer idTurma;
+//    }
 
 }

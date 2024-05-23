@@ -9,6 +9,8 @@ import school.sptech.apicodando.service.gradeService.GradeService;
 import school.sptech.apicodando.service.gradeService.dto.GradeCadastroDto;
 import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
 
+import java.util.List;
+
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
@@ -33,6 +35,13 @@ public class GradeController {
 
     public ResponseEntity<GradeListagemDto> listar(@PathVariable int id) {
         return status(200).body(gradeService.listarPorId(id));
+    }
+
+    @Operation(summary = "Listar", description = "Método que lista todas as grades!", tags = "Grade")
+    @GetMapping
+//    @SecurityRequirement(name = "Bearer")
+    public ResponseEntity <List<GradeListagemDto>> listarTodos() {
+        return status(200).body(gradeService.listarTodos());
     }
 
 }

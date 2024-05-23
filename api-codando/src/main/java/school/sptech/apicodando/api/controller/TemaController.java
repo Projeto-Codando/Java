@@ -26,8 +26,8 @@ public class TemaController {
         return ResponseEntity.ok(temaService.listar());
     }
 
-    @PostMapping("/id")
-    public ResponseEntity<Tema> criar(@RequestBody TemaCadastroDTO dto){
+    @PostMapping()
+    public ResponseEntity<TemaListagemDTO> criar(@RequestBody TemaCadastroDTO dto){
         return ResponseEntity.created(null).body(temaService.criar(dto, dto.getModuloId()));
     }
 

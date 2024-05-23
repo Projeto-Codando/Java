@@ -37,9 +37,9 @@ public class Turma {
     @JoinColumn(name = "idEducador")
     protected Educador educador;
 
-    @ManyToOne
-    @JoinColumn(name = "idGrade")
-    protected Grade grade;
+    @OneToMany(mappedBy = "fkTurma")
+//    @JoinColumn(name = "idGrade")
+    protected List<Grade> grade;
 
     protected boolean statusTurma;
 

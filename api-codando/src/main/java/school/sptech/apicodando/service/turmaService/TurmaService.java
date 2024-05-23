@@ -36,7 +36,7 @@ public class TurmaService {
 
         final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade, educador);
 
-        novaTurma.setGrade(gradeRepository.findById(turmaCadastro.getFkGrade()).get());
+        novaTurma.setGrade(gradeRepository.findAllByFkTurma_IdTurma(novaTurma.getIdTurma()));
 
         if (existeTurmaByCodigo(turmaCadastro.getSenha())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");

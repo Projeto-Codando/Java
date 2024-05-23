@@ -14,16 +14,16 @@ public class TemaMapper {
         dto.setIdTema(tema.getIdTema());
         dto.setNome(tema.getNome());
         dto.setAulas(AulaMapper.toDto(tema.getAulas()));
-        dto.setModulo(toModuloDto(tema.getModulo()));
+//        dto.setModulo(toModuloDto(tema.getModulo()));
         return dto;
     }
 
-    public static TemaListagemDTO.ModuloDto toModuloDto(Modulo modulo) {
-        TemaListagemDTO.ModuloDto dto = new TemaListagemDTO.ModuloDto();
-        dto.setId(modulo.getIdModulo());
-        dto.setNome(modulo.getNome());
-        return dto;
-    }
+//    public static TemaListagemDTO.ModuloDto toModuloDto(Modulo modulo) {
+//        TemaListagemDTO.ModuloDto dto = new TemaListagemDTO.ModuloDto();
+//        dto.setId(modulo.getIdModulo());
+//        dto.setNome(modulo.getNome());
+//        return dto;
+//    }
 
     public static List<TemaListagemDTO> toDto(List<Tema> temas) {
         return temas.stream().map(TemaMapper::toDto).toList();

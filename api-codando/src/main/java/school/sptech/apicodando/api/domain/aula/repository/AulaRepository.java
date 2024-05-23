@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface AulaRepository extends JpaRepository<Aula, Integer> {
 
-    List<Aula> findByTemaIdTema(@Param("idModulo") int idModulo);
+    List<Aula> findAllByTema_IdTema(Integer idModulo);
 }

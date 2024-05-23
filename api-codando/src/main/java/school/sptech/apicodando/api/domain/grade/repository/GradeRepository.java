@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface GradeRepository extends JpaRepository<Grade, Integer> {
 
-    @Override
-    List<Grade> findAllById(Iterable<Integer> integers);
+//    @Override
+    List<Grade> findAllByFkTurma_IdTurma(Integer integers);
 }

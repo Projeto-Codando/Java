@@ -25,10 +25,10 @@ INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma)
 VALUES ('Turma 1', 'senha123', 1, 1, true);
 
 INSERT INTO Grade (id_turma)
-VALUES (1   );
+VALUES (1);
 
-INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma, id_grade)
-VALUES ('Turma 2', 'senha1234', 1, 1, true, 1);
+INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma)
+VALUES ('Turma 2', 'senha1234', 1, 1, true);
 
 INSERT INTO Modulo (nome, grade_id_grade)
 VALUES ('Nome do Modulo', 1);

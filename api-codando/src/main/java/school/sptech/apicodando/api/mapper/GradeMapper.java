@@ -22,7 +22,16 @@ public class GradeMapper {
     public static GradeListagemDto toDto(Grade grade) {
         GradeListagemDto dto = new GradeListagemDto();
         dto.setIdGrade(grade.getIdGrade());
+        dto.setIdTurma(grade.getFkTurma().getIdTurma());
         return dto;
+    }
+
+    public static List<GradeListagemDto> toDto(List<Grade> grades) {
+        List<GradeListagemDto> dtos = new ArrayList<>();
+        for (Grade grade : grades) {
+            dtos.add(toDto(grade));
+        }
+        return dtos;
     }
 
 

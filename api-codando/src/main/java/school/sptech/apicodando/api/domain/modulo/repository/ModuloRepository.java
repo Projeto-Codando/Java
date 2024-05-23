@@ -8,5 +8,5 @@ import java.util.List;
 public interface ModuloRepository extends JpaRepository<Modulo, Integer> {
 
 
-    List<Modulo> findByGradeIdGrade(int idGrade);
+    List<Modulo> findAllByGrade_IdGrade(Integer idGrade);
 }

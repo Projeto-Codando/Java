@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
+import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class TemaCadastroDTO {
     @Size(min = 3, max = 255)
     @NotNull
     protected String nome;
-    private List<Aula> aulas;
+    private List<AulaListagemDTO> aulas;
     private int moduloId;
 
     public TemaCadastroDTO() {

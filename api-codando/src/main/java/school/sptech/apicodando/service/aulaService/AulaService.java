@@ -22,15 +22,18 @@ public class AulaService {
     public List<Aula> listarAulas() {
         return aulaRepository.findAll();
     }
+    public List<Aula> listarAulasPorTema(int idTema) {
+        return aulaRepository.findAllByTema_IdTema(idTema);
+    }
 
-    public Aula criar(AulaCriacaoDTO novaAula, int idTema) {
+    public Aula criar(AulaCriacaoDTO novaAula) {
 
-        if (temaRepository.findById(idTema).isEmpty()) {
+        if (temaRepository.findById(novaAula.getTemaId()).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
         Aula aula = AulaMapper.toEntity(novaAula);
-        aula.setTema(temaRepository.findById(idTema).get());
+        aula.setTema(temaRepository.findById(novaAula.getTemaId()).get());
         return aulaRepository.save(aula);
     }
 }

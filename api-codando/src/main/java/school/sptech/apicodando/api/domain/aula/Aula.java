@@ -16,19 +16,9 @@ public class Aula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
     protected String titulo;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
     protected String descricao;
-    @NotBlank
-    @PositiveOrZero
     protected Integer nivelDificuldade;
-    @NotBlank
-    @PositiveOrZero
     protected Integer pontuacaoMaxima;
     @ManyToOne
     private Tema tema;

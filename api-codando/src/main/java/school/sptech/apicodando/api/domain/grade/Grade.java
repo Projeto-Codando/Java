@@ -20,7 +20,7 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idGrade;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idTurma")
     protected Turma fkTurma;
 

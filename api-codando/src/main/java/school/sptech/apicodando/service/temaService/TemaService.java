@@ -21,18 +21,24 @@ public class TemaService {
     public final ModuloRepository moduloRepository;
 
 
-    public Tema criar(TemaCadastroDTO dto, int moduloId) {
+    public TemaListagemDTO criar(TemaCadastroDTO dto, int moduloId) {
         if (!moduloRepository.existsById(moduloId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
         Tema tema = TemaMapper.toEntity(dto);
         tema.setModulo(moduloRepository.findById(moduloId).get());
-        return temaRepository.save(tema);
+
+        return TemaMapper.toDto(temaRepository.save(tema));
+
     }
 
-    public List<TemaListagemDTO> listar(){
+    public List<TemaListagemDTO> listar() {
         return TemaMapper.toDto(temaRepository.findAll());
+    }
+
+    public List<TemaListagemDTO> listarPorModulo(Integer idModulo) {
+        return TemaMapper.toDto(temaRepository.findAllByModulo_IdModulo(idModulo));
     }
 
 

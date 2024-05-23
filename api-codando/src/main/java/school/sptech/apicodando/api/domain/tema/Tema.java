@@ -14,13 +14,13 @@ import java.util.List;
 @Data
 public class Tema {
 
-    @NotBlank
+//    @NotBlank
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idTema;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
+//    @NotBlank
+//    @Size(min = 3, max = 255)
+//    @NotNull
     protected String nome;
 
     @OneToMany(mappedBy = "tema")
