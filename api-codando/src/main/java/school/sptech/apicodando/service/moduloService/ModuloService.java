@@ -20,6 +20,7 @@ import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
 import school.sptech.apicodando.service.moduloService.dto.ModuloCadastroDTO;
 import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 import school.sptech.apicodando.api.mapper.ModuloMapper;
+import school.sptech.apicodando.service.temaService.TemaService;
 import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class ModuloService {
 
     private final ModuloRepository moduloRepository;
     private final GradeRepository gradeRepository;
-    private final TemaRepository temaRepository;
+    private final TemaService temaService;
     private final AulaRepository aulaRepository;
 
     public void criar(ModuloCadastroDTO moduloCadastro, Integer idGrade) {
@@ -60,16 +61,7 @@ public class ModuloService {
         List<ModuloListagemDTO> modulosDto = ModuloMapper.toDto(modulos);
 
         for (ModuloListagemDTO moduloDto : modulosDto) {
-            List<Tema> temas = temaRepository.findAllByModulo_IdModulo(moduloDto.getIdModulo());
-            List<TemaListagemDTO> temasDto = TemaMapper.toDto(temas);
-
-            for (TemaListagemDTO temaDto : temasDto) {
-                List<Aula> aulas = aulaRepository.findAllByTema_IdTema(temaDto.getIdTema());
-                List<AulaListagemDTO> aulasDto = AulaMapper.toDto(aulas);
-
-                temaDto.setAulas(aulasDto); // Definindo as aulas para o tema
-            }
-
+            List<TemaListagemDTO> temasDto = temaService.listarPorModulo(moduloDto.getIdModulo());
             moduloDto.setTemas(temasDto); // Definindo os temas para o módulo
         }
 

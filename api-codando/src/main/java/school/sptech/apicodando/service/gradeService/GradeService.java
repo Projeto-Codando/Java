@@ -29,9 +29,6 @@ public class GradeService {
 
     private final GradeRepository gradeRepository;
     private final TurmaRepository turmaRepository;
-    private final ModuloRepository moduloRepository;
-    private final TemaRepository temaRepository;
-    private final AulaRepository aulaRepository;
     private final ModuloService moduloService;
 
 

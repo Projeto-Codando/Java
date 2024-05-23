@@ -7,6 +7,8 @@ import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
 import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
+import school.sptech.apicodando.service.aulaService.AulaService;
+import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
 import school.sptech.apicodando.service.temaService.dto.TemaCadastroDTO;
 import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 import school.sptech.apicodando.api.mapper.TemaMapper;
@@ -19,6 +21,7 @@ public class TemaService {
 
     public final TemaRepository temaRepository;
     public final ModuloRepository moduloRepository;
+    private final AulaService aulaService;
 
 
     public TemaListagemDTO criar(TemaCadastroDTO dto, int moduloId) {
@@ -38,7 +41,15 @@ public class TemaService {
     }
 
     public List<TemaListagemDTO> listarPorModulo(Integer idModulo) {
-        return TemaMapper.toDto(temaRepository.findAllByModulo_IdModulo(idModulo));
+        List<Tema> temas = temaRepository.findAllByModulo_IdModulo(idModulo);
+        List<TemaListagemDTO> temasDto = TemaMapper.toDto(temas);
+
+        for (TemaListagemDTO temaDto : temasDto) {
+            List<AulaListagemDTO> aulasDto = aulaService.listarAulasPorTema(temaDto.getIdTema());
+            temaDto.setAulas(aulasDto);
+        }
+
+        return temasDto;
     }
 
 

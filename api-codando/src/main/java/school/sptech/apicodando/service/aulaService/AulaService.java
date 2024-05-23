@@ -9,6 +9,7 @@ import school.sptech.apicodando.api.domain.aula.repository.AulaRepository;
 import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
 import school.sptech.apicodando.service.aulaService.dto.AulaCriacaoDTO;
 import school.sptech.apicodando.api.mapper.AulaMapper;
+import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
 
 import java.util.List;
 
@@ -22,8 +23,9 @@ public class AulaService {
     public List<Aula> listarAulas() {
         return aulaRepository.findAll();
     }
-    public List<Aula> listarAulasPorTema(int idTema) {
-        return aulaRepository.findAllByTema_IdTema(idTema);
+
+    public List<AulaListagemDTO> listarAulasPorTema(int idTema) {
+        return AulaMapper.toDto(aulaRepository.findAllByTema_IdTema(idTema));
     }
 
     public Aula criar(AulaCriacaoDTO novaAula) {

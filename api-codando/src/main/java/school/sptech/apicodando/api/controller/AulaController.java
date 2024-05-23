@@ -34,11 +34,11 @@ public class AulaController {
 
     @GetMapping("/{idTema}")
     public ResponseEntity<List<AulaListagemDTO>> listarAulasPorTema(@PathVariable Integer idTema) {
-        List<Aula> aulas = aulaService.listarAulasPorTema(idTema);
+        List<AulaListagemDTO> aulas = aulaService.listarAulasPorTema(idTema);
         if (aulas.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.ok(aulas.stream().map(AulaMapper::toDto).toList());
+        return ResponseEntity.ok(aulas);
     }
 
     @PostMapping()
