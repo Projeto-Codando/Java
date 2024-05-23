@@ -24,19 +24,23 @@ INSERT INTO escolaridade (descricao) VALUES ('9º Ano');
 INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma)
 VALUES ('Turma 1', 'senha123', 1, 1, true);
 
-INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma)
-VALUES ('aluno2', 'sobrenome2', 'apelido2', 'senha123', 'true', 50, 1);
+INSERT INTO Grade (id_turma)
+VALUES (1   );
 
-INSERT INTO Modulo (nome)
-VALUES ('Nome do Modulo');
+INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma, id_grade)
+VALUES ('Turma 2', 'senha1234', 1, 1, true, 1);
 
-INSERT INTO Tema (nome)
-VALUES ('LP');
+INSERT INTO Modulo (nome, grade_id_grade)
+VALUES ('Nome do Modulo', 1);
+
+INSERT INTO Tema (nome, id_modulo)
+VALUES ('LP', 1);
+
+
+
 
 INSERT INTO Aula (titulo, descricao, nivel_dificuldade, pontuacao_maxima, tema_id_tema)
 VALUES ('IF', 'Aprendendo a usar "IF"', 1000, 100, 1);
-
-
 
 
 INSERT INTO csv (ano_letivo, aba1, aba2, aba3, apr1, apr2, apr3, cd_escola, cd_rede_ensino, cd_tp_identificador, nm_completo_escola, nm_diretoria, nm_municipio, rep1, rep2, rep3) VALUES

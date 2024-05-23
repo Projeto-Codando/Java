@@ -3,6 +3,7 @@ package school.sptech.apicodando.api.mapper;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
+import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
 import school.sptech.apicodando.api.mapper.AlunoMapper;

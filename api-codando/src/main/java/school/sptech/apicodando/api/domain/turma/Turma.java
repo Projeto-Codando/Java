@@ -8,6 +8,7 @@ import lombok.Data;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
+import school.sptech.apicodando.api.domain.grade.Grade;
 
 import java.util.List;
 
@@ -35,6 +36,10 @@ public class Turma {
     @ManyToOne
     @JoinColumn(name = "idEducador")
     protected Educador educador;
+
+    @ManyToOne
+    @JoinColumn(name = "idGrade")
+    protected Grade grade;
 
     protected boolean statusTurma;
 

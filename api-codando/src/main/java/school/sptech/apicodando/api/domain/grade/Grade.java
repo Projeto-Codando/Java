@@ -19,11 +19,12 @@ public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idGrade;
-    @ManyToOne
-//    @Column(name = "gradeTurma")
+
+    @OneToOne
+    @JoinColumn(name = "idTurma")
     protected Turma fkTurma;
+
     @OneToMany(mappedBy = "grade")
-//    @Column(name = "gradeModulos")
     protected List<Modulo> modulos;
 
     public Grade() {

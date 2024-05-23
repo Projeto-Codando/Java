@@ -22,9 +22,12 @@ public class Tema {
     @Size(min = 3, max = 255)
     @NotNull
     protected String nome;
+
     @OneToMany(mappedBy = "tema")
     private List<Aula> aulas;
+
     @ManyToOne
+    @JoinColumn(name = "idModulo")
     private Modulo modulo;
 
     public Tema() {

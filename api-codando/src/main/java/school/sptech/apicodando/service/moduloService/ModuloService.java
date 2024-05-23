@@ -28,6 +28,8 @@ public class ModuloService {
 
         Modulo modulo = ModuloMapper.toEntity(moduloCadastro);
         modulo.setGrade(gradeRepository.findById(idGrade).get());
+        modulo.getGrade().setFkTurma(gradeRepository.findById(idGrade).get().getFkTurma());
+        modulo.getGrade().getFkTurma().setAlunos(gradeRepository.findById(idGrade).get().getFkTurma().getAlunos());
         moduloRepository.save(modulo);
 
     }

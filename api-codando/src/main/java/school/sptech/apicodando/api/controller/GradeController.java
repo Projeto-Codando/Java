@@ -35,6 +35,4 @@ public class GradeController {
         return status(200).body(gradeService.listarPorId(id));
     }
 
-
-
 }

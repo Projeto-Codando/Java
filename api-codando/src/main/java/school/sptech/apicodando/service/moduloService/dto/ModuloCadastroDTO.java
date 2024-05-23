@@ -14,7 +14,6 @@ import java.util.List;
 public class ModuloCadastroDTO {
     @NotBlank
     @Size(min = 3, max = 255)
-    @NotNull
     private String nome;
     private List<TemaListagemDTO> temas;
     @PositiveOrZero
