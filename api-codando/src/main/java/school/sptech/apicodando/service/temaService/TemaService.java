@@ -42,6 +42,11 @@ public class TemaService {
 
     public List<TemaListagemDTO> listarPorModulo(Integer idModulo) {
         List<Tema> temas = temaRepository.findAllByModulo_IdModulo(idModulo);
+
+        if (temas.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "idModulo não encontrado.");
+        }
+
         List<TemaListagemDTO> temasDto = TemaMapper.toDto(temas);
 
         for (TemaListagemDTO temaDto : temasDto) {

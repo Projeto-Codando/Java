@@ -62,10 +62,22 @@ public class ModuloService {
 
         for (ModuloListagemDTO moduloDto : modulosDto) {
             List<TemaListagemDTO> temasDto = temaService.listarPorModulo(moduloDto.getIdModulo());
-            moduloDto.setTemas(temasDto); // Definindo os temas para o módulo
+            moduloDto.setTemas(temasDto);
         }
 
         return modulosDto;
+    }
+
+    public ModuloListagemDTO listarPorId(Integer id){
+        Modulo modulo = moduloRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modulo não encontrado."));
+
+        ModuloListagemDTO dto = ModuloMapper.toDto(modulo);
+
+        List<TemaListagemDTO> temasDto = temaService.listarPorModulo(dto.getIdModulo());
+        dto.setTemas(temasDto);
+
+        return dto;
     }
 
 

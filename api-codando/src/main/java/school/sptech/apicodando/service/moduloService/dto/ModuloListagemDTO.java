@@ -17,9 +17,9 @@ public class ModuloListagemDTO {
 
     protected Integer idModulo;
     protected String nome;
+//    protected Integer idGrade;
 
     private List<TemaListagemDTO> temas;
-    protected Integer idGrade;
 
     public ModuloListagemDTO() {
         this.temas = new ArrayList<>();

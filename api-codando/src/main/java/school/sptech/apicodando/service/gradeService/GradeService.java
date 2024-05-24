@@ -45,9 +45,12 @@ public class GradeService {
     }
 
     public GradeListagemDto listarPorId(Integer id){
-        Grade grade = gradeRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
-        return GradeMapper.toDto(grade);
+        GradeListagemDto dto = GradeMapper.toDto(gradeRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada.")));
+        
+        dto.setModulo(moduloService.listarPorGrade(dto.getIdGrade()));
+
+        return dto;
     }
 
     public List<GradeListagemDto> listarTodos(){

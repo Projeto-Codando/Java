@@ -25,7 +25,14 @@ public class AulaService {
     }
 
     public List<AulaListagemDTO> listarAulasPorTema(int idTema) {
-        return AulaMapper.toDto(aulaRepository.findAllByTema_IdTema(idTema));
+
+        List<Aula> aulas = aulaRepository.findAllByTema_IdTema(idTema);
+
+        if (aulas.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return AulaMapper.toDto(aulas);
     }
 
     public Aula criar(AulaCriacaoDTO novaAula) {

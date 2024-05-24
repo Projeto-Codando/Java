@@ -10,8 +10,8 @@ import java.util.List;
 @Data
 public class GradeListagemDto {
     private Integer idGrade;
-    private List<ModuloListagemDTO> modulo;
     private Integer idTurma;
+    private List<ModuloListagemDTO> modulo;
 
     public GradeListagemDto(){
         this.modulo = new ArrayList<>();

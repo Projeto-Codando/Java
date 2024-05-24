@@ -38,5 +38,10 @@ public class ModuloController {
         return ResponseEntity.ok(moduloService.listarPorGrade(idGrade));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ModuloListagemDTO> listarPorId(@PathVariable Integer id) {
+
+        return ResponseEntity.ok(moduloService.listarPorId(id));
+    }
 
 }

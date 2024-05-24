@@ -17,7 +17,7 @@ public class ModuloMapper {
         ModuloListagemDTO dto = new ModuloListagemDTO();
         dto.setIdModulo(modulo.getIdModulo());
         dto.setNome(modulo.getNome());
-        dto.setIdGrade(modulo.getGrade().getIdGrade());
+//        dto.setIdGrade(modulo.getGrade().getIdGrade());
 //        dto.getGrade().setTurma(toTurmaListagem(modulo.getGrade().getFkTurma()));
         return dto;
     }
