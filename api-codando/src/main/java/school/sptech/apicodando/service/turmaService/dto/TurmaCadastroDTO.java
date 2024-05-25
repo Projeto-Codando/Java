@@ -30,6 +30,9 @@ public class TurmaCadastroDTO {
     @JoinColumn(name ="idEducador")
     protected int fkEducador;
     @OneToMany
+    @JoinColumn(name ="fkGrade")
+    protected int fkGrade;
+    @OneToMany
     protected List<Aluno> alunos;
 
     protected boolean statusTurma;

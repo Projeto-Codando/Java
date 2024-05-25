@@ -12,6 +12,7 @@ import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.educador.repository.EducadorRepository;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.escolaridade.repository.EscolaridadeRepository;
+import school.sptech.apicodando.api.domain.grade.repository.GradeRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.TurmaMapper;
@@ -34,6 +35,7 @@ public class TurmaService {
     private final TurmaRepository turmaRepository;
     private final EscolaridadeRepository escolaridadeRepository;
     private final EducadorRepository educadorRepository;
+    private final GradeRepository gradeRepository;
 
     public void criar(TurmaCadastroDTO turmaCadastro) {
         Escolaridade escolaridade = escolaridadeRepository.findById(turmaCadastro.getFkEscolaridade())
@@ -44,7 +46,9 @@ public class TurmaService {
 
         final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade, educador);
 
-        if (existeTurmaByCodigo(turmaCadastro.getSenha())) {
+        novaTurma.setGrade(gradeRepository.findAllByFkTurma_IdTurma(novaTurma.getIdTurma()));
+
+        if (existeTurmaByCodigo(turmaCadastro.getSenha())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");
         }
         turmaRepository.save(novaTurma);
