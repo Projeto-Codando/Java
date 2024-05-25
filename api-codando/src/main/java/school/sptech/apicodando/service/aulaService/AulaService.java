@@ -45,4 +45,12 @@ public class AulaService {
         aula.setTema(temaRepository.findById(novaAula.getTemaId()).get());
         return aulaRepository.save(aula);
     }
+
+    public Aula buscarPorId(int id) {
+        return aulaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    public Integer getPontuacaoMaxima(int idAula) {
+        return aulaRepository.findById(idAula).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)).getPontuacaoMaxima();
+    }
 }
