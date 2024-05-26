@@ -1,5 +1,6 @@
 package school.sptech.apicodando.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,13 @@ public class TemaController {
     public final TemaService temaService;
     public final ModuloService moduloService;
 
+    @Operation(summary = "Listar",description = "Listar todas temas!",tags = "Tema")
     @GetMapping
     public ResponseEntity<List<TemaListagemDTO>> listar(){
         return ResponseEntity.ok(temaService.listar());
     }
 
+    @Operation(summary = "Cadastrar",description = "Método para cadastrar um tema!",tags = "Tema")
     @PostMapping()
     public ResponseEntity<TemaListagemDTO> criar(@RequestBody TemaCadastroDTO dto){
         return ResponseEntity.created(null).body(temaService.criar(dto, dto.getModuloId()));

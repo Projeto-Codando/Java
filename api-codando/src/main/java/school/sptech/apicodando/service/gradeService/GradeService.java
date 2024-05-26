@@ -4,22 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import school.sptech.apicodando.api.domain.aula.Aula;
-import school.sptech.apicodando.api.domain.aula.repository.AulaRepository;
 import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.grade.repository.GradeRepository;
-import school.sptech.apicodando.api.domain.modulo.Modulo;
-import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
-import school.sptech.apicodando.api.domain.tema.Tema;
-import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.GradeMapper;
-import school.sptech.apicodando.api.mapper.ModuloMapper;
 import school.sptech.apicodando.service.gradeService.dto.GradeCadastroDto;
 import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
 import school.sptech.apicodando.service.moduloService.ModuloService;
-import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 
 import java.util.List;
 
@@ -66,10 +58,4 @@ public class GradeService {
 
         return dtos;
     }
-
-//    public GradeListagemDto.ModuloListagemGradeDto listarModuloPorIdGrade(int idGrade){
-//        List<Modulo> modulos = moduloRepository.findAllByFkGrade(idGrade);
-//    }
-
-
 }
