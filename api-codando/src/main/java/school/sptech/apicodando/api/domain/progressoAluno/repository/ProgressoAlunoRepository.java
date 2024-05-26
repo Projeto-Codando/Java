@@ -11,4 +11,6 @@ public interface ProgressoAlunoRepository extends JpaRepository<ProgressoAluno, 
     boolean existsByFkAlunoAndFkAula(Aluno fkAluno, Aula fkAula);
 
     Optional<ProgressoAluno> findByFkAluno(Aluno aluno);
+
+    Optional<ProgressoAluno> findByFkAlunoAndFkAula(Aluno aluno, Aula aula);
 }

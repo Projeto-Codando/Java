@@ -20,10 +20,8 @@ public class ProgressoAluno {
     @NotNull
     @PositiveOrZero
     protected Integer pontuacaoAluno;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
-    protected String statusAula;
+
+    private String statusAula = "Em andamento";
     @OneToOne
     @JoinColumn(name = "fkAluno")
     protected Aluno fkAluno;

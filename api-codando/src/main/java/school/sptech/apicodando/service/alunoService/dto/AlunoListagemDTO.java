@@ -1,5 +1,12 @@
 package school.sptech.apicodando.service.alunoService.dto;
 
+import lombok.Data;
+import school.sptech.apicodando.api.domain.avatar.Avatar;
+import school.sptech.apicodando.service.avatarService.dto.AvatarListagemDTO;
+
+import java.util.List;
+
+@Data
 public class AlunoListagemDTO {
 
     private Integer idAluno;
@@ -8,49 +15,13 @@ public class AlunoListagemDTO {
     private String apelido;
     private Boolean status;
     private Integer moedas;
+    private List<AvatarListagemDTO> avatares;
 
-    public Integer getIdAluno() {
-        return idAluno;
-    }
-
-    public void setIdAluno(Integer idAluno) {
-        this.idAluno = idAluno;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getApelido() {
-        return apelido;
-    }
-
-    public void setApelido(String apelido) {
-        this.apelido = apelido;
-    }
-
-    public String getStatus() {
-        return status ? "Ativo" : "Inativo";
-    }
-
-    public Integer getMoedas() {
-        return moedas;
-    }
-
-    public void setMoedas(Integer moedas) {
-        this.moedas = moedas;
+    @Data
+    public static class AvatarListagemDTO {
+        private Integer idAvatar;
+        private String descricao;
+        private Integer preco;
     }
 
 }

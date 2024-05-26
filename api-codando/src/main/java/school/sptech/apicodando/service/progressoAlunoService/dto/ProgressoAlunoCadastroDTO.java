@@ -9,7 +9,6 @@ import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
 public class ProgressoAlunoCadastroDTO {
 
     private Integer pontuacaoAluno = 0;
-    private String statusAula ;
     @OneToOne
     @NotNull
     @JoinColumn(name = "idAluno")

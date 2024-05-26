@@ -58,10 +58,12 @@ public class ProgressoAlunoService {
         return repository.findAll();
     }
 
-    public ProgressoAluno atualizarPontos(int idAluno, PontosDTO pontosDTO) {
+    public ProgressoAluno atualizarPontos(int idAluno, PontosDTO pontosDTO, int idAula) {
         Aluno aluno = alunoService.listarUmPorId(idAluno).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado."));
 
-        ProgressoAluno progressoAluno = repository.findByFkAluno(aluno).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Progresso do aluno não encontrado."));
+        Aula aula = aulaService.buscarPorId(idAula);
+
+        ProgressoAluno progressoAluno = repository.findByFkAlunoAndFkAula(aluno, aula).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Progresso do aluno não encontrado."));
 
         int pontuacaoMaximaAula = aulaService.getPontuacaoMaxima(progressoAluno.getFkAula().getId());
 
@@ -70,6 +72,13 @@ public class ProgressoAlunoService {
         }
 
         int novaPontuacao = progressoAluno.getPontuacaoAluno() + pontosDTO.getPontos();
+
+        aluno.setMoedas(aluno.getMoedas() + pontosDTO.getPontos());
+
+        if (novaPontuacao == pontuacaoMaximaAula) {
+            progressoAluno.setStatusAula("Finalizada");
+        }
+
         progressoAluno.setPontuacaoAluno(novaPontuacao);
         return repository.save(progressoAluno);
     }

@@ -19,6 +19,7 @@ public class ProgressoAlunoListagemDto {
         private String apelido;
         private Boolean status;
         private String escolaridade;
+        private Integer moedas;
     }
 
     @Data
@@ -27,7 +28,6 @@ public class ProgressoAlunoListagemDto {
         private String nome;
         private String descricao;
         private Integer pontuacaoMaxima;
-        private Integer idModulo;
     }
 
 }

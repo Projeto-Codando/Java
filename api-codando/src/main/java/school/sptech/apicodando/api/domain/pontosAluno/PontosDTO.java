@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class PontosDTO {
     private int pontos;
+    private int moedas;
 }

@@ -24,8 +24,8 @@ INSERT INTO escolaridade (descricao) VALUES ('9º Ano');
 INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma)
 VALUES ('Turma 1', 'senha123', 1, 1, true);
 
-INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma)
-VALUES ('aluno2', 'sobrenome2', 'apelido2', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 51, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade)
+VALUES ('aluno2', 'sobrenome2', 'apelido2', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1);
 
 INSERT INTO Grade (id_turma)
 VALUES (1);
@@ -58,3 +58,10 @@ INSERT INTO csv (ano_letivo, aba1, aba2, aba3, apr1, apr2, apr3, cd_escola, cd_r
 (2021, 0, 0, 0, 100, 0, 0, 17152, true, 8, 'MAURA ARRUDA GUIDOLIN PROFA', 'AMERICANA', 'AMERICANA', 0, 4, 0),
 (2021, 0, 0, 0, 100, 0, 0, 17164, true, 8, 'JOAO DE CASTRO GONCALVES DR', 'AMERICANA', 'AMERICANA', 0, 5, 0),
 (2021, 0, 0, 0, 94.74, 93.35, 0, 17176, true, 8, 'MAGI MONSENHOR', 'AMERICANA', 'AMERICANA', 5.26, 6.65, 0);
+
+INSERT INTO Avatar (id, descricao, preco, imagemURL) VALUES
+(1, 'Avatar 1', 100, 'http://url-da-imagem.com/avatar1.png'),
+(2, 'Avatar 2', 200, 'http://url-da-imagem.com/avatar2.png'),
+(3, 'Avatar 3', 300, 'http://url-da-imagem.com/avatar3.png'),
+(4, 'Avatar 4', 400, 'http://url-da-imagem.com/avatar4.png'),
+(5, 'Avatar 5', 500, 'http://url-da-imagem.com/avatar5.png');

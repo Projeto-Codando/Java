@@ -39,9 +39,9 @@ public class ProgressoAlunoController {
         return ResponseEntity.ok(mapper.toListagemDto(progressoAlunoService.listarTodos()));
     }
 
-    @PutMapping("/aluno/{idAluno}/pontos")
-    public ResponseEntity<ProgressoAlunoListagemDto> atualizarPontos(@PathVariable Integer idAluno, @RequestBody PontosDTO pontosDTO) {
-        ProgressoAluno progressoAluno = progressoAlunoService.atualizarPontos(idAluno, pontosDTO);
+    @PutMapping("/aluno/{idAluno}/aula/{idAula}/pontos")
+    public ResponseEntity<ProgressoAlunoListagemDto> atualizarPontos(@PathVariable Integer idAluno, @RequestBody PontosDTO pontosDTO, @PathVariable Integer idAula){
+        ProgressoAluno progressoAluno = progressoAlunoService.atualizarPontos(idAluno, pontosDTO, idAula);
         return ResponseEntity.ok(mapper.toListagemDto(progressoAluno));
     }
 }

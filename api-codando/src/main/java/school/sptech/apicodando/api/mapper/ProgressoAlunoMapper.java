@@ -20,14 +20,13 @@ public class ProgressoAlunoMapper {
     public static ProgressoAluno toEntity(ProgressoAlunoCadastroDTO progressoAlunoCadastro) {
         ProgressoAluno progressoAluno = new ProgressoAluno();
         progressoAluno.setPontuacaoAluno(progressoAlunoCadastro.getPontuacaoAluno());
-        progressoAluno.setStatusAula(progressoAlunoCadastro.getStatusAula());
+
         return progressoAluno;
     }
 
     public ProgressoAlunoCadastroDTO toDTO(ProgressoAluno progressoAluno) {
         ProgressoAlunoCadastroDTO progressoAlunoCadastroDTO = new ProgressoAlunoCadastroDTO();
         progressoAlunoCadastroDTO.setPontuacaoAluno(progressoAluno.getPontuacaoAluno());
-        progressoAlunoCadastroDTO.setStatusAula(progressoAluno.getStatusAula());
         progressoAlunoCadastroDTO.setFkAluno(progressoAluno.getFkAluno().getIdAluno());
         progressoAlunoCadastroDTO.setFkAula(progressoAluno.getFkAula().getId());
         return progressoAlunoCadastroDTO;
@@ -50,6 +49,8 @@ public class ProgressoAlunoMapper {
         alunoListagemDto.setSobrenome(aluno.getSobrenome());
         alunoListagemDto.setApelido(aluno.getApelido());
         alunoListagemDto.setStatus(aluno.getStatus());
+        alunoListagemDto.setMoedas(aluno.getMoedas());
+        alunoListagemDto.setEscolaridade(aluno.getEscolaridade().getDescricao());
         return alunoListagemDto;
     }
 
@@ -65,7 +66,6 @@ public class ProgressoAlunoMapper {
     public static ProgressoAluno toEntity(ProgressoAlunoCadastroDTO progressoAlunoCadastro, Aluno aluno, Aula aula) {
         ProgressoAluno progressoAluno = new ProgressoAluno();
         progressoAluno.setPontuacaoAluno(progressoAlunoCadastro.getPontuacaoAluno());
-        progressoAluno.setStatusAula(progressoAlunoCadastro.getStatusAula());
         progressoAluno.setFkAluno(aluno);
         progressoAluno.setFkAula(aula);
         return progressoAluno;

@@ -25,7 +25,6 @@ import java.util.Optional;
 @Service
 public class AlunoService {
 
-
     @Autowired
     private AlunoRepository alunoRepository;
 
@@ -76,7 +75,7 @@ public class AlunoService {
 
     public void atualizar(Aluno alunoAtualizado, int id) {
         if (!alunoRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado aluno com o id informado.");
         }
         alunoAtualizado.setIdAluno(id);
         alunoRepository.save(alunoAtualizado);
@@ -117,14 +116,14 @@ public class AlunoService {
 
     public Optional<Aluno> listarUmPorId(int id) {
         if (!existePorId(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado");
         }
         return alunoRepository.findById(id);
     }
 
     public List<Aluno> listarTodos() {
         if (alunoRepository.findAll().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Não há alunos cadastrados.");
         }
         return alunoRepository.findAll();
     }

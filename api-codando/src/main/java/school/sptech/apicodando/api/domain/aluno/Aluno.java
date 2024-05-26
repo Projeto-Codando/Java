@@ -2,9 +2,11 @@ package school.sptech.apicodando.api.domain.aluno;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.turma.Turma;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,8 +40,11 @@ public class Aluno {
 //    @NotBlank
 //    @PositiveOrZero
     protected Integer moedas;
-    protected String senhaTurma;
 
+    protected String senhaTurma;
+    @OneToMany
+    @JoinColumn(name = "idAvatar")
+    protected List<Avatar> avatares;
     @ManyToOne
     @JoinColumn(name = "idTurma")
     protected Turma turma;
@@ -50,6 +55,7 @@ public class Aluno {
     public Aluno() {
         this.status = true;
         this.moedas = 0;
+        this.avatares = new ArrayList<>();
     }
 
 }

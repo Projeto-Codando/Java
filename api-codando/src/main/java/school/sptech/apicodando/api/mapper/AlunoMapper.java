@@ -1,10 +1,12 @@
 package school.sptech.apicodando.api.mapper;
 
 import school.sptech.apicodando.api.domain.aluno.Aluno;
+import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
+import school.sptech.apicodando.service.avatarService.dto.AvatarListagemDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
@@ -38,6 +40,8 @@ public class AlunoMapper {
         listagemDto.setSobrenome(entidade.getSobrenome());
         listagemDto.setApelido(entidade.getApelido());
         listagemDto.setMoedas(entidade.getMoedas());
+        listagemDto.setStatus(entidade.getStatus());
+        listagemDto.setAvatares(toDtoAvatar(entidade.getAvatares()));
 
         return listagemDto;
     }
@@ -60,5 +64,26 @@ public class AlunoMapper {
         alunoTokenDto.setNome(aluno.getNome());
 
         return alunoTokenDto;
+    }
+
+    public static AvatarListagemDTO toDtoAvatar(Avatar avatar) {
+        if (avatar == null) return null;
+
+        AvatarListagemDTO avatarListagemDTO = new AvatarListagemDTO();
+        avatarListagemDTO.setId(avatar.getId());
+        avatarListagemDTO.setDescricao(avatar.getDescricao());
+        avatarListagemDTO.setPreço(avatar.getPreco());
+
+        return avatarListagemDTO;
+    }
+
+    public static List<AlunoListagemDTO.AvatarListagemDTO> toDtoAvatar(List<Avatar> avatares) {
+        return avatares.stream().map(avatar -> {
+            AlunoListagemDTO.AvatarListagemDTO avatarListagemDTO = new AlunoListagemDTO.AvatarListagemDTO();
+            avatarListagemDTO.setIdAvatar(avatar.getId());
+            avatarListagemDTO.setDescricao(avatar.getDescricao());
+            avatarListagemDTO.setPreco(avatar.getPreco());
+            return avatarListagemDTO;
+        }).collect(Collectors.toList());
     }
 }
