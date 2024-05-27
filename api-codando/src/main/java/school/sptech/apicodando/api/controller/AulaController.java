@@ -14,6 +14,7 @@ import school.sptech.apicodando.service.aulaService.dto.AulaCriacaoDTO;
 import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
 import school.sptech.apicodando.api.mapper.AulaMapper;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,8 @@ public class AulaController {
     @Operation(summary = "Cadastrar",description = "Método que cria uma Aula!",tags = "Aula")
     @PostMapping()
     public ResponseEntity<AulaListagemDTO> criar(@RequestBody @Valid AulaCriacaoDTO aulaNova){
-        Aula aula = aulaService.criar(aulaNova);
-        return ResponseEntity.created(null).body(AulaMapper.toDto(aula));
+        AulaListagemDTO aula = AulaMapper.toDto(aulaService.criar(aulaNova));
+        URI location = URI.create(String.format("/%d", aula.getId()));
+        return ResponseEntity.created(location).body(aula);
     }
 }

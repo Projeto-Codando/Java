@@ -24,7 +24,7 @@ public class TemaService {
     private final AulaService aulaService;
 
 
-    public TemaListagemDTO criar(TemaCadastroDTO dto, int moduloId) {
+    public Tema criar(TemaCadastroDTO dto, int moduloId) {
         if (!moduloRepository.existsById(moduloId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Módulo não encontrado.");
         }
@@ -32,7 +32,7 @@ public class TemaService {
         Tema tema = TemaMapper.toEntity(dto);
         tema.setModulo(moduloRepository.findById(moduloId).get());
 
-        return TemaMapper.toDto(temaRepository.save(tema));
+        return temaRepository.save(tema);
 
     }
 

@@ -6,12 +6,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.apicodando.api.domain.tema.Tema;
+import school.sptech.apicodando.api.mapper.TemaMapper;
 import school.sptech.apicodando.service.moduloService.ModuloService;
 import school.sptech.apicodando.service.temaService.TemaService;
 import school.sptech.apicodando.service.temaService.dto.TemaCadastroDTO;
 import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 
+import java.net.URI;
 import java.util.List;
+
+import static org.springframework.web.servlet.function.ServerResponse.created;
 
 @RestController
 @RequestMapping("/temas")
@@ -31,7 +35,9 @@ public class TemaController {
     @Operation(summary = "Cadastrar",description = "Método para cadastrar um tema!",tags = "Tema")
     @PostMapping()
     public ResponseEntity<TemaListagemDTO> criar(@RequestBody TemaCadastroDTO dto){
-        return ResponseEntity.created(null).body(temaService.criar(dto, dto.getModuloId()));
+        TemaListagemDTO novoTema = TemaMapper.toDto(temaService.criar(dto, dto.getModuloId()));
+        URI location = URI.create(String.format("/%d", dto.getModuloId()));
+        return ResponseEntity.created(location).body(novoTema);
     }
 
 

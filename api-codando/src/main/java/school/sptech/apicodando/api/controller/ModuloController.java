@@ -4,11 +4,14 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import school.sptech.apicodando.api.domain.modulo.Modulo;
+import school.sptech.apicodando.api.mapper.ModuloMapper;
 import school.sptech.apicodando.service.gradeService.GradeService;
 import school.sptech.apicodando.service.moduloService.ModuloService;
 import school.sptech.apicodando.service.moduloService.dto.ModuloCadastroDTO;
 import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,10 +23,10 @@ public class ModuloController {
     private final ModuloService moduloService;
 
     @PostMapping
-    public ResponseEntity<ModuloCadastroDTO> criar(@RequestBody ModuloCadastroDTO moduloCadastro) {
-        moduloService.criar(moduloCadastro, moduloCadastro.getGradeId());
-
-        return ResponseEntity.created(null).body(moduloCadastro);
+    public ResponseEntity<ModuloListagemDTO> criar(@RequestBody ModuloCadastroDTO moduloCadastro) {
+        ModuloListagemDTO moduloNovo = ModuloMapper.toDto(moduloService.criar(moduloCadastro, moduloCadastro.getGradeId()));
+        URI location = URI.create(String.format("/%d", moduloNovo.getIdModulo()));
+        return ResponseEntity.created(location).body(moduloNovo);
     }
 
     @GetMapping

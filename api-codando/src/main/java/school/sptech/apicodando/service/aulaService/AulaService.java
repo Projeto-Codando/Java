@@ -50,7 +50,7 @@ public class AulaService {
 
     public Aula criar(AulaCriacaoDTO novaAula) {
 
-        if (temaRepository.findById(novaAula.getTemaId()).isEmpty()) {
+        if (!temaRepository.existsById(novaAula.getTemaId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
