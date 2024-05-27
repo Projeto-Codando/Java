@@ -62,6 +62,20 @@ public class TurmaMapper {
         return listagemDto;
     }
 
+    public static Turma toEntity(TurmaAtualizaDTO dto, Escolaridade escolaridade, Educador educador) {
+        if (dto == null) {
+            return null;
+        }
+
+        Turma turma = new Turma();
+        turma.setNome(dto.getNome());
+        turma.setSenha(dto.getSenha());
+        turma.setEscolaridade(escolaridade);
+        turma.setEducador(educador);
+
+        return turma;
+    }
+
     private static List<TurmaListagemDTO.AlunoListagemDTO> toAlunoDto(List<Aluno> entidades){
         if (entidades == null) return null;
 

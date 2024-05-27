@@ -37,7 +37,7 @@ public class TurmaService {
     private final EducadorRepository educadorRepository;
     private final GradeRepository gradeRepository;
 
-    public void criar(TurmaCadastroDTO turmaCadastro) {
+    public Turma criar(TurmaCadastroDTO turmaCadastro) {
         Escolaridade escolaridade = escolaridadeRepository.findById(turmaCadastro.getFkEscolaridade())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Escolaridade não encontrada."));
 
@@ -51,7 +51,7 @@ public class TurmaService {
         if (existeTurmaByCodigo(turmaCadastro.getSenha())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");
         }
-        turmaRepository.save(novaTurma);
+        return turmaRepository.save(novaTurma);
     }
 
     public Turma desativar(int id, int idProfessor) {
@@ -64,15 +64,20 @@ public class TurmaService {
         }
     }
 
-//    public void atualizar(TurmaAtualizaDTO turmaAtualizada, int id){
-//        Turma turma = buscarPorIdTurmaAndIdProfessor(id, turmaAtualizada.getEducador().getIdEducador());
-//        if(turma == null){
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
-//        } else {
-//            turmaAtualizada.setIdTurma(id);
-//            this.turmaRepository.save(turmaAtualizada);
-//        }
-//    }
+    public Turma atualizar(TurmaAtualizaDTO turmaAtualizada, int id){
+        Turma turma = buscarPorIdTurmaAndIdProfessor(id, turmaAtualizada.getFkEducador().getIdEducador());
+        if(turma == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        } else {
+
+            turma.setNome(turmaAtualizada.getNome());
+            turma.setSenha(turmaAtualizada.getSenha());
+            turma.setEscolaridade(turmaAtualizada.getFkEscolaridade());
+            turma.setEducador(turmaAtualizada.getFkEducador());
+
+            return turmaRepository.save(turma);
+        }
+    }
 
     public List<TurmaListagemDTO> listarTodasTurmasPorProfessor(int idProfessor) {
         List<Turma> turmas = this.listarPorProfessor(idProfessor);

@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -18,6 +19,7 @@ import school.sptech.apicodando.api.mapper.AlunoMapper;
 import school.sptech.apicodando.api.mapper.TurmaMapper;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 import school.sptech.apicodando.service.turmaService.TurmaService;
+import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
@@ -32,17 +34,17 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/turmas")
-@NoArgsConstructor
+@RequiredArgsConstructor
+@SecurityRequirement(name = "Bearer")
 public class TurmaController {
-    @Autowired
-    private TurmaService turmaService;
+
+    private final TurmaService turmaService;
 
     @Operation(summary = "Cadastar", description = "Método que cadastra uma turma!", tags = "Turma")
     @PostMapping
-//    @SecurityRequirement(name = "Bearer")
-    public ResponseEntity<Void> criar(@RequestBody @Valid TurmaCadastroDTO novaTurma) {
-        turmaService.criar(novaTurma);
-        return status(201).build();
+    public ResponseEntity<TurmaListagemDTO> criar(@RequestBody @Valid TurmaCadastroDTO novaTurma) {
+        Turma turmaCadastrada = turmaService.criar(novaTurma);
+        return status(201).body(TurmaMapper.toDto(turmaCadastrada));
     }
 
     @Operation(summary = "Listar", description = "Método que lista todas as turmas de um determinado Educador!", tags = "Turma")
@@ -50,13 +52,13 @@ public class TurmaController {
     public ResponseEntity<List<TurmaListagemDTO>> listarPorProfessor(@PathVariable int idProfessor) {
         return status(200).body(this.turmaService.listarTodasTurmasPorProfessor(idProfessor));
     }
-//
-//    @Operation(summary = "Editar", description = "Método que edita uma turma!", tags = "Turma")
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Void> editar(@RequestBody @Valid Turma turmaAtualizada, @PathVariable int id) {
-//        this.turmaService.atualizar(turmaAtualizada, id);
-//        return status(200).build();
-//    }
+
+    @Operation(summary = "Editar", description = "Método que edita uma turma!", tags = "Turma")
+    @PutMapping("/{id}")
+    public ResponseEntity<TurmaListagemDTO> editar(@RequestBody @Valid TurmaAtualizaDTO turmaAtualizada, @PathVariable int id) {
+        Turma turmaCadastrada = turmaService.atualizar(turmaAtualizada, id);
+        return status(200).body(TurmaMapper.toDto(turmaCadastrada));
+    }
 
     @Operation(summary = "Desativar", description = "Método que seta o status da turma como desativado!", tags = "Turma")
     @PostMapping("/desativar/{idProfessor}/{id}")

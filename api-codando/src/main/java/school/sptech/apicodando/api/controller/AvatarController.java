@@ -1,5 +1,6 @@
 package school.sptech.apicodando.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,18 +21,20 @@ import java.util.List;
 public class AvatarController {
 
     private final AvatarService service;
-
+    @Operation(summary = "Listar", description = "Método que lista todos os avatares!", tags = "Avatar")
     @GetMapping
     public List<AvatarListagemDTO> listar() {
         return AvatarMapper.toListagem(service.listar());
     }
 
+    @Operation(summary = "Listar", description = "Método que compra um avatar", tags = "Avatar")
     @PutMapping("/aluno/{idAluno}/avatar/{idAvatar}")
     public ResponseEntity<AvatarListagemDTO> atualizarAvatar(@PathVariable int idAluno,@PathVariable int idAvatar) {
         service.atualizarAvatar(idAluno, idAvatar);
         return ResponseEntity.ok(AvatarMapper.toListagemDTO(service.buscarPorId(idAvatar)));
     }
 
+    @Operation(summary = "Listar", description = "Método que seta um avatar na lista do aluno", tags = "Avatar")
     @PutMapping("/aluno/{idAluno}/avatar-escolhido/{idAvatar}")
     public ResponseEntity<AvatarListagemDTO> atualizarAvatarEscolhido(@PathVariable int idAluno,@PathVariable int idAvatar) {
         service.atualizarAvatarEscolhido(idAluno, idAvatar);

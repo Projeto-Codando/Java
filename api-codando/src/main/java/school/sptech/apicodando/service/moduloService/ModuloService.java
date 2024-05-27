@@ -34,7 +34,7 @@ public class ModuloService {
     private final TemaService temaService;
     private final AulaRepository aulaRepository;
 
-    public void criar(ModuloCadastroDTO moduloCadastro, Integer idGrade) {
+    public Modulo criar(ModuloCadastroDTO moduloCadastro, Integer idGrade) {
 
         if (gradeRepository.findById(idGrade).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -44,7 +44,7 @@ public class ModuloService {
         modulo.setGrade(gradeRepository.findById(idGrade).get());
         modulo.getGrade().setFkTurma(gradeRepository.findById(idGrade).get().getFkTurma());
         modulo.getGrade().getFkTurma().setAlunos(gradeRepository.findById(idGrade).get().getFkTurma().getAlunos());
-        moduloRepository.save(modulo);
+        return moduloRepository.save(modulo);
 
     }
 

@@ -82,9 +82,9 @@ public class AlunoController {
 
     @Operation(summary = "Atualizar", description = "Método que atualiza o aluno!", tags = "Aluno")
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizar(@PathVariable int id, @RequestBody @Valid AlunoAtualizadoDTO alunoAlterado) {
+    public ResponseEntity<AlunoListagemDTO> atualizar(@PathVariable int id, @RequestBody @Valid AlunoAtualizadoDTO alunoAlterado) {
         alunoService.atualizar(alunoAlterado, id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(AlunoMapper.toDto(alunoService.listarUmPorId(id).get()));
     }
 
 }
