@@ -69,6 +69,7 @@ public class ModuloService {
     }
 
     public ModuloListagemDTO listarPorId(Integer id){
+
         Modulo modulo = moduloRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modulo não encontrado."));
 

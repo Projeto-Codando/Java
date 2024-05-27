@@ -27,7 +27,7 @@ public class TemaService {
     public TemaListagemDTO criar(TemaCadastroDTO dto, int moduloId) {
 
         if (!moduloRepository.existsById(moduloId)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Módulo não encontrado.");
         }
 
         Tema tema = TemaMapper.toEntity(dto);
@@ -42,11 +42,12 @@ public class TemaService {
     }
 
     public List<TemaListagemDTO> listarPorModulo(Integer idModulo) {
-        List<Tema> temas = temaRepository.findAllByModulo_IdModulo(idModulo);
 
-        if (temas.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "idModulo não encontrado.");
+        if (!moduloRepository.existsById(idModulo)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Módulo não encontrado.");
         }
+
+        List<Tema> temas = temaRepository.findAllByModulo_IdModulo(idModulo);
 
         List<TemaListagemDTO> temasDto = TemaMapper.toDto(temas);
 
@@ -54,9 +55,6 @@ public class TemaService {
             List<AulaListagemDTO> aulasDto = aulaService.listarAulasPorTema(temaDto.getIdTema());
             temaDto.setAulas(aulasDto);
         }
-
         return temasDto;
     }
-
-
 }
