@@ -12,6 +12,7 @@ import school.sptech.apicodando.service.moduloService.ModuloService;
 import school.sptech.apicodando.service.moduloService.dto.ModuloCadastroDTO;
 import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,8 +26,9 @@ public class ModuloController {
     @Operation(summary = "Cadastrar", description = "Método que cadastra um módulo!", tags = "Modulo")
     @PostMapping
     public ResponseEntity<ModuloListagemDTO> criar(@RequestBody ModuloCadastroDTO moduloCadastro) {
-        Modulo moduloCadastrado = moduloService.criar(moduloCadastro, moduloCadastro.getGradeId());
-        return ResponseEntity.created(null).body(ModuloMapper.toDto(moduloCadastrado));
+        ModuloListagemDTO moduloNovo = ModuloMapper.toDto(moduloService.criar(moduloCadastro, moduloCadastro.getGradeId()));
+        URI location = URI.create(String.format("/%d", moduloNovo.getIdModulo()));
+        return ResponseEntity.created(location).body(moduloNovo);
     }
     @Operation(summary = "Listar", description = "Método que lista todos os módulos!", tags = "Modulo")
     @GetMapping

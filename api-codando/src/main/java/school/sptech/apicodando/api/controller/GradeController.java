@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.apicodando.api.domain.grade.Grade;
+import school.sptech.apicodando.api.mapper.GradeMapper;
 import school.sptech.apicodando.service.gradeService.GradeService;
 import school.sptech.apicodando.service.gradeService.dto.GradeCadastroDto;
 import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
 
+import java.net.URI;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -27,9 +29,11 @@ public class GradeController {
 
     @Operation(summary = "Cadastar", description = "Método que cadastra uma grade!", tags = "Grade")
     @PostMapping
-    public ResponseEntity<Void> criar(@RequestBody GradeCadastroDto gradeNova) {
-        gradeService.criar(gradeNova);
-        return status(201).build();
+//    @SecurityRequirement(name = "Bearer")
+    public ResponseEntity<GradeListagemDto> criar(@RequestBody GradeCadastroDto gradeNova) {
+        GradeListagemDto novaGrade = GradeMapper.toDto(gradeService.criar(gradeNova));
+        URI location = URI.create(String.format("/%d", novaGrade.getIdGrade()));
+        return ResponseEntity.created(location).body(novaGrade);
     }
 
     @Operation(summary = "Listar", description = "Método que lista uma grade por Id!", tags = "Grade")

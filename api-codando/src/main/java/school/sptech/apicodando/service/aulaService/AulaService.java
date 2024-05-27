@@ -50,7 +50,7 @@ public class AulaService {
 
     public Aula criar(AulaCriacaoDTO novaAula) {
 
-        if (temaRepository.findById(novaAula.getTemaId()).isEmpty()) {
+        if (!temaRepository.existsById(novaAula.getTemaId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.");
         }
 
@@ -66,7 +66,7 @@ public class AulaService {
     public Integer getPontuacaoMaxima(int idAula) {
         return aulaRepository.findById(idAula).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)).getPontuacaoMaxima();
     }
-    
+
     public List<AulaListagemDTO> listarAulasPorGrade(Integer idGrade) {
 
 
