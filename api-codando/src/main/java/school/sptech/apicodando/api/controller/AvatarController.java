@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.api.domain.avatar.repository.AvatarRepository;
+import school.sptech.apicodando.api.mapper.AlunoMapper;
 import school.sptech.apicodando.api.mapper.AvatarMapper;
 import school.sptech.apicodando.service.avatarService.AvatarService;
 import school.sptech.apicodando.service.avatarService.dto.AvatarListagemDTO;
@@ -29,5 +30,11 @@ public class AvatarController {
     public ResponseEntity<AvatarListagemDTO> atualizarAvatar(@PathVariable int idAluno,@PathVariable int idAvatar) {
         service.atualizarAvatar(idAluno, idAvatar);
         return ResponseEntity.ok(AvatarMapper.toListagemDTO(service.buscarPorId(idAvatar)));
+    }
+
+    @PutMapping("/aluno/{idAluno}/avatar-escolhido/{idAvatar}")
+    public ResponseEntity<AvatarListagemDTO> atualizarAvatarEscolhido(@PathVariable int idAluno,@PathVariable int idAvatar) {
+        service.atualizarAvatarEscolhido(idAluno, idAvatar);
+        return ResponseEntity.ok(AlunoMapper.toDtoAvatarEntity(service.buscarPorId(idAvatar)));
     }
 }

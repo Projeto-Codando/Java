@@ -15,7 +15,12 @@ public class AlunoListagemDTO {
     private String apelido;
     private Boolean status;
     private Integer moedas;
+    private String idTurma;
+    private int idAvatar;
     private List<AvatarListagemDTO> avatares;
+    public String getNomeCompleto(){
+        return getNome() + " " + getSobrenome();
+    }
 
     @Data
     public static class AvatarListagemDTO {

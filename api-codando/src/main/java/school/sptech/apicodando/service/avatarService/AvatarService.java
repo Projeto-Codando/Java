@@ -43,4 +43,16 @@ public class AvatarService {
         });
         return avatar;
     }
+
+    public Avatar atualizarAvatarEscolhido(int idAluno, int idAvatar) {
+        Avatar avatar = buscarPorId(idAvatar);
+        alunoService.listarUmPorId(idAluno).ifPresent(aluno -> {
+            if(!aluno.getAvatares().contains(avatar)){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Avatar não adquirido.");
+            }
+            aluno.setIdAvatar(avatar.getId());
+            alunoService.atualizar(aluno, idAluno);
+        });
+        return avatar;
+    }
 }

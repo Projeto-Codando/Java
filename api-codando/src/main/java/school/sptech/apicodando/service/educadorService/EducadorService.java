@@ -65,6 +65,10 @@ public class EducadorService {
         if (!educadorRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Educador não encontrado.");
         }
+
+        String senhaCriptografada = passwordEncoder.encode(educadorAtualizado.getSenha());
+        educadorAtualizado.setSenha(senhaCriptografada);
+
         Educador educador = EducadorMapper.toEntity(educadorAtualizado);
         educador.setIdEducador(id);
         educadorRepository.save(educador);

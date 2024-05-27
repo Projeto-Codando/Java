@@ -13,35 +13,17 @@ import java.util.List;
 @Data
 public class Aluno {
 
-//    @NotBlank
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idAluno;
-//    @NotBlank
-//    @Size(min = 3, max = 255)
-//    @NotNull
     protected String nome;
-//    @NotBlank
-//    @Size(min = 3, max = 255)
-//    @NotNull
     protected String sobrenome;
-//    @NotBlank
-//    @Size(min = 3, max = 255)
-//    @NotNull
     protected String apelido;
-//    @NotBlank
-//    @Size(min = 8, max = 255)
-//    @NotNull
     protected String senha;
-//    @NotBlank
-//    @Size(min = 3, max = 255)
-//    @NotNull
     protected Boolean status;
-//    @NotBlank
-//    @PositiveOrZero
     protected Integer moedas;
-
     protected String senhaTurma;
+    protected int idAvatar;
     @OneToMany
     @JoinColumn(name = "idAvatar")
     protected List<Avatar> avatares;

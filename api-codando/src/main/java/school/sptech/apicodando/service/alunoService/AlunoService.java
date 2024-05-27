@@ -9,11 +9,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import school.sptech.apicodando.api.domain.avatar.Avatar;
+import school.sptech.apicodando.api.domain.avatar.repository.AvatarRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.mapper.AlunoMapper;
 import school.sptech.apicodando.api.domain.aluno.repository.AlunoRepository;
+import school.sptech.apicodando.service.alunoService.dto.AlunoAtualizadoDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLoginDTO;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
@@ -29,6 +32,9 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
 
     @Autowired
+    private AvatarRepository avatarRepository;
+
+    @Autowired
     private TurmaService turmaService;
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -40,7 +46,7 @@ public class AlunoService {
     private AuthenticationManager authenticationManager;
 
 
-    public void criar(AlunoCadastroDTO alunoCadastroDTO) {
+    public Aluno criar(AlunoCadastroDTO alunoCadastroDTO) {
         if(alunoCadastroDTO == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dados inválidos.");
         }
@@ -51,17 +57,16 @@ public class AlunoService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         }
 
-        final Aluno novoAluno = AlunoMapper.toEntity(alunoCadastroDTO);
+        Aluno novoAluno = AlunoMapper.toEntity(alunoCadastroDTO);
         novoAluno.setTurma(turmaEncontrada);
         String senhaCriptografada = passwordEncoder.encode(novoAluno.getSenha());
         novoAluno.setSenha(senhaCriptografada);
-
 
         if (existePorApelido(alunoCadastroDTO.getApelido())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Aluno já cadastrado.");
         }
 
-        this.alunoRepository.save(novoAluno);
+        return alunoRepository.save(novoAluno);
     }
 
     public void excluir(int id) {
@@ -73,12 +78,28 @@ public class AlunoService {
         alunoRepository.deleteById(id);
     }
 
-    public void atualizar(Aluno alunoAtualizado, int id) {
+    public void atualizar(AlunoAtualizadoDTO alunoAtualizado, int id) {
         if (!alunoRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado aluno com o id informado.");
         }
-        alunoAtualizado.setIdAluno(id);
-        alunoRepository.save(alunoAtualizado);
+
+        Aluno alunoAtual = alunoRepository.findById(id).get();
+
+        alunoAtual.setNome(alunoAtualizado.getNome());
+        alunoAtual.setSobrenome(alunoAtualizado.getSobrenome());
+        alunoAtual.setApelido(alunoAtualizado.getApelido());
+        alunoAtual.setSenha(alunoAtualizado.getSenha());
+
+        alunoRepository.save(alunoAtual);
+    }
+
+    public void atualizar(Aluno aluno, int id) {
+        if (!alunoRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado aluno com o id informado.");
+        }
+
+        aluno.setIdAluno(id);
+        alunoRepository.save(aluno);
     }
 
     public AlunoTokenDto autenticar(AlunoLoginDTO usuarioLoginDto) {

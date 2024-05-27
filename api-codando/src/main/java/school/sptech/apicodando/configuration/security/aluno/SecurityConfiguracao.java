@@ -52,20 +52,11 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/webjars/**"),
             new AntPathRequestMatcher("/v3/api-docs/**"),
             new AntPathRequestMatcher("/actuator/*"),
-            new AntPathRequestMatcher("/alunos/login/**"),
             new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/error/**"),
-            new AntPathRequestMatcher("/educadores/login/**"),
             new AntPathRequestMatcher("/educadores/**", HttpMethod.POST.name()),
             new AntPathRequestMatcher("/alunos/**", HttpMethod.POST.name()),
-            new AntPathRequestMatcher("/alunos/**"),
-            new AntPathRequestMatcher("/alunos/pesquisaEscolas"),
-            new AntPathRequestMatcher("/alunos/gerarCSV"),
-            new AntPathRequestMatcher("/alunos/listarPorREP2"),
-            new AntPathRequestMatcher("/turmas/**"),
             new AntPathRequestMatcher("/csvFile/**"),
-            new AntPathRequestMatcher("/grades/**"),
-            new AntPathRequestMatcher("/temas/**"),
 
     };
 

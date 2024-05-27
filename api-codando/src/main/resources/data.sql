@@ -1,17 +1,17 @@
-INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas)
-VALUES ('aluno1', 'sobrenome1', 'apelido1', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 51);
-
-INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
-VALUES ('Jojo', 100, 'João', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Silva', 'true');
-
-INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
-VALUES ('Mari', 200, 'Maria', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Santos', 'true');
-
-INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
-VALUES ('Carl', 150, 'Carlos', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Pereira', 'true');
-
-INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
-VALUES ('usuarioTeste', 300, 'Ana', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Silva', 'true');
+--INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas)
+--VALUES ('aluno1', 'sobrenome1', 'apelido1', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 51);
+--
+--INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
+--VALUES ('Jojo', 100, 'João', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Silva', 'true');
+--
+--INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
+--VALUES ('Mari', 200, 'Maria', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Santos', 'true');
+--
+--INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
+--VALUES ('Carl', 150, 'Carlos', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Pereira', 'true');
+--
+--INSERT INTO aluno (apelido, moedas, nome, senha, sobrenome, status)
+--VALUES ('usuarioTeste', 300, 'Ana', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'Silva', 'true');
 
 INSERT INTO Educador (nome, sobrenome, email, senha)
 VALUES ('nome1', 'sobrenome1', 'email@email.com', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC');
@@ -24,8 +24,8 @@ INSERT INTO escolaridade (descricao) VALUES ('9º Ano');
 INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma)
 VALUES ('Turma 1', 'senha123', 1, 1, true);
 
-INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade)
-VALUES ('aluno2', 'sobrenome2', 'apelido2', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apelido2', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
 
 INSERT INTO Grade (id_turma)
 VALUES (1);
