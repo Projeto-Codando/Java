@@ -23,7 +23,6 @@ public class GradeController {
 
     @Operation(summary = "Cadastar", description = "Método que cadastra uma grade!", tags = "Grade")
     @PostMapping
-//    @SecurityRequirement(name = "Bearer")
     public ResponseEntity<Void> criar(@RequestBody GradeCadastroDto gradeNova) {
         gradeService.criar(gradeNova);
         return status(201).build();
@@ -31,7 +30,6 @@ public class GradeController {
 
     @Operation(summary = "Listar", description = "Método que lista uma grade por Id!", tags = "Grade")
     @GetMapping("/{id}")
-//    @SecurityRequirement(name = "Bearer")
 
     public ResponseEntity<GradeListagemDto> listar(@PathVariable int id) {
         return status(200).body(gradeService.listarPorId(id));
@@ -39,7 +37,6 @@ public class GradeController {
 
     @Operation(summary = "Listar", description = "Método que lista todas as grades!", tags = "Grade")
     @GetMapping
-//    @SecurityRequirement(name = "Bearer")
     public ResponseEntity <List<GradeListagemDto>> listarTodos() {
         return status(200).body(gradeService.listarTodos());
     }

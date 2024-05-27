@@ -71,9 +71,9 @@ public class TurmaController {
     }
 
     @Operation(summary = "Gerar Arquivo", description = "Método que gera o arquivo CSV!", tags = "Escola")
-    @GetMapping("/gerarCSV/{idProfessor}/{id}")
-    public ResponseEntity<Resource> gerarEbaixarCSV(@PathVariable int id, @PathVariable int idProfessor) {
-        TurmaListagemDTO turmaCSV = turmaService.listarPorIdAndProfessor(id, idProfessor);
+    @GetMapping("/gerarCSV/{idProfessor}/{idTurma}")
+    public ResponseEntity<Resource> gerarEbaixarCSV(@PathVariable int idTurma, @PathVariable int idProfessor) {
+        TurmaListagemDTO turmaCSV = turmaService.listarPorIdAndProfessor(idTurma, idProfessor);
 
         if (turmaCSV == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

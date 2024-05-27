@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.api.domain.avatar.repository.AvatarRepository;
+import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
+import school.sptech.apicodando.api.domain.escolaridade.repository.EscolaridadeRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
@@ -35,6 +37,9 @@ public class AlunoService {
     private AvatarRepository avatarRepository;
 
     @Autowired
+    private EscolaridadeRepository escolaridadeRepository;
+
+    @Autowired
     private TurmaService turmaService;
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -57,7 +62,14 @@ public class AlunoService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         }
 
+        Escolaridade escolaridadeEncontrada = escolaridadeRepository.findById(turmaEncontrada.getEscolaridade().getIdEscolaridade()).get();
+
+        if(escolaridadeEncontrada == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Escolaridade não encontrada.");
+        }
+
         Aluno novoAluno = AlunoMapper.toEntity(alunoCadastroDTO);
+        novoAluno.setEscolaridade(escolaridadeEncontrada);
         novoAluno.setTurma(turmaEncontrada);
         String senhaCriptografada = passwordEncoder.encode(novoAluno.getSenha());
         novoAluno.setSenha(senhaCriptografada);

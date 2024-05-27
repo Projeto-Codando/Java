@@ -32,7 +32,6 @@ public class GradeService {
     private final ModuloService moduloService;
 
 
-
     public Grade criar(GradeCadastroDto gradeCadastroDto){
         if (gradeCadastroDto.getFkTurma() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Turma ID nao pode  ser nulo");
@@ -61,7 +60,6 @@ public class GradeService {
 
         for (GradeListagemDto dto : dtos) {
             dto.setModulo(moduloService.listarPorGrade(dto.getIdGrade()));
-
         }
 
         return dtos;

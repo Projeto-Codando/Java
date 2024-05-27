@@ -38,7 +38,7 @@ public class AulaService {
     public Aula criar(AulaCriacaoDTO novaAula) {
 
         if (temaRepository.findById(novaAula.getTemaId()).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.");
         }
 
         Aula aula = AulaMapper.toEntity(novaAula);

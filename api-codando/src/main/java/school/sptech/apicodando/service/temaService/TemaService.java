@@ -25,6 +25,7 @@ public class TemaService {
 
 
     public TemaListagemDTO criar(TemaCadastroDTO dto, int moduloId) {
+
         if (!moduloRepository.existsById(moduloId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

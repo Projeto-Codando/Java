@@ -25,7 +25,7 @@ public class AulaController {
     private final AulaService aulaService;
 
     @Operation(summary = "Criar aula", description = "Método que cria uma aula!", tags = "Aula")
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<AulaListagemDTO> criar(@RequestBody @Valid AulaCriacaoDTO aulaNova){
         Aula aula = aulaService.criar(aulaNova);
         return ResponseEntity.created(null).body(AulaMapper.toDto(aula));
