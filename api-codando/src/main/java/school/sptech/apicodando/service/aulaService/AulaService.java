@@ -6,7 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.aula.repository.AulaRepository;
+import school.sptech.apicodando.api.domain.grade.repository.GradeRepository;
+import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
 import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
+import school.sptech.apicodando.api.mapper.ModuloMapper;
+import school.sptech.apicodando.api.mapper.TemaMapper;
 import school.sptech.apicodando.service.aulaService.dto.AulaCriacaoDTO;
 import school.sptech.apicodando.api.mapper.AulaMapper;
 import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
@@ -24,8 +28,10 @@ public class AulaService {
 
     private final AulaRepository aulaRepository;
     private final TemaRepository temaRepository;
-    private final ModuloService moduloService;
-    private final TemaService temaService;
+    private final ModuloRepository moduloRepository;
+    private final GradeRepository  gradeRepository;
+//    private final ModuloService moduloService;
+//    private final TemaService temaService;
 
     public List<Aula> listarAulas() {
         return aulaRepository.findAll();
@@ -54,11 +60,19 @@ public class AulaService {
     }
 
     public List<AulaListagemDTO> listarAulasPorGrade(Integer idGrade) {
-        List<ModuloListagemDTO> modulos = moduloService.listarPorGrade(idGrade);
+
+
+        if (gradeRepository.existsById(idGrade)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada.");
+        }
+
+        List<ModuloListagemDTO> modulos = ModuloMapper.toDto(moduloRepository.findAllByGrade_IdGrade(idGrade));
+
+
         List<Aula> aulas = new ArrayList<>();
 
         for (ModuloListagemDTO modulo : modulos) {
-            List<TemaListagemDTO> temas = temaService.listarPorModulo(modulo.getIdModulo());
+            List<TemaListagemDTO> temas = TemaMapper.toDto(temaRepository.findAllByModulo_IdModulo(modulo.getIdModulo()));
             for (TemaListagemDTO tema : temas) {
                 aulas.addAll(aulaRepository.findAllByTema_IdTema(tema.getIdTema()));
             }

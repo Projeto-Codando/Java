@@ -58,4 +58,21 @@ public class GradeService {
 
         return dtos;
     }
+
+    public List<GradeListagemDto> listarPorTurma(Integer idTurma){
+        List<Grade> grades = gradeRepository.findAllByFkTurma_IdTurma(idTurma);
+
+        if (turmaRepository.existsById(idTurma)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
+
+        List<GradeListagemDto> dtos = GradeMapper.toDto(grades);
+
+        for (GradeListagemDto dto : dtos) {
+            dto.setModulo(moduloService.listarPorGrade(dto.getIdGrade()));
+        }
+
+        return dtos;
+    }
+
 }
