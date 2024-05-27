@@ -42,7 +42,7 @@ public class AulaService {
         List<Aula> aulas = aulaRepository.findAllByTema_IdTema(idTema);
 
         if (aulas.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return new ArrayList<>();
         }
 
         return AulaMapper.toDto(aulas);
