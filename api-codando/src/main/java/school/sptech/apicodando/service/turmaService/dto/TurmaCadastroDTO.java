@@ -12,6 +12,8 @@ import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 @Data
 public class TurmaCadastroDTO {
 
@@ -25,13 +27,13 @@ public class TurmaCadastroDTO {
     protected String senha;
     @ManyToOne
     @JoinColumn(name ="idEscolaridade")
-    protected int fkEscolaridade;
+    protected UUID fkEscolaridade;
     @ManyToOne
     @JoinColumn(name ="idEducador")
-    protected int fkEducador;
+    protected UUID fkEducador;
     @OneToMany
     @JoinColumn(name ="fkGrade")
-    protected int fkGrade;
+    protected UUID fkGrade;
     @OneToMany
     protected List<Aluno> alunos;
 

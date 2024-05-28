@@ -21,6 +21,7 @@ import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class AulaService {
         return aulaRepository.findAll();
     }
 
-    public List<AulaListagemDTO> listarAulasPorTema(int idTema) {
+    public List<AulaListagemDTO> listarAulasPorTema(UUID idTema) {
 
         List<Aula> aulas = aulaRepository.findAllByTema_IdTema(idTema);
 
@@ -59,15 +60,15 @@ public class AulaService {
         return aulaRepository.save(aula);
     }
 
-    public Aula buscarPorId(int id) {
+    public Aula buscarPorId(UUID id) {
         return aulaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public Integer getPontuacaoMaxima(int idAula) {
+    public Integer getPontuacaoMaxima(UUID idAula) {
         return aulaRepository.findById(idAula).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)).getPontuacaoMaxima();
     }
 
-    public List<AulaListagemDTO> listarAulasPorGrade(Integer idGrade) {
+    public List<AulaListagemDTO> listarAulasPorGrade(UUID idGrade) {
 
 
         if (gradeRepository.existsById(idGrade)) {

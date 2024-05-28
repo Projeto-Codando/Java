@@ -9,6 +9,7 @@ import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class ModuloCadastroDTO {
@@ -17,7 +18,7 @@ public class ModuloCadastroDTO {
     private String nome;
     private List<TemaListagemDTO> temas;
     @PositiveOrZero
-    private Integer gradeId;
+    private UUID gradeId;
 
     public ModuloCadastroDTO() {
         this.temas = new ArrayList<>();

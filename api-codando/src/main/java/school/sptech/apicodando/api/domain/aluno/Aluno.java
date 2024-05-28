@@ -2,20 +2,26 @@ package school.sptech.apicodando.api.domain.aluno;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.turma.Turma;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
 public class Aluno {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idAluno;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    protected UUID idAluno;
     protected String nome;
     protected String sobrenome;
     protected String apelido;
@@ -23,7 +29,8 @@ public class Aluno {
     protected Boolean status;
     protected Integer moedas;
     protected String senhaTurma;
-    protected int idAvatar;
+    protected UUID idAvatar;
+
     @OneToMany
     @JoinColumn(name = "idAvatar")
     protected List<Avatar> avatares;

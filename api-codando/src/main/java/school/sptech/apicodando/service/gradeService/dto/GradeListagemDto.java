@@ -7,10 +7,12 @@ import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 @Data
 public class GradeListagemDto {
-    private Integer idGrade;
-    private Integer idTurma;
+    private UUID idGrade;
+    private UUID idTurma;
     private List<ModuloListagemDTO> modulo;
 
     public GradeListagemDto(){

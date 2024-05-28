@@ -36,7 +36,7 @@ public class TemaController {
     @PostMapping()
     public ResponseEntity<TemaListagemDTO> criar(@RequestBody TemaCadastroDTO dto){
         TemaListagemDTO novoTema = TemaMapper.toDto(temaService.criar(dto, dto.getModuloId()));
-        URI location = URI.create(String.format("/%d", dto.getModuloId()));
+        URI location = URI.create(String.format("/%S", dto.getModuloId()));
         return ResponseEntity.created(location).body(novoTema);
     }
 

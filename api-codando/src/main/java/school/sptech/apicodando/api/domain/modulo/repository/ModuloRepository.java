@@ -4,9 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface ModuloRepository extends JpaRepository<Modulo, Integer> {
+public interface ModuloRepository extends JpaRepository<Modulo, UUID> {
 
 
-    List<Modulo> findAllByGrade_IdGrade(Integer idGrade);
+    List<Modulo> findAllByGrade_IdGrade(UUID idGrade);
 }

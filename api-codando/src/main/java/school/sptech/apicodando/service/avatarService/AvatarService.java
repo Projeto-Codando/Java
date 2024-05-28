@@ -10,6 +10,7 @@ import school.sptech.apicodando.api.domain.avatar.repository.AvatarRepository;
 import school.sptech.apicodando.service.alunoService.AlunoService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,11 +22,11 @@ public class AvatarService {
         return repository.findAll();
     }
 
-    public Avatar buscarPorId(int id){
+    public Avatar buscarPorId(UUID id){
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Avatar não encontrado."));
     }
 
-    public Avatar atualizarAvatar(int idAluno, int idAvatar) {
+    public Avatar atualizarAvatar(UUID idAluno, UUID idAvatar) {
         Avatar avatar = buscarPorId(idAvatar);
         alunoService.listarUmPorId(idAluno).ifPresent(aluno -> {
 
@@ -44,7 +45,7 @@ public class AvatarService {
         return avatar;
     }
 
-    public Avatar atualizarAvatarEscolhido(int idAluno, int idAvatar) {
+    public Avatar atualizarAvatarEscolhido(UUID idAluno, UUID idAvatar) {
         Avatar avatar = buscarPorId(idAvatar);
         alunoService.listarUmPorId(idAluno).ifPresent(aluno -> {
             if(!aluno.getAvatares().contains(avatar)){

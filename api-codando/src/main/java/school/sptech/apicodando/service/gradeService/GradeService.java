@@ -14,6 +14,7 @@ import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
 import school.sptech.apicodando.service.moduloService.ModuloService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +36,7 @@ public class GradeService {
         return gradeRepository.save(novaGrade);
     }
 
-    public GradeListagemDto listarPorId(Integer id){
+    public GradeListagemDto listarPorId(UUID id){
         GradeListagemDto dto = GradeMapper.toDto(gradeRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada.")));
         
@@ -57,7 +58,7 @@ public class GradeService {
         return dtos;
     }
 
-    public List<GradeListagemDto> listarPorTurma(Integer idTurma){
+    public List<GradeListagemDto> listarPorTurma(UUID idTurma){
         List<Grade> grades = gradeRepository.findAllByFkTurma_IdTurma(idTurma);
 
         if (turmaRepository.existsById(idTurma)) {

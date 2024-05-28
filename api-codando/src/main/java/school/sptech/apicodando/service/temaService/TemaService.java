@@ -14,6 +14,7 @@ import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 import school.sptech.apicodando.api.mapper.TemaMapper;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class TemaService {
     private final AulaService aulaService;
 
 
-    public Tema criar(TemaCadastroDTO dto, int moduloId) {
+    public Tema criar(TemaCadastroDTO dto, UUID moduloId) {
         if (!moduloRepository.existsById(moduloId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Módulo não encontrado.");
         }
@@ -40,7 +41,7 @@ public class TemaService {
         return TemaMapper.toDto(temaRepository.findAll());
     }
 
-    public List<TemaListagemDTO> listarPorModulo(Integer idModulo) {
+    public List<TemaListagemDTO> listarPorModulo(UUID idModulo) {
 
         if (!moduloRepository.existsById(idModulo)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Módulo não encontrado.");

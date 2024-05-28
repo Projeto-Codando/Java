@@ -3,9 +3,11 @@ package school.sptech.apicodando.service.progressoAlunoService.dto;
 import lombok.Data;
 import school.sptech.apicodando.api.domain.aula.Aula;
 
+import java.util.UUID;
+
 @Data
 public class ProgressoAlunoListagemDto {
-    private Integer idProgressoAluno;
+    private UUID idProgressoAluno;
     private Integer pontuacaoAluno;
     private String statusAula;
     private AlunoListagemDto aluno;
@@ -13,7 +15,7 @@ public class ProgressoAlunoListagemDto {
 
     @Data
     public class AlunoListagemDto {
-        private Integer idAluno;
+        private UUID idAluno;
         private String nome;
         private String sobrenome;
         private String apelido;
@@ -24,7 +26,7 @@ public class ProgressoAlunoListagemDto {
 
     @Data
     public class AulaListagemDto {
-        private Integer idAula;
+        private UUID idAula;
         private String nome;
         private String descricao;
         private Integer pontuacaoMaxima;

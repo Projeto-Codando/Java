@@ -6,8 +6,9 @@ import org.springframework.data.repository.query.Param;
 import school.sptech.apicodando.api.domain.aula.Aula;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface AulaRepository extends JpaRepository<Aula, Integer> {
+public interface AulaRepository extends JpaRepository<Aula, UUID> {
 
-    List<Aula> findAllByTema_IdTema(Integer idModulo);
+    List<Aula> findAllByTema_IdTema(UUID idModulo);
 }

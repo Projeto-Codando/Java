@@ -26,6 +26,7 @@ import school.sptech.apicodando.service.turmaService.TurmaService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AlunoService {
@@ -81,7 +82,7 @@ public class AlunoService {
         return alunoRepository.save(novoAluno);
     }
 
-    public void excluir(int id) {
+    public void excluir(UUID id) {
 
         if (!existePorId(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -90,7 +91,7 @@ public class AlunoService {
         alunoRepository.deleteById(id);
     }
 
-    public void atualizar(AlunoAtualizadoDTO alunoAtualizado, int id) {
+    public void atualizar(AlunoAtualizadoDTO alunoAtualizado, UUID id) {
         if (!alunoRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado aluno com o id informado.");
         }
@@ -105,7 +106,7 @@ public class AlunoService {
         alunoRepository.save(alunoAtual);
     }
 
-    public void atualizar(Aluno aluno, int id) {
+    public void atualizar(Aluno aluno, UUID id) {
         if (!alunoRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado aluno com o id informado.");
         }
@@ -136,7 +137,7 @@ public class AlunoService {
 
     //metodos de apoio
 
-    public boolean existePorId(int id) {
+    public boolean existePorId(UUID id) {
         return alunoRepository.existsById(id);
     }
 
@@ -147,7 +148,7 @@ public class AlunoService {
         return true;
     }
 
-    public Optional<Aluno> listarUmPorId(int id) {
+    public Optional<Aluno> listarUmPorId(UUID id) {
         if (!existePorId(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado");
         }

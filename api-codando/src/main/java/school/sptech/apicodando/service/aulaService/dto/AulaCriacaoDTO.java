@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class AulaCriacaoDTO {
 
@@ -23,5 +25,5 @@ public class AulaCriacaoDTO {
     protected Integer pontuacaoMaxima;
 
     @NotNull
-    private Integer temaId;
+    private UUID temaId;
 }

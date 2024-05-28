@@ -21,6 +21,7 @@ import school.sptech.apicodando.service.educadorService.dto.dtoEducador.Educador
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -52,7 +53,7 @@ public class EducadorService {
         this.educadorRepository.save(novoEducador);
     }
 
-    public void excluir(int id) {
+    public void excluir(UUID id) {
 
         if (!existePorId(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -61,7 +62,7 @@ public class EducadorService {
         educadorRepository.deleteById(id);
     }
 
-    public void atualizar(EducadorCadastroDTO educadorAtualizado, int id) {
+    public void atualizar(EducadorCadastroDTO educadorAtualizado, UUID id) {
         if (!educadorRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Educador não encontrado.");
         }
@@ -94,7 +95,7 @@ public class EducadorService {
         return EducadorMapper.of(usuarioAutenticado, token);
     }
 
-    public Optional<Educador> listarUmPorId(int id) {
+    public Optional<Educador> listarUmPorId(UUID id) {
         if (!educadorRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Educador não encontrado.");
         }
@@ -115,7 +116,7 @@ public class EducadorService {
         return true;
     }
 
-    public boolean existePorId(int id) {
+    public boolean existePorId(UUID id) {
         return educadorRepository.findByIdEducador(id).isPresent();
     }
 

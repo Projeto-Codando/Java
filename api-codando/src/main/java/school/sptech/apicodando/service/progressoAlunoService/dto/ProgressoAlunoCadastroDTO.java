@@ -5,6 +5,9 @@ import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
+
+import java.util.UUID;
+
 @Data
 public class ProgressoAlunoCadastroDTO {
 
@@ -12,10 +15,10 @@ public class ProgressoAlunoCadastroDTO {
     @OneToOne
     @NotNull
     @JoinColumn(name = "idAluno")
-    private Integer fkAluno;
+    private UUID fkAluno;
     @OneToOne
     @NotNull
     @JoinColumn(name = "idAula")
-    private Integer fkAula;
+    private UUID fkAula;
 
 }

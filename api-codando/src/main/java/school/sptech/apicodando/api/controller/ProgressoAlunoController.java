@@ -14,6 +14,7 @@ import school.sptech.apicodando.service.progressoAlunoService.dto.ProgressoAluno
 import school.sptech.apicodando.service.progressoAlunoService.dto.ProgressoAlunoListagemDto;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("/progresso-aluno")
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class ProgressoAlunoController {
 
     @Operation(summary = "Listar", description = "Método que lista o progresso do aluno por ID!", tags = "Progresso Aluno")
     @GetMapping("/aluno/{idAluno}")
-    public ResponseEntity<ProgressoAlunoListagemDto> listarPorIdAluno(@PathVariable Integer idAluno) {
+    public ResponseEntity<ProgressoAlunoListagemDto> listarPorIdAluno(@PathVariable UUID idAluno) {
         return ResponseEntity.ok(mapper.toListagemDto(progressoAlunoService.buscarPorIdAluno(idAluno)));
     }
 
@@ -44,7 +45,7 @@ public class ProgressoAlunoController {
     }
     @Operation(summary = "Atualizar", description = "Método que atualiza os pontos do aluno!", tags = "Progresso Aluno")
     @PutMapping("/aluno/{idAluno}/aula/{idAula}/pontos")
-    public ResponseEntity<ProgressoAlunoListagemDto> atualizarPontos(@PathVariable Integer idAluno, @RequestBody PontosDTO pontosDTO, @PathVariable Integer idAula){
+    public ResponseEntity<ProgressoAlunoListagemDto> atualizarPontos(@PathVariable UUID idAluno, @RequestBody PontosDTO pontosDTO, @PathVariable UUID idAula){
         ProgressoAluno progressoAluno = progressoAlunoService.atualizarPontos(idAluno, pontosDTO, idAula);
         return ResponseEntity.ok(mapper.toListagemDto(progressoAluno));
     }

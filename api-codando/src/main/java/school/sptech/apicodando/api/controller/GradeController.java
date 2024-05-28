@@ -15,6 +15,7 @@ import school.sptech.apicodando.service.gradeService.dto.GradeListagemDto;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
@@ -38,13 +39,13 @@ public class GradeController {
 
     @Operation(summary = "Listar", description = "Método que lista uma grade por Id!", tags = "Grade")
     @GetMapping("/{id}")
-    public ResponseEntity<GradeListagemDto> listar(@PathVariable int id) {
+    public ResponseEntity<GradeListagemDto> listar(@PathVariable UUID id) {
         return status(200).body(gradeService.listarPorId(id));
     }
 
     @Operation(summary = "Listar", description = "Método que lista grades por idTurma!", tags = "Grade")
     @GetMapping("/turma /{id}")
-    public ResponseEntity<List<GradeListagemDto>> listarPorTurma(@PathVariable int idTurma) {
+    public ResponseEntity<List<GradeListagemDto>> listarPorTurma(@PathVariable UUID idTurma) {
 
         List<GradeListagemDto> grades = gradeService.listarPorTurma(idTurma);
 

@@ -27,6 +27,7 @@ import java.nio.file.Paths;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +55,7 @@ public class TurmaService {
         return turmaRepository.save(novaTurma);
     }
 
-    public Turma desativar(int id, int idProfessor) {
+    public Turma desativar(UUID id, UUID idProfessor) {
         Turma turma = buscarPorIdTurmaAndIdProfessor(id, idProfessor);
         if (turma == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
@@ -64,7 +65,7 @@ public class TurmaService {
         }
     }
 
-    public Turma atualizar(TurmaAtualizaDTO turmaAtualizada, int id){
+    public Turma atualizar(TurmaAtualizaDTO turmaAtualizada, UUID id){
         Turma turma = buscarPorIdTurmaAndIdProfessor(id, turmaAtualizada.getFkEducador().getIdEducador());
         if(turma == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
@@ -79,7 +80,7 @@ public class TurmaService {
         }
     }
 
-    public List<TurmaListagemDTO> listarTodasTurmasPorProfessor(int idProfessor) {
+    public List<TurmaListagemDTO> listarTodasTurmasPorProfessor(UUID idProfessor) {
         List<Turma> turmas = this.listarPorProfessor(idProfessor);
 
         final List<TurmaListagemDTO> turmasListagem = TurmaMapper.toDto(turmas);
@@ -91,7 +92,7 @@ public class TurmaService {
         return turmasListagem;
     }
 
-    public TurmaListagemDTO listarPorIdAndProfessor(int idTurma, int idProfessor) {
+    public TurmaListagemDTO listarPorIdAndProfessor(UUID idTurma, UUID idProfessor) {
         Optional<Turma> turma = this.turmaRepository.findByIdTurmaAndEducadorIdEducador(idTurma, idProfessor);
 
         if (turma.isEmpty()) {
@@ -101,7 +102,7 @@ public class TurmaService {
         return TurmaMapper.toDto(turma.get());
     }
 
-    public List<Turma> listarPorProfessor(int idProfessor) {
+    public List<Turma> listarPorProfessor(UUID idProfessor) {
         return this.turmaRepository.findByEducadorIdEducador(idProfessor);
     }
 
@@ -110,7 +111,7 @@ public class TurmaService {
         return this.turmaRepository.findBySenha(codigo).isPresent();
     }
 
-    public Integer getIdPorSenha(String senha) {
+    public UUID getIdPorSenha(String senha) {
         Optional<Turma> turma = this.turmaRepository.findBySenha(senha);
         if (turma.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
@@ -126,7 +127,7 @@ public class TurmaService {
         return turma.get();
     }
 
-    public Turma buscarPorIdTurmaAndIdProfessor(int idTurma, int idProfessor) {
+    public Turma buscarPorIdTurmaAndIdProfessor(UUID idTurma, UUID idProfessor) {
         Optional<Turma> turma = this.turmaRepository.findByIdTurmaAndEducadorIdEducador(idTurma, idProfessor);
         if (turma.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");

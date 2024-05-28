@@ -5,8 +5,9 @@ import school.sptech.apicodando.api.domain.tema.Tema;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface TemaRepository extends JpaRepository<Tema, Integer> {
+public interface TemaRepository extends JpaRepository<Tema, UUID> {
 
-    List<Tema> findAllByModulo_IdModulo(Integer integer);
+    List<Tema> findAllByModulo_IdModulo(UUID integer);
 }

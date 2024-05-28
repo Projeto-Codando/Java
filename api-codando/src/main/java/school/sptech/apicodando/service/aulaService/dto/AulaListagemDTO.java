@@ -4,10 +4,12 @@ import lombok.Data;
 import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 
+import java.util.UUID;
+
 @Data
 public class AulaListagemDTO {
 
-    protected Integer id;
+    protected UUID id;
     protected String titulo;
     protected String descricao;
     protected Integer nivelDificuldade;

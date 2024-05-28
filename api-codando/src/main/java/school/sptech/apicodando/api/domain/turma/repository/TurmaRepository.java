@@ -5,11 +5,12 @@ import school.sptech.apicodando.api.domain.turma.Turma;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface TurmaRepository extends JpaRepository<Turma, Integer> {
+public interface TurmaRepository extends JpaRepository<Turma, UUID> {
     Optional<Turma> findBySenha(String senha);
-    Optional<Turma> findByIdTurmaAndEducadorIdEducador(int idTurma, int idProfessor);
-    List<Turma> findByEducadorIdEducador(int idProfessor);
+    Optional<Turma> findByIdTurmaAndEducadorIdEducador(UUID idTurma, UUID idProfessor);
+    List<Turma> findByEducadorIdEducador(UUID idProfessor);
 
 }
 

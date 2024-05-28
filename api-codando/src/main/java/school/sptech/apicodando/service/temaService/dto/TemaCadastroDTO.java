@@ -11,6 +11,7 @@ import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class TemaCadastroDTO {
@@ -20,7 +21,7 @@ public class TemaCadastroDTO {
     @NotNull
     protected String nome;
     private List<AulaListagemDTO> aulas;
-    private int moduloId;
+    private UUID moduloId;
 
     public TemaCadastroDTO() {
         this.aulas = new ArrayList<>();

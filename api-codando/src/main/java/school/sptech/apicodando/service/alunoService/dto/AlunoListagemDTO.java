@@ -5,11 +5,12 @@ import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.service.avatarService.dto.AvatarListagemDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class AlunoListagemDTO {
 
-    private Integer idAluno;
+    private UUID idAluno;
     private String nome;
     private String sobrenome;
     private String apelido;
@@ -24,7 +25,7 @@ public class AlunoListagemDTO {
 
     @Data
     public static class AvatarListagemDTO {
-        private Integer idAvatar;
+        private UUID idAvatar;
         private String descricao;
         private Integer preco;
     }

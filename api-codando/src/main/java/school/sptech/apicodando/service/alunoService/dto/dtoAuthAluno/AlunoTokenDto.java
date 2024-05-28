@@ -1,17 +1,19 @@
 package school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno;
 
+import java.util.UUID;
+
 public class AlunoTokenDto {
 
-    private Integer userId;
+    private UUID userId;
     private String nome;
     private String apelido;
     private String token;
 
-    public Integer getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

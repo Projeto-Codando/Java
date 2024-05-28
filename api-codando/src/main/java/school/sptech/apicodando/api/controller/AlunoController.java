@@ -33,6 +33,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Formatter;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.*;
 import static org.springframework.http.ResponseEntity.ok;
@@ -61,7 +62,7 @@ public class AlunoController {
 
     @Operation(summary = "Busca por ID", description = "Método que retorna o aluno buscado por ID!", tags = "Aluno")
     @GetMapping("/{id}")
-    public ResponseEntity<AlunoListagemDTO> buscaPorId(@PathVariable int id) {
+    public ResponseEntity<AlunoListagemDTO> buscaPorId(@PathVariable UUID id) {
         AlunoListagemDTO dto = AlunoMapper.toDto(alunoService.listarUmPorId(id).get());
         return ok(dto);
     }
@@ -75,14 +76,14 @@ public class AlunoController {
 
     @Operation(summary = "Excluir", description = "Método que apaga um aluno!", tags = "Aluno")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable @Valid int id) {
+    public ResponseEntity<Void> excluir(@PathVariable @Valid UUID id) {
         alunoService.excluir(id);
         return ok().build();
     }
 
     @Operation(summary = "Atualizar", description = "Método que atualiza o aluno!", tags = "Aluno")
     @PutMapping("/{id}")
-    public ResponseEntity<AlunoListagemDTO> atualizar(@PathVariable int id, @RequestBody @Valid AlunoAtualizadoDTO alunoAlterado) {
+    public ResponseEntity<AlunoListagemDTO> atualizar(@PathVariable UUID id, @RequestBody @Valid AlunoAtualizadoDTO alunoAlterado) {
         alunoService.atualizar(alunoAlterado, id);
         return ResponseEntity.ok().body(AlunoMapper.toDto(alunoService.listarUmPorId(id).get()));
     }

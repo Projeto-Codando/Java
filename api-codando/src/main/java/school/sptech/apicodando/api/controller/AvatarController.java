@@ -13,6 +13,7 @@ import school.sptech.apicodando.service.avatarService.AvatarService;
 import school.sptech.apicodando.service.avatarService.dto.AvatarListagemDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RequestMapping("/avatares")
@@ -29,14 +30,14 @@ public class AvatarController {
 
     @Operation(summary = "Listar", description = "Método que compra um avatar", tags = "Avatar")
     @PutMapping("/aluno/{idAluno}/avatar/{idAvatar}")
-    public ResponseEntity<AvatarListagemDTO> atualizarAvatar(@PathVariable int idAluno,@PathVariable int idAvatar) {
+    public ResponseEntity<AvatarListagemDTO> atualizarAvatar(@PathVariable UUID idAluno, @PathVariable UUID idAvatar) {
         service.atualizarAvatar(idAluno, idAvatar);
         return ResponseEntity.ok(AvatarMapper.toListagemDTO(service.buscarPorId(idAvatar)));
     }
 
     @Operation(summary = "Listar", description = "Método que seta um avatar na lista do aluno", tags = "Avatar")
     @PutMapping("/aluno/{idAluno}/avatar-escolhido/{idAvatar}")
-    public ResponseEntity<AvatarListagemDTO> atualizarAvatarEscolhido(@PathVariable int idAluno,@PathVariable int idAvatar) {
+    public ResponseEntity<AvatarListagemDTO> atualizarAvatarEscolhido(@PathVariable UUID idAluno,@PathVariable UUID idAvatar) {
         service.atualizarAvatarEscolhido(idAluno, idAvatar);
         return ResponseEntity.ok(AlunoMapper.toDtoAvatarEntity(service.buscarPorId(idAvatar)));
     }

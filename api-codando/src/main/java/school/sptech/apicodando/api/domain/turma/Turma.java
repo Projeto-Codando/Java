@@ -5,19 +5,25 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.grade.Grade;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
 public class Turma {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idTurma;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    protected UUID idTurma;
 
     @NotBlank
     @Size(min = 3, max = 255)

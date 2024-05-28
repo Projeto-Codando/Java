@@ -24,6 +24,7 @@ import school.sptech.apicodando.service.temaService.TemaService;
 import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class ModuloService {
     private final TemaService temaService;
     private final AulaRepository aulaRepository;
 
-    public Modulo criar(ModuloCadastroDTO moduloCadastro, Integer idGrade) {
+    public Modulo criar(ModuloCadastroDTO moduloCadastro, UUID idGrade) {
 
         if (gradeRepository.findById(idGrade).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -53,7 +54,7 @@ public class ModuloService {
         return ModuloMapper.toDto(moduloRepository.findAll());
     }
 
-    public List<ModuloListagemDTO> listarPorGrade(Integer idGrade) {
+    public List<ModuloListagemDTO> listarPorGrade(UUID idGrade) {
         Grade grade = gradeRepository.findById(idGrade)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
 
@@ -68,7 +69,7 @@ public class ModuloService {
         return modulosDto;
     }
 
-    public ModuloListagemDTO listarPorId(Integer id){
+    public ModuloListagemDTO listarPorId(UUID id){
 
         Modulo modulo = moduloRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modulo não encontrado."));

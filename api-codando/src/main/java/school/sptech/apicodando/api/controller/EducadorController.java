@@ -20,6 +20,7 @@ import school.sptech.apicodando.service.educadorService.dto.dtoEducador.Educador
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.*;
 
@@ -47,7 +48,7 @@ public class EducadorController {
 
     @Operation(summary = "Busca por ID", description = "Método que retorna o educador buscado por ID!", tags = "Educador")
     @GetMapping("/{id}")
-    public ResponseEntity<EducadorListagemDTO> buscaPorId(@PathVariable int id) {
+    public ResponseEntity<EducadorListagemDTO> buscaPorId(@PathVariable UUID id) {
         Optional<Educador> educadorOpt = educadorService.listarUmPorId(id);
         EducadorListagemDTO dto = EducadorMapper.toDto(educadorOpt.get());
         return ok(dto);
@@ -63,14 +64,14 @@ public class EducadorController {
 
     @Operation(summary = "Excluir", description = "Método que apaga um educador!", tags = "Educador")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable int id) {
+    public ResponseEntity<Void> excluir(@PathVariable UUID id) {
         educadorService.excluir(id);
         return ok().build();
     }
 
     @Operation(summary = "Atualizar", description = "Método que atualiza um educador!", tags = "Educador")
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizar(@PathVariable int id,
+    public ResponseEntity<Void> atualizar(@PathVariable UUID id,
                                           @RequestBody @Valid EducadorCadastroDTO educadorAlterado) {
         educadorService.atualizar(educadorAlterado, id);
         return ok().build();

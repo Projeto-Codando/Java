@@ -6,16 +6,22 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import school.sptech.apicodando.api.domain.tema.Tema;
+
+import java.util.UUID;
 
 @Entity
 @Data
 public class Aula {
 
-//    @NotBlank
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    protected UUID id;
     protected String titulo;
     protected String descricao;
     protected Integer nivelDificuldade;

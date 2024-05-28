@@ -6,8 +6,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.aula.Aula;
+
+import java.util.UUID;
 
 @Entity
 @Data
@@ -15,8 +18,12 @@ public class ProgressoAluno {
 
     //nao entendi mt bem essa tabela
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idProgressoAluno;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    protected UUID idProgressoAluno;
     @NotNull
     @PositiveOrZero
     protected Integer pontuacaoAluno;
@@ -29,30 +36,4 @@ public class ProgressoAluno {
     @JoinColumn(name = "fkAula")
     protected Aula fkAula;
 
-    public ProgressoAluno() {
-    }
-
-    public Integer getIdProgressoAluno() {
-        return idProgressoAluno;
-    }
-
-    public void setIdProgressoAluno(Integer idProgressoAluno) {
-        this.idProgressoAluno = idProgressoAluno;
-    }
-
-    public Integer getPontuacaoAluno() {
-        return pontuacaoAluno;
-    }
-
-    public void setPontuacaoAluno(Integer pontuacaoAluno) {
-        this.pontuacaoAluno = pontuacaoAluno;
-    }
-
-    public String getStatusAula() {
-        return statusAula;
-    }
-
-    public void setStatusAula(String statusAula) {
-        this.statusAula = statusAula;
-    }
 }

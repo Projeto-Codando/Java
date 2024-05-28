@@ -14,6 +14,7 @@ import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/modulos")
@@ -38,13 +39,13 @@ public class ModuloController {
 
     @Operation(summary = "Listar", description = "Método que lista todos os módulos de uma grade!", tags = "Modulo")
     @GetMapping("/grade/{idGrade}")
-    public ResponseEntity<List<ModuloListagemDTO>> listarPorGrade(@PathVariable Integer idGrade) {
+    public ResponseEntity<List<ModuloListagemDTO>> listarPorGrade(@PathVariable UUID idGrade) {
         return ResponseEntity.ok(moduloService.listarPorGrade(idGrade));
     }
 
     @Operation(summary = "Listar", description = "Método que lista um módulo por ID!", tags = "Modulo")
     @GetMapping("/{id}")
-    public ResponseEntity<ModuloListagemDTO> listarPorId(@PathVariable Integer id) {
+    public ResponseEntity<ModuloListagemDTO> listarPorId(@PathVariable UUID id) {
         return ResponseEntity.ok(moduloService.listarPorId(id));
     }
 

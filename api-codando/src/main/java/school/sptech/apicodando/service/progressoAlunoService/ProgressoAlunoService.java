@@ -15,6 +15,7 @@ import school.sptech.apicodando.service.aulaService.AulaService;
 import school.sptech.apicodando.service.progressoAlunoService.dto.ProgressoAlunoCadastroDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -44,11 +45,11 @@ public class ProgressoAlunoService {
     }
 
 
-    public ProgressoAluno buscarPorId(int id) {
+    public ProgressoAluno buscarPorId(UUID id) {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Progresso do aluno não encontrado."));
     }
 
-    public ProgressoAluno buscarPorIdAluno(int idAluno){
+    public ProgressoAluno buscarPorIdAluno(UUID idAluno){
         Aluno aluno = alunoService.listarUmPorId(idAluno).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado."));
 
         return repository.findByFkAluno(aluno).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Progresso do aluno não encontrado."));
@@ -58,7 +59,7 @@ public class ProgressoAlunoService {
         return repository.findAll();
     }
 
-    public ProgressoAluno atualizarPontos(int idAluno, PontosDTO pontosDTO, int idAula) {
+    public ProgressoAluno atualizarPontos(UUID idAluno, PontosDTO pontosDTO, UUID idAula) {
         Aluno aluno = alunoService.listarUmPorId(idAluno).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado."));
 
         Aula aula = aulaService.buscarPorId(idAula);

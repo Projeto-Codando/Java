@@ -13,6 +13,7 @@ import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -30,14 +31,14 @@ public class AlunoMapper {
         aluno.setSenhaTurma(dto.getSenhaTurma());
         aluno.setMoedas(300);
 
-        Avatar avatar = new Avatar();
-        avatar.setAluno(aluno);
-        avatar.setId(0);
-        avatar.setDescricao("Chimpanzé");
-        avatar.setPreco(0);
-        avatar.setImagemURL("https://raw.githubusercontent.com/Projeto-Codando/bucket-avatares/main/chimpaze.png?token=GHSAT0AAAAAACP2D2UYJDBXR47UNNGKMC5SZSTTO4Q");
-
-        aluno.getAvatares().add(avatar);
+//        Avatar avatar = new Avatar();
+//        avatar.setAluno(aluno);
+//        avatar.setId(0);
+//        avatar.setDescricao("Chimpanzé");
+//        avatar.setPreco(0);
+//        avatar.setImagemURL("https://raw.githubusercontent.com/Projeto-Codando/bucket-avatares/main/chimpaze.png?token=GHSAT0AAAAAACP2D2UYJDBXR47UNNGKMC5SZSTTO4Q");
+//
+//        aluno.getAvatares().add(avatar);
 
         return aluno;
     }
@@ -128,7 +129,7 @@ public class AlunoMapper {
         }).collect(Collectors.toList());
     }
 
-    public static Aluno toEntity(AlunoAtualizadoDTO dto, int id) {
+    public static Aluno toEntity(AlunoAtualizadoDTO dto, UUID id) {
         if (dto == null) {
             return null;
         }
@@ -142,4 +143,6 @@ public class AlunoMapper {
 
         return aluno;
     }
+
+
 }

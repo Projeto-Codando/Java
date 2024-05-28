@@ -17,6 +17,7 @@ import school.sptech.apicodando.api.mapper.AulaMapper;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/aulas")
@@ -38,7 +39,7 @@ public class AulaController {
 
     @Operation(summary = "Listar",description = "Listar todas as aulas de um tema específico",tags = "Aula")
     @GetMapping("/tema/{idTema}")
-    public ResponseEntity<List<AulaListagemDTO>> listarAulasPorTema(@PathVariable Integer idTema) {
+    public ResponseEntity<List<AulaListagemDTO>> listarAulasPorTema(@PathVariable UUID idTema) {
         List<AulaListagemDTO> aulas = aulaService.listarAulasPorTema(idTema);
         if (aulas.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
@@ -48,7 +49,7 @@ public class AulaController {
 
     @Operation(summary = "Listar",description = "Listar todas as aulas de uma grade específica",tags = "Aula")
     @GetMapping("/grade/{idGrade}")
-    public ResponseEntity<List<AulaListagemDTO>> listarAulasPorGrade(@PathVariable Integer idGrade) {
+    public ResponseEntity<List<AulaListagemDTO>> listarAulasPorGrade(@PathVariable UUID idGrade) {
         List<AulaListagemDTO> aulas = aulaService.listarAulasPorGrade(idGrade);
 
         if (aulas.isEmpty()) {

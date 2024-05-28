@@ -6,10 +6,12 @@ import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
 import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 
 import java.util.List;
+import java.util.UUID;
+
 @Data
 public class TemaListagemDTO {
 
-    protected Integer idTema;
+    protected UUID idTema;
     protected String nome;
 
     private List<AulaListagemDTO> aulas;

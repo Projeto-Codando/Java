@@ -1,17 +1,19 @@
 package school.sptech.apicodando.service.educadorService.dto.dtoEducador;
 
+import java.util.UUID;
+
 public class EducadorTokenDto {
 
-    private Integer userId;
+    private UUID userId;
     private String nome;
     private String email;
     private String token;
 
-    public Integer getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

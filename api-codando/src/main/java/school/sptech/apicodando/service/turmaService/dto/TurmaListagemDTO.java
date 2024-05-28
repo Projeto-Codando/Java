@@ -14,11 +14,13 @@ import school.sptech.apicodando.api.mapper.AlunoMapper;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 
 import java.util.List;
+import java.util.UUID;
+
 @Data
 @Getter
 @Setter
 public class TurmaListagemDTO {
-    private int idTurma;
+    private UUID idTurma;
     private String nome;
     private String senha;
     private EscolaridadeListagemDTO fkEscolaridade;
@@ -36,7 +38,7 @@ public class TurmaListagemDTO {
 
     @Data
     public static class AlunoListagemDTO {
-        private Integer idAluno;
+        private UUID idAluno;
         private String nome;
         private String sobrenome;
         private String apelido;
@@ -50,13 +52,13 @@ public class TurmaListagemDTO {
 
     @Data
     public static class EscolaridadeListagemDTO {
-        private Integer idEscolaridade;
+        private UUID idEscolaridade;
         private String descricao;
     }
 
     @Data
     public static class EducadorListagemDTO {
-        private Integer idEducador;
+        private UUID idEducador;
         private String nome;
         private String sobrenome;
     }

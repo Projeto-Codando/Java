@@ -29,6 +29,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Formatter;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.status;
 
@@ -49,32 +50,32 @@ public class TurmaController {
 
     @Operation(summary = "Listar", description = "Método que lista todas as turmas de um determinado Educador!", tags = "Turma")
     @GetMapping("/{idProfessor}")
-    public ResponseEntity<List<TurmaListagemDTO>> listarPorProfessor(@PathVariable int idProfessor) {
+    public ResponseEntity<List<TurmaListagemDTO>> listarPorProfessor(@PathVariable UUID idProfessor) {
         return status(200).body(this.turmaService.listarTodasTurmasPorProfessor(idProfessor));
     }
 
     @Operation(summary = "Editar", description = "Método que edita uma turma!", tags = "Turma")
     @PutMapping("/{id}")
-    public ResponseEntity<TurmaListagemDTO> editar(@RequestBody @Valid TurmaAtualizaDTO turmaAtualizada, @PathVariable int id) {
+    public ResponseEntity<TurmaListagemDTO> editar(@RequestBody @Valid TurmaAtualizaDTO turmaAtualizada, @PathVariable UUID id) {
         Turma turmaCadastrada = turmaService.atualizar(turmaAtualizada, id);
         return status(200).body(TurmaMapper.toDto(turmaCadastrada));
     }
 
     @Operation(summary = "Desativar", description = "Método que seta o status da turma como desativado!", tags = "Turma")
     @PostMapping("/desativar/{idProfessor}/{id}")
-    public ResponseEntity<TurmaListagemDTO> desativar(@PathVariable int id, @PathVariable int idProfessor) {
+    public ResponseEntity<TurmaListagemDTO> desativar(@PathVariable UUID id, @PathVariable UUID idProfessor) {
         return status(200).body(TurmaMapper.toDto(this.turmaService.desativar(id, idProfessor)));
     }
 
     @Operation(summary = "Listar por ID", description = "Método que retorna a turma buscada por ID!", tags = "Turma")
     @GetMapping("/buscaPorId/{idProfessor}/{id}")
-    public ResponseEntity<TurmaListagemDTO> buscaPorId(@PathVariable int id, @PathVariable int idProfessor) {
+    public ResponseEntity<TurmaListagemDTO> buscaPorId(@PathVariable UUID id, @PathVariable UUID idProfessor) {
         return status(200).body(this.turmaService.listarPorIdAndProfessor(id, idProfessor));
     }
 
     @Operation(summary = "Gerar Arquivo", description = "Método que gera o arquivo CSV!", tags = "Escola")
     @GetMapping("/gerarCSV/{idProfessor}/{idTurma}")
-    public ResponseEntity<Resource> gerarEbaixarCSV(@PathVariable int idTurma, @PathVariable int idProfessor) {
+    public ResponseEntity<Resource> gerarEbaixarCSV(@PathVariable UUID idTurma, @PathVariable UUID idProfessor) {
         TurmaListagemDTO turmaCSV = turmaService.listarPorIdAndProfessor(idTurma, idProfessor);
 
         if (turmaCSV == null) {
@@ -107,7 +108,7 @@ public class TurmaController {
                     "APELIDOALUNO");
 
             for (TurmaListagemDTO.AlunoListagemDTO aluno : turmaCSV.getAlunos()) {
-                saida.format("%d;%s;%s;%d;%d;%s;%s\n",
+                saida.format("%s;%s;%s;%s;%s;%s;%s\n",
                         turmaCSV.getIdTurma(),
                         turmaCSV.getNome().toUpperCase(),
                         turmaCSV.getFkEscolaridade().getDescricao().toUpperCase(),

@@ -8,6 +8,8 @@ import school.sptech.apicodando.api.domain.modulo.Modulo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 @Data
 public class GradeCadastroDto {
 
@@ -15,7 +17,7 @@ public class GradeCadastroDto {
     private List<Modulo> modulo;
     @ManyToOne
     @JoinColumn(name = "idTurma")
-    private Integer fkTurma;
+    private UUID fkTurma;
 
     public GradeCadastroDto() {
         this.modulo = new ArrayList<>();
