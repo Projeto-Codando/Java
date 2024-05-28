@@ -46,8 +46,6 @@ public class ModuloService {
         modulo.getGrade().getFkTurma().setAlunos(gradeRepository.findById(idGrade).get().getFkTurma().getAlunos());
         return moduloRepository.save(modulo);
 
-        return modulo;
-
     }
 
     public List<ModuloListagemDTO> listarModulos() {

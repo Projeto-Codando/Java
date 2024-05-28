@@ -30,7 +30,8 @@ public class Aluno {
     @ManyToOne
     @JoinColumn(name = "idTurma")
     protected Turma turma;
-    @OneToOne
+
+    @ManyToOne
     @JoinColumn(name = "idEscolaridade")
     protected Escolaridade escolaridade;
 
