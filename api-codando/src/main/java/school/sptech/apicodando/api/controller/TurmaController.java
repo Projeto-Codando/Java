@@ -18,6 +18,8 @@ import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.mapper.AlunoMapper;
 import school.sptech.apicodando.api.mapper.TurmaMapper;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
+import school.sptech.apicodando.service.presencaService.PresencaDTO;
+import school.sptech.apicodando.service.presencaService.PresencaService;
 import school.sptech.apicodando.service.turmaService.TurmaService;
 import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
@@ -144,6 +146,12 @@ public class TurmaController {
         headers.add(HttpHeaders.CONTENT_TYPE, "text/csv");
 
         return ResponseEntity.ok().headers(headers).body(resource);
+    }
+
+    @GetMapping("/presencas/{idProfessor}/{idTurma}")
+    public ResponseEntity<PresencaDTO[][]> getPresencas(@PathVariable UUID idProfessor, @PathVariable UUID idTurma){
+        PresencaDTO[][] presencas = turmaService.getPresencas(idProfessor, idTurma);
+        return ResponseEntity.ok(presencas);
     }
 }
 
