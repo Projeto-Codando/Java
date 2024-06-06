@@ -27,8 +27,8 @@ INSERT INTO escolaridade (ID_ESCOLARIDADE, descricao) VALUES (UUID(), '9º Ano')
 --INSERT INTO Grade (id_turma)
 --VALUES (1);
 --
---INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma)
---VALUES ('Turma 2', 'senha1234', 1, 1, true);
+-- INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma)
+-- VALUES ('Turma 2', 'senha1234', 1, 1, true);
 --
 --INSERT INTO Modulo (nome, grade_id_grade)
 --VALUES ('Nome do Modulo', 1);
