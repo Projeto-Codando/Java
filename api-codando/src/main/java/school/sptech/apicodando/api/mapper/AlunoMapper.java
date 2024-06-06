@@ -6,6 +6,7 @@ import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.service.alunoService.dto.AlunoAtualizadoDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
+import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLoginDTO;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
 import school.sptech.apicodando.service.avatarService.dto.AvatarListagemDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
@@ -31,7 +32,6 @@ public class AlunoMapper {
         aluno.setMoedas(300);
 
         Avatar avatar = new Avatar();
-        avatar.setAluno(aluno);
         avatar.setId(0);
         avatar.setDescricao("Chimpanzé");
         avatar.setPreco(0);
@@ -91,6 +91,19 @@ public class AlunoMapper {
         alunoTokenDto.setApelido(aluno.getApelido());
         alunoTokenDto.setNome(aluno.getNome());
 
+        AlunoTokenDto.AlunoListagemDTO alunoListagemDTO = new AlunoTokenDto.AlunoListagemDTO();
+        alunoListagemDTO.setIdAluno(aluno.getIdAluno());
+        alunoListagemDTO.setNome(aluno.getNome());
+        alunoListagemDTO.setSobrenome(aluno.getSobrenome());
+        alunoListagemDTO.setApelido(aluno.getApelido());
+        alunoListagemDTO.setStatus(aluno.getStatus());
+        alunoListagemDTO.setMoedas(aluno.getMoedas());
+        alunoListagemDTO.setIdTurma(aluno.getTurma().getIdTurma().toString());
+        alunoListagemDTO.setIdAvatar(aluno.getIdAvatar());
+
+        alunoListagemDTO.setAvatares(toDtoAvatarEntity(aluno.getAvatares()));
+        alunoTokenDto.setAlunoListagemDTO(alunoListagemDTO);
+
         return alunoTokenDto;
     }
 
@@ -103,6 +116,17 @@ public class AlunoMapper {
         avatarListagemDTO.setPreço(avatar.getPreco());
 
         return avatarListagemDTO;
+    }
+
+    public static List<AlunoTokenDto.AlunoListagemDTO.AvatarListagemDTO> toDtoAvatarEntity(List<Avatar> avatares) {
+        return avatares.stream().map(avatar -> {
+            AlunoTokenDto.AlunoListagemDTO.AvatarListagemDTO avatarListagemDTO = new AlunoTokenDto.AlunoListagemDTO.AvatarListagemDTO();
+            avatarListagemDTO.setId(avatar.getId());
+            avatarListagemDTO.setDescricao(avatar.getDescricao());
+            avatarListagemDTO.setPreço(avatar.getPreco());
+            avatarListagemDTO.setImagemURL(avatar.getImagemURL());
+            return avatarListagemDTO;
+        }).collect(Collectors.toList());
     }
 
     public static AlunoListagemDTO.AvatarListagemDTO toDtoAvatar(Avatar avatar) {
@@ -124,6 +148,7 @@ public class AlunoMapper {
             avatarListagemDTO.setIdAvatar(avatar.getId());
             avatarListagemDTO.setDescricao(avatar.getDescricao());
             avatarListagemDTO.setPreco(avatar.getPreco());
+            avatarListagemDTO.setImagemURL(avatar.getImagemURL());
             return avatarListagemDTO;
         }).collect(Collectors.toList());
     }
@@ -142,4 +167,5 @@ public class AlunoMapper {
 
         return aluno;
     }
+
 }

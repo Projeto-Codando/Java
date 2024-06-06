@@ -7,4 +7,5 @@ public class AvatarListagemDTO {
     private int id;
     private String descricao;
     private Integer preço;
+    private String imagemURL;
 }

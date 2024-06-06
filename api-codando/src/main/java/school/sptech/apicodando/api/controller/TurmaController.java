@@ -47,6 +47,12 @@ public class TurmaController {
         return status(201).body(TurmaMapper.toDto(turmaCadastrada));
     }
 
+    @Operation(summary = "Buscar por ID", description = "Método que busca uma turma por ID!", tags = "Turma")
+    @GetMapping("/buscar-turma-por-id/{id}")
+    public ResponseEntity<TurmaListagemDTO> buscarPorId(@PathVariable int id) {
+        return status(200).body(TurmaMapper.toDto(this.turmaService.buscarPorId(id)));
+    }
+
     @Operation(summary = "Listar", description = "Método que lista todas as turmas de um determinado Educador!", tags = "Turma")
     @GetMapping("/{idProfessor}")
     public ResponseEntity<List<TurmaListagemDTO>> listarPorProfessor(@PathVariable int idProfessor) {

@@ -61,6 +61,7 @@ public class EducadorMapper {
         educadorTokenDto.setToken(token);
         educadorTokenDto.setEmail(aluno.getEmail());
         educadorTokenDto.setNome(aluno.getNome());
+        educadorTokenDto.setUserId(aluno.getIdEducador());
 
         return educadorTokenDto;
     }

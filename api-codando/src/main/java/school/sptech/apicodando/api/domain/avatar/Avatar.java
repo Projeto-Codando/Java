@@ -14,7 +14,7 @@ public class Avatar {
     protected int preco;
     protected String imagemURL;
 
-    @ManyToOne
-    @JoinColumn(name = "id_aluno")
-    protected Aluno aluno;
+//    @ManyToOne
+//    @JoinColumn(name = "id_aluno")
+//    protected Aluno aluno;
 }

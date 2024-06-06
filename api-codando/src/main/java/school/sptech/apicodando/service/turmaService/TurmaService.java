@@ -64,6 +64,14 @@ public class TurmaService {
         }
     }
 
+    public Turma buscarPorId(int id) {
+        Optional<Turma> turma = this.turmaRepository.findById(id);
+        if (turma.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
+        return turma.get();
+    }
+
     public Turma atualizar(TurmaAtualizaDTO turmaAtualizada, int id){
         Turma turma = buscarPorIdTurmaAndIdProfessor(id, turmaAtualizada.getFkEducador().getIdEducador());
         if(turma == null){

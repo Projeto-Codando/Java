@@ -27,6 +27,7 @@ public class AlunoListagemDTO {
         private Integer idAvatar;
         private String descricao;
         private Integer preco;
+        private String imagemURL;
     }
 
 }
