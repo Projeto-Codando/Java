@@ -29,48 +29,98 @@ class EducadorControllerTest {
 
     @Nested
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    @DisplayName("Teste de buscar por IdEducador")
-    public class EducadorSaveTeste {test
-
-
+    @DisplayName("Teste de salvar um Educador")
+    public class EducadorSaveTeste {
 
         @Test
         @DirtiesContext
-        @DisplayName("1 - Deve salvar um educador com sucesso")
-        void testSalvarEducadorComSucesso() throws Exception {
-
-
-
+        @DisplayName("Deve retornar erro quando o nome está faltando")
+        void testSalvarEducadorSemNome() throws Exception {
             var json = """
-                        {
-                          "nome": "Matheus",
-                          "sobrenome": "Cunha",
-                          "apelido": "ismael.og1",
-                          "senha": "senha123456",
-                          "senhaTurma": "senha1234"
-                        }
-                    """;
+                    {
+                      "sobrenome": "Cunha",
+                      "email": "matheus.cunha@email.com",
+                      "senha": "senha123456"
+                    }
+                """;
 
-            mockMvc.perform(post("/alunos")
+            mockMvc.perform(post("/educadores")
                             .contentType("application/json")
                             .content(json))
-                    .andExpect(status().isCreated())
-                    .andExpect(jsonPath("$.idAluno").exists())
-                    .andExpect(jsonPath("$.nome").value("Matheus"))
-                    .andExpect(jsonPath("$.sobrenome").value("Cunha"))
-                    .andExpect(jsonPath("$.apelido").value("ismael.og1"))
-                    .andExpect(jsonPath("$.status").value(true)) // ou false, dependendo do valor esperado
-                    .andExpect(jsonPath("$.moedas").value(0)) // ou outro valor, dependendo do valor esperado
-                    .andExpect(jsonPath("$.idTurma").exists())
-                    .andExpect(jsonPath("$.idAvatar").value(0)) // ou outro valor, dependendo do valor esperado
-                    .andExpect(jsonPath("$.avatares").isArray());
+                    .andExpect(status().isBadRequest());
         }
 
         @Test
         @DirtiesContext
-        @DisplayName("2 - Deve retornar erro ao tentar buscar um educador que não existe")
-        void testBuscarEducadorInexistente() throws Exception {
-            // Implementação do teste
+        @DisplayName("Deve retornar erro quando o sobrenome está faltando")
+        void testSalvarEducadorSemSobrenome() throws Exception {
+            var json = """
+                    {
+                      "nome": "Matheus",
+                      "email": "matheus.cunha@email.com",
+                      "senha": "senha123456"
+                    }
+                """;
+
+            mockMvc.perform(post("/educadores")
+                            .contentType("application/json")
+                            .content(json))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DirtiesContext
+        @DisplayName("Deve retornar erro quando o email está faltando")
+        void testSalvarEducadorSemEmail() throws Exception {
+            var json = """
+                    {
+                      "nome": "Matheus",
+                      "sobrenome": "Cunha",
+                      "senha": "senha123456"
+                    }
+                """;
+
+            mockMvc.perform(post("/educadores")
+                            .contentType("application/json")
+                            .content(json))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DirtiesContext
+        @DisplayName("Deve retornar erro quando o email está inválido")
+        void testSalvarEducadorComEmailInvalido() throws Exception {
+            var json = """
+                    {
+                      "nome": "Matheus",
+                      "sobrenome": "Cunha",
+                      "email": "ronaldo2002",
+                      "senha": "senha123456"
+                    }
+                """;
+
+            mockMvc.perform(post("/educadores")
+                            .contentType("application/json")
+                            .content(json))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DirtiesContext
+        @DisplayName("Deve retornar erro quando a senha está faltando")
+        void testSalvarEducadorSemSenha() throws Exception {
+            var json = """
+                    {
+                      "nome": "Matheus",
+                      "sobrenome": "Cunha",
+                      "email": "matheus.cunha@email.com"
+                    }
+                """;
+
+            mockMvc.perform(post("/educadores")
+                            .contentType("application/json")
+                            .content(json))
+                    .andExpect(status().isBadRequest());
         }
     }
 
