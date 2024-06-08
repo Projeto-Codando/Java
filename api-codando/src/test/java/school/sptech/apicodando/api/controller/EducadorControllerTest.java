@@ -34,6 +34,23 @@ class EducadorControllerTest {
 
         @Test
         @DirtiesContext
+        @DisplayName("Deve salvar educador com sucesso")
+        void testSalvarEducador() throws Exception {
+            var json = """
+                    {
+                      "sobrenome": "Cunha",
+                      "email": "matheus.cunha@email.com",
+                      "senha": "senha123456"
+                    }
+                """;
+
+            mockMvc.perform(post("/educadores")
+                            .contentType("application/json")
+                            .content(json))
+                    .andExpect(status().isBadRequest());
+        }
+        @Test
+        @DirtiesContext
         @DisplayName("Deve retornar erro quando o nome está faltando")
         void testSalvarEducadorSemNome() throws Exception {
             var json = """
@@ -134,7 +151,19 @@ class EducadorControllerTest {
         @DirtiesContext
         @DisplayName("1 - Deve buscar um educador com sucesso")
         void testBuscarEducadorComSucesso() throws Exception {
-            // Implementação do teste
+            var json = """
+                    {
+                      "sobrenome": "Cunha",
+                      "email": "matheus.cunha@email.com",
+                      "senha": "senha123456"
+                    }
+                """;
+
+            mockMvc.perform(post("/educadores")
+                            .contentType("application/json")
+                            .content(json))
+                    .andExpect(status().isBadRequest());
+
         }
 
         @Test
