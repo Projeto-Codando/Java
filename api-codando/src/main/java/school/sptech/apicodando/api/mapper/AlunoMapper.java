@@ -53,6 +53,9 @@ public class AlunoMapper {
         listagemDto.setApelido(entidade.getApelido());
         listagemDto.setMoedas(entidade.getMoedas());
         listagemDto.setStatus(entidade.getStatus());
+
+        listagemDto.setIdAvatar(entidade.getIdAvatar());
+
         if(entidade.getTurma() == null){
             listagemDto.setIdTurma("Sem turma informada.");
         }else{

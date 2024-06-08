@@ -16,8 +16,9 @@ public class ModuloCadastroDTO {
     @Size(min = 3, max = 255)
     private String nome;
     private List<TemaListagemDTO> temas;
-    @PositiveOrZero
-    private Integer gradeId;
+
+//    @PositiveOrZero
+//    private Integer gradeId;
 
     public ModuloCadastroDTO() {
         this.temas = new ArrayList<>();

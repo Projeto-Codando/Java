@@ -25,13 +25,13 @@ public class GradeService {
 
 
     public Grade criar(GradeCadastroDto gradeCadastroDto){
-        if (gradeCadastroDto.getFkTurma() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Turma ID nao pode  ser nulo");
-        }
-        Turma turma = turmaRepository.findById(gradeCadastroDto.getFkTurma())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."));
+//        if (gradeCadastroDto.getFkTurma() == null) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Turma ID nao pode  ser nulo");
+//        }
+//        Turma turma = turmaRepository.findById(gradeCadastroDto.getFkTurma())
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."));
         final Grade novaGrade = GradeMapper.toEntity(gradeCadastroDto);
-        novaGrade.setFkTurma(turma);
+//        novaGrade.setFkTurma(turma);
         return gradeRepository.save(novaGrade);
     }
 
@@ -57,20 +57,20 @@ public class GradeService {
         return dtos;
     }
 
-    public List<GradeListagemDto> listarPorTurma(Integer idTurma){
-        List<Grade> grades = gradeRepository.findAllByFkTurma_IdTurma(idTurma);
-
-        if (turmaRepository.existsById(idTurma)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
-        }
-
-        List<GradeListagemDto> dtos = GradeMapper.toDto(grades);
-
-        for (GradeListagemDto dto : dtos) {
-            dto.setModulo(moduloService.listarPorGrade(dto.getIdGrade()));
-        }
-
-        return dtos;
-    }
+//    public List<GradeListagemDto> listarPorTurma(Integer idTurma){
+//        List<Grade> grades = gradeRepository.findAllByFkTurma_IdTurma(idTurma);
+//
+//        if (turmaRepository.existsById(idTurma)) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+//        }
+//
+//        List<GradeListagemDto> dtos = GradeMapper.toDto(grades);
+//
+//        for (GradeListagemDto dto : dtos) {
+//            dto.setModulo(moduloService.listarPorGrade(dto.getIdGrade()));
+//        }
+//
+//        return dtos;
+//    }
 
 }

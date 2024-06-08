@@ -13,9 +13,10 @@ public class GradeCadastroDto {
 
     @OneToMany(mappedBy = "idModulo")
     private List<Modulo> modulo;
-    @ManyToOne
-    @JoinColumn(name = "idTurma")
-    private Integer fkTurma;
+
+//    @ManyToOne
+//    @JoinColumn(name = "idTurma")
+//    private Integer fkTurma;
 
     public GradeCadastroDto() {
         this.modulo = new ArrayList<>();

@@ -17,6 +17,7 @@ public class ModuloMapper {
         ModuloListagemDTO dto = new ModuloListagemDTO();
         dto.setIdModulo(modulo.getIdModulo());
         dto.setNome(modulo.getNome());
+        dto.setTemas(modulo.getTemas().stream().map(TemaMapper::toDto).collect(Collectors.toList()));
 //        dto.setIdGrade(modulo.getGrade().getIdGrade());
 //        dto.getGrade().setTurma(toTurmaListagem(modulo.getGrade().getFkTurma()));
         return dto;

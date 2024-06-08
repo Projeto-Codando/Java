@@ -6,7 +6,4 @@ import school.sptech.apicodando.api.domain.grade.Grade;
 import java.util.List;
 
 public interface GradeRepository extends JpaRepository<Grade, Integer> {
-
-//    @Override
-    List<Grade> findAllByFkTurma_IdTurma(Integer integers);
 }

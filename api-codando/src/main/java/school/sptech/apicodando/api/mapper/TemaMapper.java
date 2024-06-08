@@ -14,6 +14,7 @@ public class TemaMapper {
         dto.setIdTema(tema.getIdTema());
         dto.setNome(tema.getNome());
         dto.setAulas(AulaMapper.toDto(tema.getAulas()));
+        dto.setAulas(AulaMapper.toDto(tema.getAulas()));
 //        dto.setModulo(toModuloDto(tema.getModulo()));
         return dto;
     }

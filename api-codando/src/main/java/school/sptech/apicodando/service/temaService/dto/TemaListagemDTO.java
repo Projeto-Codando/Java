@@ -11,8 +11,8 @@ public class TemaListagemDTO {
 
     protected Integer idTema;
     protected String nome;
-
     private List<AulaListagemDTO> aulas;
+
 //    private ModuloListagemDTO modulo;
 
 //    @Data

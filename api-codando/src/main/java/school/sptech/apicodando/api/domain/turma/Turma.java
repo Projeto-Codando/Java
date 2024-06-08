@@ -9,6 +9,7 @@ import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.grade.Grade;
+import school.sptech.apicodando.api.domain.modulo.Modulo;
 
 import java.util.List;
 
@@ -37,9 +38,9 @@ public class Turma {
     @JoinColumn(name = "idEducador")
     protected Educador educador;
 
-    @OneToMany(mappedBy = "fkTurma")
-//    @JoinColumn(name = "idGrade")
-    protected List<Grade> grade;
+    @ManyToOne
+    @JoinColumn(name = "idModulo")
+    protected Modulo modulo;
 
     protected boolean statusTurma;
 

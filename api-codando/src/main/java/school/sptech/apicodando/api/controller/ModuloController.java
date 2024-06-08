@@ -26,7 +26,7 @@ public class ModuloController {
     @Operation(summary = "Cadastrar", description = "Método que cadastra um módulo!", tags = "Modulo")
     @PostMapping
     public ResponseEntity<ModuloListagemDTO> criar(@RequestBody ModuloCadastroDTO moduloCadastro) {
-        ModuloListagemDTO moduloNovo = ModuloMapper.toDto(moduloService.criar(moduloCadastro, moduloCadastro.getGradeId()));
+        ModuloListagemDTO moduloNovo = ModuloMapper.toDto(moduloService.criar(moduloCadastro));
         URI location = URI.create(String.format("/%d", moduloNovo.getIdModulo()));
         return ResponseEntity.created(location).body(moduloNovo);
     }

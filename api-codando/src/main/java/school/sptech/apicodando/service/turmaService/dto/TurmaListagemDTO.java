@@ -24,6 +24,7 @@ public class TurmaListagemDTO {
     private EscolaridadeListagemDTO fkEscolaridade;
     private EducadorListagemDTO fkEducador;
     private List<AlunoListagemDTO> alunos;
+    private int fkModulo;
     private boolean statusTurma;
 
 //    public String getFkEscolaridade() {
@@ -42,6 +43,7 @@ public class TurmaListagemDTO {
         private String apelido;
         private boolean status;
         private Integer moedas;
+        private Integer idAvatar;
 
         public String getStatus() {
             return status ? "Ativo" : "Inativo";

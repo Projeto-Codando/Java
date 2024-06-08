@@ -12,7 +12,10 @@ import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.educador.repository.EducadorRepository;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.escolaridade.repository.EscolaridadeRepository;
+import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.grade.repository.GradeRepository;
+import school.sptech.apicodando.api.domain.modulo.Modulo;
+import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.TurmaMapper;
@@ -35,7 +38,7 @@ public class TurmaService {
     private final TurmaRepository turmaRepository;
     private final EscolaridadeRepository escolaridadeRepository;
     private final EducadorRepository educadorRepository;
-    private final GradeRepository gradeRepository;
+    private final ModuloRepository moduloRepository;
 
     public Turma criar(TurmaCadastroDTO turmaCadastro) {
         Escolaridade escolaridade = escolaridadeRepository.findById(turmaCadastro.getFkEscolaridade())
@@ -44,9 +47,10 @@ public class TurmaService {
         Educador educador = educadorRepository.findById(turmaCadastro.getFkEducador())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Educador não encontrado."));
 
-        final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade, educador);
+        Modulo modulo = moduloRepository.findById(turmaCadastro.getFkModulo())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
 
-        novaTurma.setGrade(gradeRepository.findAllByFkTurma_IdTurma(novaTurma.getIdTurma()));
+        final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade, educador, modulo);
 
         if (existeTurmaByCodigo(turmaCadastro.getSenha())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");

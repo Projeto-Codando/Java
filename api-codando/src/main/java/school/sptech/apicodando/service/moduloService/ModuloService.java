@@ -34,16 +34,16 @@ public class ModuloService {
     private final TemaService temaService;
     private final AulaRepository aulaRepository;
 
-    public Modulo criar(ModuloCadastroDTO moduloCadastro, Integer idGrade) {
+    public Modulo criar(ModuloCadastroDTO moduloCadastro) {
 
-        if (gradeRepository.findById(idGrade).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+//        if (gradeRepository.findById(idGrade).isEmpty()) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        }
 
         Modulo modulo = ModuloMapper.toEntity(moduloCadastro);
-        modulo.setGrade(gradeRepository.findById(idGrade).get());
-        modulo.getGrade().setFkTurma(gradeRepository.findById(idGrade).get().getFkTurma());
-        modulo.getGrade().getFkTurma().setAlunos(gradeRepository.findById(idGrade).get().getFkTurma().getAlunos());
+//        modulo.setGrade(gradeRepository.findById(idGrade).get());
+//        modulo.getGrade().setFkTurma(gradeRepository.findById(idGrade).get().getFkTurma());
+//        modulo.getGrade().getFkTurma().setAlunos(gradeRepository.findById(idGrade).get().getFkTurma().getAlunos());
         return moduloRepository.save(modulo);
 
     }

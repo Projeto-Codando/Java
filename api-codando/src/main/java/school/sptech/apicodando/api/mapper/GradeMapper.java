@@ -22,7 +22,8 @@ public class GradeMapper {
     public static GradeListagemDto toDto(Grade grade) {
         GradeListagemDto dto = new GradeListagemDto();
         dto.setIdGrade(grade.getIdGrade());
-        dto.setIdTurma(grade.getFkTurma().getIdTurma());
+
+//        dto.setIdTurma(grade.getFkTurma().getIdTurma());
         return dto;
     }
 

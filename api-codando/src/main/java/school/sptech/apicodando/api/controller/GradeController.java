@@ -42,17 +42,17 @@ public class GradeController {
         return status(200).body(gradeService.listarPorId(id));
     }
 
-    @Operation(summary = "Listar", description = "Método que lista grades por idTurma!", tags = "Grade")
-    @GetMapping("/turma /{id}")
-    public ResponseEntity<List<GradeListagemDto>> listarPorTurma(@PathVariable int idTurma) {
-
-        List<GradeListagemDto> grades = gradeService.listarPorTurma(idTurma);
-
-        if (grades.isEmpty()) {
-            return status(204).build();
-        }
-        return ok().body(grades);
-    }
+//    @Operation(summary = "Listar", description = "Método que lista grades por idTurma!", tags = "Grade")
+//    @GetMapping("/turma /{id}")
+//    public ResponseEntity<List<GradeListagemDto>> listarPorTurma(@PathVariable int idTurma) {
+//
+//        List<GradeListagemDto> grades = gradeService.listarPorTurma(idTurma);
+//
+//        if (grades.isEmpty()) {
+//            return status(204).build();
+//        }
+//        return ok().body(grades);
+//    }
 
 
     @Operation(summary = "Listar", description = "Método que lista todas as grades!", tags = "Grade")
