@@ -24,7 +24,7 @@ public class AlunoListagemDTO {
 
     @Data
     public static class AvatarListagemDTO {
-        private Integer idAvatar;
+        private Integer id;
         private String descricao;
         private Integer preco;
         private String imagemURL;

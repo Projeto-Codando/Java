@@ -22,6 +22,7 @@ public class AvatarMapper {
         avatar.setId(dto.getId());
         avatar.setDescricao(dto.getDescricao());
         avatar.setPreco(dto.getPreço());
+        avatar.setImagemURL(dto.getImagemURL());
         return avatar;
     }
 
