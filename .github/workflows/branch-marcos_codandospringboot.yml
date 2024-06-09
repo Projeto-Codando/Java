@@ -6,7 +6,7 @@ name: Build and deploy JAR app to Azure Web App - CodandoSpringBoot
 on:
   push:
     branches:
-      - branch-marcos
+      - main
   workflow_dispatch:
 
 jobs:
@@ -22,13 +22,16 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn -f api-codando/pom.xml clean install
+
+      - name: List files after build
+        run: ls -R api-codando/target
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: 'api-codando/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -38,25 +41,27 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
-  
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: java-app
       
+      - name: List downloaded files
+        run: ls -R
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_52C2813148304B4E9B7BF87201D9BA63 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2C1B9A74A42B4DE28C86D97A41080CB6 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5A2B39FC5405449FB9007C36C3B5ABD5 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_538A92308E8E43919A25FAEC79CBE366 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E67433FE7A8343B680CC6AC5FD9262FA }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D1CFD73A15CE4E6496DD095BC5D83951 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'CodandoSpringBoot'
+          app-name: 'CodandoSpring'
           slot-name: 'Production'
           package: '*.jar'
-          
