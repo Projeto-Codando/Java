@@ -1,12 +1,12 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy JAR app to Azure Web App - CodandoSpringBoot
+name: Build and deploy Node.js app to Azure Web App - codando
 
 on:
   push:
     branches:
-      - branch-marcos
+      - main
   workflow_dispatch:
 
 jobs:
@@ -16,25 +16,36 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Java version
-        uses: actions/setup-java@v1
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
         with:
-          java-version: '17'
+          node-version: '18.x'
 
-      - name: Verify directory structure
-        run: ls -R
+      - name: npm install
+        run: npm install
 
-      - name: Build with Maven
-        run: mvn -f api-codando/pom.xml clean install -e -X
+      - name: Lint JavaScript files
+        run: npx eslint 'src/**/*.{js,jsx,ts,tsx}' --max-warnings=0
 
-      - name: List files after build
-        run: ls -R api-codando/target
+      - name: Run CSS linter
+        run: |
+          npx stylelint "src/**/*.css" --max-warnings=0 || true
+          npx postcss "src/**/*.css" --use autoprefixer -o dist/styles.css || true
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Run tests
+        run: npm run test --if-present
+
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: java-app
-          path: 'api-codando/target/*.jar'
+          name: node-app
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,22 +60,22 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: java-app
-      
-      - name: List downloaded files
-        run: ls -R
+          name: node-app
 
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
+      
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_538A92308E8E43919A25FAEC79CBE366 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E67433FE7A8343B680CC6AC5FD9262FA }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D1CFD73A15CE4E6496DD095BC5D83951 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9B788A43D5B34344A734546613F9845B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5894FC67A1EF4392A8B34AD0F9A36AF0 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1B8F029CC4E748C4AD75B32DA8676404 }}
 
-      - name: Deploy to Azure Web App
+      - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'CodandoSpring'
+          app-name: 'codando'
           slot-name: 'Production'
-          package: '*.jar'
+          package: .
