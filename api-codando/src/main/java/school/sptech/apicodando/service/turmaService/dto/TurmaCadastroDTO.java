@@ -36,7 +36,7 @@ public class TurmaCadastroDTO {
     protected UUID fkGrade;
     @OneToMany
     protected List<Aluno> alunos;
-
+//    @NotBlank
     protected boolean statusTurma;
 
     public TurmaCadastroDTO() {

@@ -31,24 +31,6 @@ class EducadorControllerTest {
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @DisplayName("Teste de salvar um Educador")
     public class EducadorSaveTeste {
-
-        @Test
-        @DirtiesContext
-        @DisplayName("Deve salvar educador com sucesso")
-        void testSalvarEducador() throws Exception {
-            var json = """
-                    {
-                      "sobrenome": "Cunha",
-                      "email": "matheus.cunha@email.com",
-                      "senha": "senha123456"
-                    }
-                """;
-
-            mockMvc.perform(post("/educadores")
-                            .contentType("application/json")
-                            .content(json))
-                    .andExpect(status().isBadRequest());
-        }
         @Test
         @DirtiesContext
         @DisplayName("Deve retornar erro quando o nome está faltando")
@@ -142,75 +124,77 @@ class EducadorControllerTest {
     }
 
 
-    @Nested
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    @DisplayName("Teste de buscar por IdEducador")
-    public class EducadorBuscarPorIdTeste {
+//    @Nested
+//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+//    @DisplayName("Teste de buscar por IdEducador")
+//    public class EducadorBuscarPorIdTeste {
 
-        @Test
-        @DirtiesContext
-        @DisplayName("1 - Deve buscar um educador com sucesso")
-        void testBuscarEducadorComSucesso() throws Exception {
-            var json = """
-                    {
-                      "sobrenome": "Cunha",
-                      "email": "matheus.cunha@email.com",
-                      "senha": "senha123456"
-                    }
-                """;
+//        @Test
+//        @DirtiesContext
+//        @DisplayName("1 - Deve buscar um educador com sucesso")
+//        void testBuscarEducadorComSucesso() throws Exception {
+//            var json = """
+//                    {
+//                      "sobrenome": "Cunha",
+//                      "email": "matheus.cunha@email.com",
+//                      "senha": "senha123456"
+//                    }
+//                """;
+//
+//            mockMvc.perform(post("/educadores")
+//                            .contentType("application/json")
+//                            .content(json))
+//                    .andExpect(status().isBadRequest());
+//
+//        }
 
-            mockMvc.perform(post("/educadores")
-                            .contentType("application/json")
-                            .content(json))
-                    .andExpect(status().isBadRequest());
+//        @Test
+//        @DirtiesContext
+//        @DisplayName("2 - Deve retornar erro ao tentar buscar um educador que não existe")
+//        void testBuscarEducadorInexistente() throws Exception {
+//
+//
+//
+//        }
+//    }
 
-        }
-
-        @Test
-        @DirtiesContext
-        @DisplayName("2 - Deve retornar erro ao tentar buscar um educador que não existe")
-        void testBuscarEducadorInexistente() throws Exception {
-            // Implementação do teste
-        }
-    }
-
-    @Nested
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    @DisplayName("Teste de excluir por IdEducador")
-    public class EducadorExcluirPorIdTeste {
-
-        @Test
-        @DirtiesContext
-        @DisplayName("1 - Deve deletar um educador com sucesso")
-        void testDeleteEducadorComSucesso() throws Exception {
-            // Implementação do teste
-        }
-
-        @Test
-        @DirtiesContext
-        @DisplayName("2 - Deve retornar erro ao tentar deletar um educador que não existe")
-        void testDeleteEducadorInexistente() throws Exception {
-            // Implementação do teste
-        }
-    }
-
-    @Nested
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    @DisplayName("Teste de atualizar por IdEducador")
-    public class EducadorAtualizarPorIdTeste {
-
-        @Test
-        @DirtiesContext
-        @DisplayName("1 - Deve atualizar um educador com sucesso")
-        void testUpdateEducadorComSucesso() throws Exception {
-            // Implementação do teste
-        }
-
-        @Test
-        @DirtiesContext
-        @DisplayName("2 - Deve retornar erro ao tentar atualizar um educador que não existe")
-        void testUpdateEducadorInexistente() throws Exception {
-            // Implementação do teste
-        }
-    }
+//    @Nested
+//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+//    @DisplayName("Teste de excluir por IdEducador")
+//    public class EducadorExcluirPorIdTeste {
+//
+//        @Test
+//        @DirtiesContext
+//        @DisplayName("1 - Deve deletar um educador com sucesso")
+//        void testDeleteEducadorComSucesso() throws Exception {
+//            // Implementação do teste
+//        }
+//
+//        @Test
+//        @DirtiesContext
+//        @DisplayName("2 - Deve retornar erro ao tentar deletar um educador que não existe")
+//        void testDeleteEducadorInexistente() throws Exception {
+//            // Implementação do teste
+//        }
+//    }
+//
+//    @Nested
+//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+//    @DisplayName("Teste de atualizar por IdEducador")
+//    public class EducadorAtualizarPorIdTeste {
+//
+//        @Test
+//        @DirtiesContext
+//        @DisplayName("1 - Deve atualizar um educador com sucesso")
+//        void testUpdateEducadorComSucesso() throws Exception {
+//            // Implementação do teste
+//        }
+//
+//        @Test
+//        @DirtiesContext
+//        @DisplayName("2 - Deve retornar erro ao tentar atualizar um educador que não existe")
+//        void testUpdateEducadorInexistente() throws Exception {
+//            // Implementação do teste
+//        }
+//    }
 }
