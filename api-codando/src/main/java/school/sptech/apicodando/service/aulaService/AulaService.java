@@ -39,6 +39,7 @@ public class AulaService {
 
     public List<AulaListagemDTO> listarAulasPorTema(int idTema) {
 
+
         List<Aula> aulas = aulaRepository.findAllByTema_IdTema(idTema);
 
         if (aulas.isEmpty()) {
