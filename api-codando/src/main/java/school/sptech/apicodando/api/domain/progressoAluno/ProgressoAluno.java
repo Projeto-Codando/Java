@@ -22,10 +22,12 @@ public class ProgressoAluno {
     protected Integer pontuacaoAluno;
 
     private String statusAula = "Em andamento";
-    @OneToOne
+
+    @ManyToOne
     @JoinColumn(name = "fkAluno")
     protected Aluno fkAluno;
-    @OneToOne
+
+    @ManyToOne
     @JoinColumn(name = "fkAula")
     protected Aula fkAula;
 

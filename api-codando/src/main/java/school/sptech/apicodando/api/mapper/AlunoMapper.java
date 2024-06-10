@@ -29,7 +29,7 @@ public class AlunoMapper {
         aluno.setApelido(dto.getApelido());
         aluno.setSenha(dto.getSenha());
         aluno.setSenhaTurma(dto.getSenhaTurma());
-        aluno.setMoedas(1000);
+        aluno.setMoedas(300);
 
         Avatar avatar = new Avatar();
         avatar.setId(0);
