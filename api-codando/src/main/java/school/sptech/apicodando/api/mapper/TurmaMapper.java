@@ -1,13 +1,12 @@
 package school.sptech.apicodando.api.mapper;
 
 import school.sptech.apicodando.api.domain.aluno.Aluno;
+import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
-import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
-import school.sptech.apicodando.api.mapper.AlunoMapper;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
@@ -62,6 +61,7 @@ public class TurmaMapper {
         listagemDto.setAlunos(toAlunoDto(entidade.getAlunos()));
         listagemDto.setFkModulo(entidade.getModulo().getIdModulo());
 
+
         return listagemDto;
     }
 
@@ -92,9 +92,35 @@ public class TurmaMapper {
             dto.setStatus(e.getStatus());
             dto.setMoedas(e.getMoedas());
             dto.setIdAvatar(e.getIdAvatar());
+            dto.setAvatar(toAvatarDto(e.getAvatares()));
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    public static TurmaListagemDTO.AlunoListagemDTO.AvatarListagemDTO toAvatarDto(Avatar entidades){
+        if (entidades == null) return null;
+
+        TurmaListagemDTO.AlunoListagemDTO.AvatarListagemDTO dto = new TurmaListagemDTO.AlunoListagemDTO.AvatarListagemDTO();
+        dto.setIdAvatar(entidades.getId());
+        dto.setDescricao(entidades.getDescricao());
+        dto.setPreco(entidades.getPreco());
+        dto.setImagemURL(entidades.getImagemURL());
+
+        return dto;
+    }
+
+    public static List<TurmaListagemDTO.AlunoListagemDTO.AvatarListagemDTO> toAvatarDto(List<Avatar> entidades){
+        if (entidades == null) return null;
+
+        return entidades.stream().map(avatar -> {
+            TurmaListagemDTO.AlunoListagemDTO.AvatarListagemDTO dto = new TurmaListagemDTO.AlunoListagemDTO.AvatarListagemDTO();
+            dto.setIdAvatar(avatar.getId());
+            dto.setDescricao(avatar.getDescricao());
+            dto.setPreco(avatar.getPreco());
+            dto.setImagemURL(avatar.getImagemURL());
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     public static TurmaListagemDTO.EscolaridadeListagemDTO toEscolaridadeDto(Escolaridade entidades){

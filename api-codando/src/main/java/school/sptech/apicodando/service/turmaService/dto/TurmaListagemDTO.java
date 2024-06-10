@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
+import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.mapper.AlunoMapper;
@@ -44,9 +45,18 @@ public class TurmaListagemDTO {
         private boolean status;
         private Integer moedas;
         private Integer idAvatar;
+        private List<AvatarListagemDTO> avatar;
 
         public String getStatus() {
             return status ? "Ativo" : "Inativo";
+        }
+
+        @Data
+        public static class AvatarListagemDTO {
+            private Integer idAvatar;
+            private Integer preco;
+            private String descricao;
+            private String imagemURL;
         }
     }
 
