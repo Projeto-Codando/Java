@@ -27,9 +27,11 @@ jobs:
         run: echo "NODE_OPTIONS=--openssl-legacy-provider" >> $GITHUB_ENV
 
       - name: Install dependencies
+        working-directory: api-codando
         run: npm install
 
       - name: Build project
+        working-directory: api-codando
         run: npm run build
 
       - name: Build with Maven
