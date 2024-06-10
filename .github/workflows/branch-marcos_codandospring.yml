@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy JAR app to Azure Web App - CodandoSpring
 
 on:
@@ -21,14 +18,31 @@ jobs:
         with:
           java-version: '17'
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Set NODE_OPTIONS
+        run: echo "NODE_OPTIONS=--openssl-legacy-provider" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn -f api-codando/pom.xml clean install
+
+      - name: List files after build
+        run: ls -R api-codando/target
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: 'api-codando/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -38,19 +52,22 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
-  
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: java-app
       
+      - name: List downloaded files
+        run: ls -R
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_84977E0902624751A957C49321514B66 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_436780393D734BA88422243CC96169D2 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1D089134BAA04BBEBBFB319C3451D631 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_538A92308E8E43919A25FAEC79CBE366 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E67433FE7A8343B680CC6AC5FD9262FA }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D1CFD73A15CE4E6496DD095BC5D83951 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -59,4 +76,3 @@ jobs:
           app-name: 'CodandoSpring'
           slot-name: 'Production'
           package: '*.jar'
-          
