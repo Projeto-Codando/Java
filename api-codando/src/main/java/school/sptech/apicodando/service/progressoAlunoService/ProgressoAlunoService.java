@@ -2,6 +2,7 @@ package school.sptech.apicodando.service.progressoAlunoService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
@@ -9,10 +10,12 @@ import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.pontosAluno.PontosDTO;
 import school.sptech.apicodando.api.domain.progressoAluno.ProgressoAluno;
 import school.sptech.apicodando.api.domain.progressoAluno.repository.ProgressoAlunoRepository;
+import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.mapper.ProgressoAlunoMapper;
 import school.sptech.apicodando.service.alunoService.AlunoService;
 import school.sptech.apicodando.service.aulaService.AulaService;
 import school.sptech.apicodando.service.progressoAlunoService.dto.ProgressoAlunoCadastroDTO;
+import school.sptech.apicodando.service.turmaService.TurmaService;
 
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class ProgressoAlunoService {
     private final ProgressoAlunoRepository repository;
     private final AlunoService alunoService;
     private final AulaService aulaService;
+    private final TurmaService turmaService;
 
     public ProgressoAluno criar(ProgressoAlunoCadastroDTO progressoAlunoCadastro) {
         if (progressoAlunoCadastro == null) {
@@ -81,6 +85,18 @@ public class ProgressoAlunoService {
 
         progressoAluno.setPontuacaoAluno(novaPontuacao);
         return repository.save(progressoAluno);
+    }
+
+    public List<ProgressoAluno> buscarPorTurma(int idTurma) {
+        Turma turma = turmaService.buscarPorId(idTurma);
+
+        if(turma == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
+
+        List<ProgressoAluno> listaDeProgressos = listarTodos();
+
+        return listaDeProgressos.stream().filter(progresso -> progresso.getFkAluno().getTurma().getIdTurma() == turma.getIdTurma()).toList();
     }
 
 

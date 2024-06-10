@@ -48,4 +48,10 @@ public class ProgressoAlunoController {
         ProgressoAluno progressoAluno = progressoAlunoService.atualizarPontos(idAluno, pontosDTO, idAula);
         return ResponseEntity.ok(mapper.toListagemDto(progressoAluno));
     }
+
+    @Operation(summary = "Listar", description = "Método que lista o progresso dos alunos de uma turma", tags = "Progresso Aluno")
+    @GetMapping("/turma/{idTurma}")
+    public ResponseEntity<List<ProgressoAlunoListagemDto>> listarPorTurma(@PathVariable Integer idTurma) {
+        return ResponseEntity.ok(mapper.toListagemDto(progressoAlunoService.buscarPorTurma(idTurma)));
+    }
 }
