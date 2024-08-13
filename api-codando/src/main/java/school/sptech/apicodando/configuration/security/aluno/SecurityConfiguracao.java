@@ -34,8 +34,10 @@ public class SecurityConfiguracao {
 
     @Autowired
     private AutenticacaoService autenticacaoService;
+
     @Autowired
     private AutenticacaoEntryPoint authenticationEntryPoint;
+
 //    @Autowired
 //    private AutenticacaoEducadorService autenticacaoEducadorService;
 
@@ -58,6 +60,7 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/alunos/**", HttpMethod.POST.name()),
             new AntPathRequestMatcher("/csvFile/**"),
             new AntPathRequestMatcher("/turmas/gerarCSV/**"),
+            new AntPathRequestMatcher("/**"),
 
     };
 
