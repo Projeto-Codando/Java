@@ -56,9 +56,7 @@ public class EducadorController {
     @Operation(summary = "Listar", description = "Método que retorna todos os educadores!", tags = "Educador")
     @GetMapping
     public ResponseEntity<List<EducadorListagemDTO>> listar() {
-        List<Educador> educadores = educadorService.listarTodos();
-        List<EducadorListagemDTO> listaAuxiliar = EducadorMapper.toDto(educadores);
-        return ok(listaAuxiliar);
+        return ok(EducadorMapper.toDto(educadorService.listarTodos()));
     }
 
     @Operation(summary = "Excluir", description = "Método que apaga um educador!", tags = "Educador")
