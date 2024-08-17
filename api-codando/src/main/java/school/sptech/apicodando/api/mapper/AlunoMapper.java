@@ -3,6 +3,7 @@ package school.sptech.apicodando.api.mapper;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.api.domain.turma.Turma;
+import school.sptech.apicodando.api.utils.exception.MapperException;
 import school.sptech.apicodando.service.alunoService.dto.AlunoAtualizadoDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
@@ -44,36 +45,39 @@ public class AlunoMapper {
 
     public static AlunoListagemDTO toDto(Aluno entidade) {
         if (entidade == null) return null;
+        try {
+            AlunoListagemDTO listagemDto = new AlunoListagemDTO();
 
-        AlunoListagemDTO listagemDto = new AlunoListagemDTO();
+            listagemDto.setIdAluno(entidade.getIdAluno());
+            listagemDto.setNome(entidade.getNome());
+            listagemDto.setSobrenome(entidade.getSobrenome());
+            listagemDto.setApelido(entidade.getApelido());
+            listagemDto.setMoedas(entidade.getMoedas());
+            listagemDto.setStatus(entidade.getStatus());
 
-        listagemDto.setIdAluno(entidade.getIdAluno());
-        listagemDto.setNome(entidade.getNome());
-        listagemDto.setSobrenome(entidade.getSobrenome());
-        listagemDto.setApelido(entidade.getApelido());
-        listagemDto.setMoedas(entidade.getMoedas());
-        listagemDto.setStatus(entidade.getStatus());
+            listagemDto.setIdAvatar(entidade.getIdAvatar());
 
-        listagemDto.setIdAvatar(entidade.getIdAvatar());
+            if (entidade.getTurma() == null) {
+                listagemDto.setIdTurma("Sem turma informada.");
+            } else {
+                listagemDto.setIdTurma(entidade.getTurma().getIdTurma().toString());
+            }
 
-        if(entidade.getTurma() == null){
-            listagemDto.setIdTurma("Sem turma informada.");
-        }else{
-            listagemDto.setIdTurma(entidade.getTurma().getIdTurma().toString());
+            if (entidade.getAvatares().isEmpty()) {
+                entidade.setAvatares(new ArrayList<>());
+                Avatar avatar = new Avatar();
+                avatar.setDescricao("Chimpanzé");
+                avatar.setPreco(0);
+                avatar.setImagemURL("https://raw.githubusercontent.com/Projeto-Codando/bucket-avatares/main/chimpaze.png?token=GHSAT0AAAAAACP2D2UYJDBXR47UNNGKMC5SZSTTO4Q");
+                listagemDto.getAvatares().add(toDtoAvatar(avatar));
+            } else {
+                listagemDto.setAvatares(toDtoAvatar(entidade.getAvatares()));
+            }
+
+            return listagemDto;
+        } catch (Exception e) {
+            throw new MapperException("Erro ao mapear Aluno para AlunoListagemDTO", e);
         }
-
-        if(entidade.getAvatares().isEmpty()){
-            entidade.setAvatares(new ArrayList<>());
-            Avatar avatar = new Avatar();
-            avatar.setDescricao("Chimpanzé");
-            avatar.setPreco(0);
-            avatar.setImagemURL("https://raw.githubusercontent.com/Projeto-Codando/bucket-avatares/main/chimpaze.png?token=GHSAT0AAAAAACP2D2UYJDBXR47UNNGKMC5SZSTTO4Q");
-            listagemDto.getAvatares().add(toDtoAvatar(avatar));
-        }else{
-            listagemDto.setAvatares(toDtoAvatar(entidade.getAvatares()));
-        }
-
-        return listagemDto;
     }
 
     public static List<AlunoListagemDTO> toDto(List<Aluno> entidade) {
@@ -84,7 +88,7 @@ public class AlunoMapper {
         return dtos;
     }
 
-    public static AlunoTokenDto of(Aluno aluno, String token){
+    public static AlunoTokenDto of(Aluno aluno, String token) {
 
         AlunoTokenDto alunoTokenDto = new AlunoTokenDto();
 
@@ -142,7 +146,6 @@ public class AlunoMapper {
 
         return avatarListagemDTO;
     }
-
 
 
     public static List<AlunoListagemDTO.AvatarListagemDTO> toDtoAvatar(List<Avatar> avatares) {
