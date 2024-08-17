@@ -24,8 +24,7 @@ import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLogin
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
 import school.sptech.apicodando.service.turmaService.TurmaService;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AlunoService {
@@ -161,6 +160,50 @@ public class AlunoService {
         return alunoRepository.findAll();
     }
 
+    public void excluirLista(List<Integer> ids) {
+        List<Integer> idsDuplicados = verificarIdsDuplicados(ids);
+        List<Integer> idsInvalidos = verificarIdsInvalidos(ids);
 
+        if (!idsInvalidos.isEmpty() || !idsDuplicados.isEmpty()) {
+            StringBuilder mensagemErro = new StringBuilder("Erro ao excluir IDs: ");
+            if (!idsInvalidos.isEmpty()) {
+                mensagemErro.append("IDs não encontrados: ").append(idsInvalidos).append(". ");
+            }
+            if (!idsDuplicados.isEmpty()) {
+                mensagemErro.append("IDs duplicados: ").append(idsDuplicados).append(". ");
+            }
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, mensagemErro.toString());
+        }
 
+        for (Integer id : ids) {
+            alunoRepository.deleteById(id);
+        }
+    }
+
+    private List<Integer> verificarIdsDuplicados(List<Integer> ids) {
+        List<Integer> idsDuplicados = new ArrayList<>();
+        List<Integer> idsVerificados = new ArrayList<>();
+
+        for (Integer id : ids) {
+            if (idsVerificados.contains(id)) {
+                idsDuplicados.add(id);
+            } else {
+                idsVerificados.add(id);
+            }
+        }
+
+        return idsDuplicados;
+    }
+
+    private List<Integer> verificarIdsInvalidos(List<Integer> ids) {
+        List<Integer> idsInvalidos = new ArrayList<>();
+
+        for (Integer id : ids) {
+            if (!existePorId(id)) {
+                idsInvalidos.add(id);
+            }
+        }
+
+        return idsInvalidos;
+    }
 }
