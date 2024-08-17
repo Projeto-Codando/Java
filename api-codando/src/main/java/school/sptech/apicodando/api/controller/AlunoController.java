@@ -80,6 +80,13 @@ public class AlunoController {
         return ok().build();
     }
 
+    @Operation(summary = "Excluir uma lista de alunos", description = "Método que apaga uma lista de alunos!", tags = "Aluno")
+    @DeleteMapping("/excluirLista")
+    public ResponseEntity<Void> excluirLista(@RequestBody List<Integer> ids) {
+        alunoService.excluirLista(ids);
+        return ok().build();
+    }
+
     @Operation(summary = "Atualizar", description = "Método que atualiza o aluno!", tags = "Aluno")
     @PutMapping("/{id}")
     public ResponseEntity<AlunoListagemDTO> atualizar(@PathVariable int id, @RequestBody @Valid AlunoAtualizadoDTO alunoAlterado) {
