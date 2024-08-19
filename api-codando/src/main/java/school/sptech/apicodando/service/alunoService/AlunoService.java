@@ -139,10 +139,10 @@ public class AlunoService {
 
     private Avatar setBasicAvatar() {
         Avatar avatar = new Avatar();
-        avatar.setId(1);
-        avatar.setDescricao("Chimpaze Default");
-        avatar.setPreco(0);
-        avatar.setImagemURL("https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/chimpaZe_default.png");
+        avatar.setId(Constantes.ID_AVATAR_INICIAL);
+        avatar.setDescricao(Constantes.DESCRICAO_AVATAR_INICIAL);
+        avatar.setPreco(Constantes.VALOR_AVATAR_INICIAL);
+        avatar.setImagemURL(Constantes.IMAGEM_AVATAR_INICIAL);
         return avatar;
     }
 
