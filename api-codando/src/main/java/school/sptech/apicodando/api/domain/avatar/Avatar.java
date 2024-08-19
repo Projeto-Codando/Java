@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 
+import java.util.List;
+
 @Entity
 @Data
 public class Avatar {
@@ -14,7 +16,6 @@ public class Avatar {
     protected int preco;
     protected String imagemURL;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id_aluno")
-//    protected Aluno aluno;
+    @ManyToMany(mappedBy = "avatares")
+    private List<Aluno> alunos;
 }

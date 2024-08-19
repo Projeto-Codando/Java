@@ -24,9 +24,15 @@ public class Aluno {
     protected Integer moedas;
     protected String senhaTurma;
     protected int idAvatar;
-    @OneToMany
-    @JoinColumn(name = "idAvatar")
-    protected List<Avatar> avatares;
+
+    @ManyToMany
+    @JoinTable(
+            name = "aluno_avatar",
+            joinColumns = @JoinColumn(name = "aluno_id"),
+            inverseJoinColumns = @JoinColumn(name = "avatar_id")
+    )
+    private List<Avatar> avatares;
+
     @ManyToOne
     @JoinColumn(name = "idTurma")
     protected Turma turma;
@@ -41,4 +47,7 @@ public class Aluno {
         this.avatares = new ArrayList<>();
     }
 
+    public void addAvatar(Avatar avatar) {
+        this.avatares.add(avatar);
+    }
 }
