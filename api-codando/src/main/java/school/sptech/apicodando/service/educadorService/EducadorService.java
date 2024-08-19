@@ -84,7 +84,7 @@ public class EducadorService {
         final Educador usuarioAutenticado =
                 educadorRepository.findByEmail(usuarioLoginDto.getEmail())
                         .orElseThrow(
-                                () -> new ResponseStatusException(404, "Email do educador não cadastrado", null)
+                                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Email do educador não cadastrado", null)
                         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -109,10 +109,7 @@ public class EducadorService {
     }
 
     public Boolean existePorEmail(String email) {
-        if (educadorRepository.findByEmail(email).isEmpty()) {
-            return false;
-        }
-        return true;
+        return educadorRepository.findByEmail(email).isPresent();
     }
 
     public boolean existePorId(int id) {
