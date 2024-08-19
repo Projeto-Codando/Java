@@ -1,5 +1,6 @@
 package school.sptech.apicodando.service.alunoService;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +15,7 @@ import school.sptech.apicodando.api.domain.avatar.repository.AvatarRepository;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.escolaridade.repository.EscolaridadeRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
+import school.sptech.apicodando.api.utils.constantes.Constantes;
 import school.sptech.apicodando.configuration.security.aluno.jwt.GerenciadorTokenJwt;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.mapper.AlunoMapper;
@@ -27,19 +29,19 @@ import school.sptech.apicodando.service.turmaService.TurmaService;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class AlunoService {
-
+    //TODO - Trocar os @Autowired por @RequiredArgsConstructor
+    //TODO - Evitar de usar Repository's diretamente no Service, criar um Service para cada Repository.
     @Autowired
-    private AlunoRepository alunoRepository;
-
-    @Autowired
-    private AvatarRepository avatarRepository;
+    private AlunoRepository repository;
 
     @Autowired
     private EscolaridadeRepository escolaridadeRepository;
 
     @Autowired
     private TurmaService turmaService;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -48,7 +50,6 @@ public class AlunoService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
 
     public Aluno criar(AlunoCadastroDTO alunoCadastroDTO) {
         if(alunoCadastroDTO == null){
@@ -61,6 +62,7 @@ public class AlunoService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         }
 
+        // TODO - Criar a service do EscolaridadeRepository e chamar o método findById.
         Escolaridade escolaridadeEncontrada = escolaridadeRepository.findById(turmaEncontrada.getEscolaridade().getIdEscolaridade()).get();
 
         if(escolaridadeEncontrada == null){
@@ -72,45 +74,47 @@ public class AlunoService {
         novoAluno.setTurma(turmaEncontrada);
         String senhaCriptografada = passwordEncoder.encode(novoAluno.getSenha());
         novoAluno.setSenha(senhaCriptografada);
+        novoAluno.addAvatar(setBasicAvatar());
+        novoAluno.setMoedas(Constantes.MOEDAS_INICIAIS);
+        novoAluno.setIdAvatar(Constantes.ID_AVATAR_INICIAL);
 
         if (existePorApelido(alunoCadastroDTO.getApelido())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Aluno já cadastrado.");
         }
 
-        return alunoRepository.save(novoAluno);
+        return repository.save(novoAluno);
     }
-
     public void excluir(int id) {
 
         if (!existePorId(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        alunoRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
     public void atualizar(AlunoAtualizadoDTO alunoAtualizado, int id) {
-        if (!alunoRepository.existsById(id)) {
+        if (!repository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado aluno com o id informado.");
         }
 
-        Aluno alunoAtual = alunoRepository.findById(id).get();
+        Aluno alunoAtual = repository.findById(id).get();
 
         alunoAtual.setNome(alunoAtualizado.getNome());
         alunoAtual.setSobrenome(alunoAtualizado.getSobrenome());
         alunoAtual.setApelido(alunoAtualizado.getApelido());
         alunoAtual.setSenha(alunoAtualizado.getSenha());
 
-        alunoRepository.save(alunoAtual);
+        repository.save(alunoAtual);
     }
 
     public void atualizar(Aluno aluno, int id) {
-        if (!alunoRepository.existsById(id)) {
+        if (!repository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado aluno com o id informado.");
         }
 
         aluno.setIdAluno(id);
-        alunoRepository.save(aluno);
+        repository.save(aluno);
     }
 
     public AlunoTokenDto autenticar(AlunoLoginDTO usuarioLoginDto) {
@@ -121,9 +125,9 @@ public class AlunoService {
         final Authentication authentication = this.authenticationManager.authenticate(credentials);
 
         Aluno usuarioAutenticado =
-                alunoRepository.findByApelido(usuarioLoginDto.getApelido())
+                repository.findByApelido(usuarioLoginDto.getApelido())
                         .orElseThrow(
-                                () -> new ResponseStatusException(404, "Email do usuário não cadastrado", null)
+                                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Email do usuário não cadastrado", null)
                         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -133,14 +137,21 @@ public class AlunoService {
         return AlunoMapper.of(usuarioAutenticado, token);
     }
 
-    //metodos de apoio
+    private Avatar setBasicAvatar() {
+        Avatar avatar = new Avatar();
+        avatar.setId(1);
+        avatar.setDescricao("Chimpaze Default");
+        avatar.setPreco(0);
+        avatar.setImagemURL("https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/chimpaZe_default.png");
+        return avatar;
+    }
 
     public boolean existePorId(int id) {
-        return alunoRepository.existsById(id);
+        return repository.existsById(id);
     }
 
     public Boolean existePorApelido(String apelido) {
-        if (alunoRepository.findByApelido(apelido).isEmpty()) {
+        if (repository.findByApelido(apelido).isEmpty()) {
             return false;
         }
         return true;
@@ -150,14 +161,14 @@ public class AlunoService {
         if (!existePorId(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado");
         }
-        return alunoRepository.findById(id);
+        return repository.findById(id);
     }
 
     public List<Aluno> listarTodos() {
-        if (alunoRepository.findAll().isEmpty()) {
+        if (repository.findAll().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Não há alunos cadastrados.");
         }
-        return alunoRepository.findAll();
+        return repository.findAll();
     }
 
     public void excluirLista(List<Integer> ids) {
@@ -176,7 +187,7 @@ public class AlunoService {
         }
 
         for (Integer id : ids) {
-            alunoRepository.deleteById(id);
+            repository.deleteById(id);
         }
     }
 

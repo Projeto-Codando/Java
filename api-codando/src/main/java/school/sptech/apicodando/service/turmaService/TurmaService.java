@@ -35,6 +35,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TurmaService {
 
+    // TODO Trocar as repositories por services
+
     private final TurmaRepository turmaRepository;
     private final EscolaridadeRepository escolaridadeRepository;
     private final EducadorRepository educadorRepository;
