@@ -27,7 +27,7 @@ public class TurmaMapper {
         turma.setEscolaridade(escolaridade);
         turma.setEducador(educador);
         turma.setAlunos(dto.getAlunos());
-        turma.setModulo(modulo);
+//        turma.setModulo(modulo);
 
         return turma;
     }
@@ -59,7 +59,7 @@ public class TurmaMapper {
         listagemDto.setFkEscolaridade(toEscolaridadeDto(entidade.getEscolaridade()));
         listagemDto.setFkEducador(toEducadorDto(entidade.getEducador()));
         listagemDto.setAlunos(toAlunoDto(entidade.getAlunos()));
-        listagemDto.setFkModulo(entidade.getModulo().getIdModulo());
+//        listagemDto.setFkModulo(entidade.getModulo().getIdModulo());
 
 
         return listagemDto;
