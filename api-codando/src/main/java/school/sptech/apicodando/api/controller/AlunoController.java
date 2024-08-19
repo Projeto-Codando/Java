@@ -49,28 +49,25 @@ public class AlunoController {
     @PostMapping
     @SecurityRequirement(name = "Bearer")
     public ResponseEntity<AlunoListagemDTO> criar(@RequestBody @Valid AlunoCadastroDTO novoAluno) {
-        return status(201).body(AlunoMapper.toDto(alunoService.criar(novoAluno)));
+        return status(HttpStatus.CREATED).body(AlunoMapper.toDto(alunoService.criar(novoAluno)));
     }
 
     @Operation(summary = "Login", description = "Método realiza o login do aluno!", tags = "Aluno")
     @PostMapping("/login")
     public ResponseEntity<AlunoTokenDto> login(@RequestBody AlunoLoginDTO usuarioLoginDto) {
-        AlunoTokenDto usuarioTokenDto = this.alunoService.autenticar(usuarioLoginDto);
-        return ok(usuarioTokenDto);
+        return ok(this.alunoService.autenticar(usuarioLoginDto));
     }
 
     @Operation(summary = "Busca por ID", description = "Método que retorna o aluno buscado por ID!", tags = "Aluno")
     @GetMapping("/{id}")
     public ResponseEntity<AlunoListagemDTO> buscaPorId(@PathVariable int id) {
-        AlunoListagemDTO dto = AlunoMapper.toDto(alunoService.listarUmPorId(id).get());
-        return ok(dto);
+        return ok(AlunoMapper.toDto(alunoService.listarUmPorId(id).get()));
     }
 
     @Operation(summary = "Listar", description = "Método que retorna todos os alunos!", tags = "Aluno")
     @GetMapping
     public ResponseEntity<List<AlunoListagemDTO>> listar() {
-        List<Aluno> alunos = alunoService.listarTodos();
-        return ok(AlunoMapper.toDto(alunos));
+        return ok(AlunoMapper.toDto(alunoService.listarTodos()));
     }
 
     @Operation(summary = "Excluir", description = "Método que apaga um aluno!", tags = "Aluno")
