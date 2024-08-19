@@ -18,6 +18,7 @@ public class AlunoListagemDTO {
     private String idTurma;
     private int idAvatar;
     private List<AvatarListagemDTO> avatares;
+
     public String getNomeCompleto(){
         return getNome() + " " + getSobrenome();
     }

@@ -30,15 +30,6 @@ public class AlunoMapper {
         aluno.setApelido(dto.getApelido());
         aluno.setSenha(dto.getSenha());
         aluno.setSenhaTurma(dto.getSenhaTurma());
-        aluno.setMoedas(300);
-
-        Avatar avatar = new Avatar();
-        avatar.setId(0);
-        avatar.setDescricao("Chimpanzé");
-        avatar.setPreco(0);
-        avatar.setImagemURL("https://raw.githubusercontent.com/Projeto-Codando/bucket-avatares/main/chimpaze.png?token=GHSAT0AAAAAACP2D2UYJDBXR47UNNGKMC5SZSTTO4Q");
-
-        aluno.getAvatares().add(avatar);
 
         return aluno;
     }
@@ -63,16 +54,7 @@ public class AlunoMapper {
                 listagemDto.setIdTurma(entidade.getTurma().getIdTurma().toString());
             }
 
-            if (entidade.getAvatares().isEmpty()) {
-                entidade.setAvatares(new ArrayList<>());
-                Avatar avatar = new Avatar();
-                avatar.setDescricao("Chimpanzé");
-                avatar.setPreco(0);
-                avatar.setImagemURL("https://raw.githubusercontent.com/Projeto-Codando/bucket-avatares/main/chimpaze.png?token=GHSAT0AAAAAACP2D2UYJDBXR47UNNGKMC5SZSTTO4Q");
-                listagemDto.getAvatares().add(toDtoAvatar(avatar));
-            } else {
-                listagemDto.setAvatares(toDtoAvatar(entidade.getAvatares()));
-            }
+            listagemDto.setAvatares(toDtoAvatar(entidade.getAvatares()));
 
             return listagemDto;
         } catch (Exception e) {
@@ -80,6 +62,36 @@ public class AlunoMapper {
         }
     }
 
+    public static Aluno toEntity(AlunoAtualizadoDTO dto, int id) {
+        if (dto == null) {
+            return null;
+        }
+
+        Aluno aluno = new Aluno();
+        aluno.setIdAluno(id);
+        aluno.setNome(dto.getNome());
+        aluno.setSobrenome(dto.getSobrenome());
+        aluno.setApelido(dto.getApelido());
+        aluno.setSenha(dto.getSenha());
+
+        return aluno;
+    }
+
+    public static AlunoListagemDTO.AvatarListagemDTO toDtoAvatar(Avatar avatar) {
+        if (avatar == null) return null;
+
+        AlunoListagemDTO.AvatarListagemDTO avatarListagemDTO = new AlunoListagemDTO.AvatarListagemDTO();
+        avatarListagemDTO.setId(avatar.getId());
+        avatarListagemDTO.setDescricao(avatar.getDescricao());
+        avatarListagemDTO.setPreco(avatar.getPreco());
+        avatarListagemDTO.setImagemURL(avatar.getImagemURL());
+
+        return avatarListagemDTO;
+    }
+
+    public static List<AlunoListagemDTO.AvatarListagemDTO> toDtoAvatar(List<Avatar> avatares) {
+        return avatares.stream().map(AlunoMapper::toDtoAvatar).collect(Collectors.toList());
+    }
     public static List<AlunoListagemDTO> toDto(List<Aluno> entidade) {
         List<AlunoListagemDTO> dtos = new ArrayList<>();
         for (Aluno e : entidade) {
@@ -136,42 +148,5 @@ public class AlunoMapper {
         }).collect(Collectors.toList());
     }
 
-    public static AlunoListagemDTO.AvatarListagemDTO toDtoAvatar(Avatar avatar) {
-        if (avatar == null) return null;
-
-        AlunoListagemDTO.AvatarListagemDTO avatarListagemDTO = new AlunoListagemDTO.AvatarListagemDTO();
-        avatarListagemDTO.setId(avatar.getId());
-        avatarListagemDTO.setDescricao(avatar.getDescricao());
-        avatarListagemDTO.setPreco(avatar.getPreco());
-
-        return avatarListagemDTO;
-    }
-
-
-    public static List<AlunoListagemDTO.AvatarListagemDTO> toDtoAvatar(List<Avatar> avatares) {
-        return avatares.stream().map(avatar -> {
-            AlunoListagemDTO.AvatarListagemDTO avatarListagemDTO = new AlunoListagemDTO.AvatarListagemDTO();
-            avatarListagemDTO.setId(avatar.getId());
-            avatarListagemDTO.setDescricao(avatar.getDescricao());
-            avatarListagemDTO.setPreco(avatar.getPreco());
-            avatarListagemDTO.setImagemURL(avatar.getImagemURL());
-            return avatarListagemDTO;
-        }).collect(Collectors.toList());
-    }
-
-    public static Aluno toEntity(AlunoAtualizadoDTO dto, int id) {
-        if (dto == null) {
-            return null;
-        }
-
-        Aluno aluno = new Aluno();
-        aluno.setIdAluno(id);
-        aluno.setNome(dto.getNome());
-        aluno.setSobrenome(dto.getSobrenome());
-        aluno.setApelido(dto.getApelido());
-        aluno.setSenha(dto.getSenha());
-
-        return aluno;
-    }
 
 }
