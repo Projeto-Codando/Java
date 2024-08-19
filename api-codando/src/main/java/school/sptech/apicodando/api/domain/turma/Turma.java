@@ -38,9 +38,9 @@ public class Turma {
     @JoinColumn(name = "idEducador")
     protected Educador educador;
 
-    @ManyToOne
-    @JoinColumn(name = "idModulo")
-    protected Modulo modulo;
+//    @ManyToOne
+//    @JoinColumn(name = "idModulo")
+//    protected Modulo modulo;
 
     protected boolean statusTurma;
 
