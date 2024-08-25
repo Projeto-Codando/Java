@@ -33,23 +33,13 @@ import java.util.*;
 public class AlunoService {
     //TODO - Trocar os @Autowired por @RequiredArgsConstructor
     //TODO - Evitar de usar Repository's diretamente no Service, criar um Service para cada Repository.
-    @Autowired
-    private AlunoRepository repository;
 
-    @Autowired
-    private EscolaridadeRepository escolaridadeRepository;
-
-    @Autowired
-    private TurmaService turmaService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private GerenciadorTokenJwt gerenciadorTokenJwt;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AlunoRepository repository;
+    private final EscolaridadeRepository escolaridadeRepository;
+    private final TurmaService turmaService;
+    private final PasswordEncoder passwordEncoder;
+    private final GerenciadorTokenJwt gerenciadorTokenJwt;
+    private final AuthenticationManager authenticationManager;
 
     public Aluno criar(AlunoCadastroDTO alunoCadastroDTO) {
         if(alunoCadastroDTO == null){
@@ -205,6 +195,7 @@ public class AlunoService {
 
         return idsDuplicados;
     }
+
 
     private List<Integer> verificarIdsInvalidos(List<Integer> ids) {
         List<Integer> idsInvalidos = new ArrayList<>();
