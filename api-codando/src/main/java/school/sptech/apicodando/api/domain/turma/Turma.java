@@ -10,6 +10,7 @@ import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
+import school.sptech.apicodando.api.domain.mural.Mural;
 
 import java.util.List;
 
@@ -46,6 +47,8 @@ public class Turma {
 
     @OneToMany(mappedBy = "turma")
     protected List<Aluno> alunos;
+    @OneToMany(mappedBy = "turma")
+    protected List<Mural> murais;
 
     public Turma() {
         statusTurma = true;

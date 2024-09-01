@@ -11,7 +11,7 @@ import school.sptech.apicodando.api.domain.aula.Aula;
 
 @Entity
 @Data
-public class ProgressoAluno {
+public class    ProgressoAluno {
 
     //nao entendi mt bem essa tabela
     @Id
