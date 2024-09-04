@@ -13,6 +13,7 @@ import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.mapper.AlunoMapper;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
+import school.sptech.apicodando.service.muralService.dto.MuralListagemDTO;
 
 import java.util.List;
 @Data
@@ -27,6 +28,7 @@ public class TurmaListagemDTO {
     private List<AlunoListagemDTO> alunos;
     private int fkModulo;
     private boolean statusTurma;
+    private MuralListagemDTO mural;
 
 //    public String getFkEscolaridade() {
 //
