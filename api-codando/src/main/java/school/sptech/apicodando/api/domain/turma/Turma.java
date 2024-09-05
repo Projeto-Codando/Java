@@ -47,7 +47,7 @@ public class Turma {
 
     @OneToMany(mappedBy = "turma")
     protected List<Aluno> alunos;
-    @OneToOne(mappedBy = "turma")
+    @OneToOne
     protected Mural mural;
 
     public Turma() {
