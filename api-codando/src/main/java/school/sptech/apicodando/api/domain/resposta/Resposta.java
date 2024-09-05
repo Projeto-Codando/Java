@@ -14,12 +14,12 @@ public class Resposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idResposta;
 
-    @ManyToOne
-    @JoinColumn(name = "idPergunta")
-    private Pergunta pergunta;
 
     private String texto;
     private Boolean correta;
     private Integer contador;
+
+    @ManyToOne
+    private Pergunta pergunta;
 
 }

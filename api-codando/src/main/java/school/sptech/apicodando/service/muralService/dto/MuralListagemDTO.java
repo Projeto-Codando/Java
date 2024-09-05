@@ -1,7 +1,9 @@
 package school.sptech.apicodando.service.muralService.dto;
 
 import lombok.Data;
-import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
+import school.sptech.apicodando.service.mensagemService.dto.MensagemListagemDTO;
+
+import java.util.List;
 
 @Data
 public class MuralListagemDTO {
@@ -9,9 +11,8 @@ public class MuralListagemDTO {
 
     private Integer idMural;
 
-    private String mensagem;
+    private List<MensagemListagemDTO> mensagens;
 
-    private TurmaListagemDTO turma;
 
 
 }

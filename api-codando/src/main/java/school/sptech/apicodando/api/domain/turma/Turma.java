@@ -47,8 +47,8 @@ public class Turma {
 
     @OneToMany(mappedBy = "turma")
     protected List<Aluno> alunos;
-    @OneToMany(mappedBy = "turma")
-    protected List<Mural> murais;
+    @OneToOne(mappedBy = "turma")
+    protected Mural mural;
 
     public Turma() {
         statusTurma = true;

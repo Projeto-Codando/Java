@@ -17,7 +17,6 @@ public class Pergunta {
     private Integer idPergunta;
 
     @ManyToOne
-    @JoinColumn(name = "idQuiz")
     private Quiz quiz;
 
     private String texto;
