@@ -2,6 +2,7 @@ package school.sptech.apicodando.api.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,7 @@ public class MensagemController {
 
     @Operation(summary = "Cadastrar", description = "Método que cadastra uma mensagem!", tags = "Mensagem")
     @PostMapping
-    public ResponseEntity<MensagemListagemDTO> criar(@RequestBody MensagemCadastroDTO moduloCadastro) {
+    public ResponseEntity<MensagemListagemDTO> criar(@RequestBody @Valid MensagemCadastroDTO moduloCadastro) {
         MensagemListagemDTO mensagemListagemDTO = MensagemMapper.toDto(mensagemService.criar(moduloCadastro));
         URI location = URI.create(String.format("/%d", mensagemListagemDTO.getIdMensagem()));
         return ResponseEntity.created(location).body(mensagemListagemDTO);

@@ -14,7 +14,8 @@ public class MensagemService {
     private final MensagemRepository mensagemRepository;
 
     public Mensagem criar(MensagemCadastroDTO mensagem) {
-        return mensagemRepository.save(MensagemMapper.toEntity(mensagem));
+        Mensagem mensagemEntity = MensagemMapper.toEntity(mensagem);
+        return mensagemRepository.save(mensagemEntity);
     }
 
 }

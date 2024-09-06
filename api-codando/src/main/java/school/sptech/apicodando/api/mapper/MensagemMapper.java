@@ -5,6 +5,8 @@ import school.sptech.apicodando.api.domain.mensagem.Mensagem;
 import school.sptech.apicodando.service.mensagemService.dto.MensagemCadastroDTO;
 import school.sptech.apicodando.service.mensagemService.dto.MensagemListagemDTO;
 
+import java.time.LocalDateTime;
+
 @Data
 public class MensagemMapper {
 
@@ -21,6 +23,7 @@ public class MensagemMapper {
     public static Mensagem toEntity (MensagemCadastroDTO mensagemCadastroDTO) {
         Mensagem mensagem = new Mensagem();
         mensagem.setTexto(mensagemCadastroDTO.getTexto());
+        mensagem.setDataEnvio(LocalDateTime.now());
         return mensagem;
     }
 
