@@ -8,6 +8,6 @@ public class MensagemListagemDTO {
     private Integer idMensagem;
     private String mensagem;
     private String dataEnvio;
-    private String educador;
-    private String mural;
+//    private String educador;
+    private Integer idTurma;
 }

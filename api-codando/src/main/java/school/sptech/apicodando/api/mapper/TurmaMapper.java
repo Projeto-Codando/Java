@@ -60,6 +60,7 @@ public class TurmaMapper {
         listagemDto.setFkEducador(toEducadorDto(entidade.getEducador()));
         listagemDto.setAlunos(toAlunoDto(entidade.getAlunos()));
 //        listagemDto.setFkModulo(entidade.getModulo().getIdModulo());
+        listagemDto.setMensagens(MensagemMapper.toDto(entidade.getMensagens())); 
 
 
         return listagemDto;

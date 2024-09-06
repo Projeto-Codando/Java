@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import school.sptech.apicodando.api.mapper.MensagemMapper;
 import school.sptech.apicodando.api.mapper.ModuloMapper;
 import school.sptech.apicodando.service.mensagemService.MensagemService;
@@ -18,6 +15,9 @@ import school.sptech.apicodando.service.moduloService.dto.ModuloCadastroDTO;
 import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 
 import java.net.URI;
+import java.util.List;
+
+import static org.springframework.web.servlet.function.ServerResponse.status;
 
 @RestController
 @RequestMapping("/mensagens")
@@ -33,6 +33,12 @@ public class MensagemController {
         MensagemListagemDTO mensagemListagemDTO = MensagemMapper.toDto(mensagemService.criar(moduloCadastro));
         URI location = URI.create(String.format("/%d", mensagemListagemDTO.getIdMensagem()));
         return ResponseEntity.created(location).body(mensagemListagemDTO);
+    }
+
+    @Operation(summary = "Listar", description = "Método que lista mensagens pelo id da Turma!", tags = "Mensagem")
+    @GetMapping("/turma/{idTurma}")
+    public ResponseEntity<List<MensagemListagemDTO>> listarPorTurma(@PathVariable int idTurma) {
+        return ResponseEntity.ok(mensagemService.exibirPorTurma(idTurma));
     }
 
 }

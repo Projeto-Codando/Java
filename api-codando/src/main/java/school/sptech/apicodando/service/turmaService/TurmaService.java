@@ -14,11 +14,13 @@ import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.escolaridade.repository.EscolaridadeRepository;
 import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.grade.repository.GradeRepository;
+import school.sptech.apicodando.api.domain.mensagem.Mensagem;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.TurmaMapper;
+import school.sptech.apicodando.service.arrayService.Array;
 import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
@@ -27,6 +29,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Optional;
@@ -122,6 +125,14 @@ public class TurmaService {
     // Metodo para verificar se a Turma já existe.
     public boolean existeTurmaByCodigo(String codigo) {
         return this.turmaRepository.findBySenha(codigo).isPresent();
+    }
+
+    public boolean existeTurma(int idTurma) {
+        return this.turmaRepository.existsById(idTurma);
+    }
+
+    public Optional<Turma> buscarTurma(int idTurma) {
+        return this.turmaRepository.findById(idTurma);
     }
 
     public Integer getIdPorSenha(String senha) {

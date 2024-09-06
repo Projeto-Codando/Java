@@ -1,21 +1,46 @@
 package school.sptech.apicodando.service.mensagemService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apicodando.api.domain.mensagem.Mensagem;
 import school.sptech.apicodando.api.domain.mensagem.repository.MensagemRepository;
+import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.mapper.MensagemMapper;
 import school.sptech.apicodando.service.mensagemService.dto.MensagemCadastroDTO;
+import school.sptech.apicodando.service.mensagemService.dto.MensagemListagemDTO;
+import school.sptech.apicodando.service.turmaService.TurmaService;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class MensagemService {
 
     private final MensagemRepository mensagemRepository;
+    private final TurmaService turmaService;
 
     public Mensagem criar(MensagemCadastroDTO mensagem) {
+
+        if (!turmaService.existeTurma(mensagem.getIdTurma())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
+
+        Turma turma = turmaService.buscarTurma(mensagem.getIdTurma()).get();
+
         Mensagem mensagemEntity = MensagemMapper.toEntity(mensagem);
+
+        mensagemEntity.setTurma(turma);
+        mensagemEntity.setDataEnvio(LocalDateTime.now());
+
+        turma.getMensagens().add(MensagemMapper.toEntity(mensagem));
+
         return mensagemRepository.save(mensagemEntity);
     }
 
+    public List<MensagemListagemDTO> exibirPorTurma (int idTurma) {
+        return MensagemMapper.toDto(mensagemRepository.findAllByTurmaIdTurma(idTurma));
+    }
 }

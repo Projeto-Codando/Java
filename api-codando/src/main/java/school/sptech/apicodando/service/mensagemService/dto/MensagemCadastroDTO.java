@@ -6,6 +6,6 @@ import lombok.Data;
 public class MensagemCadastroDTO {
 
     private String texto;
-    private Integer idMural;
-    private Integer idEducador;
+    private Integer idTurma;
+//    private Integer idEducador;
 }
