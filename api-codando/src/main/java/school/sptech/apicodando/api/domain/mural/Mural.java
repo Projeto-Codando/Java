@@ -16,9 +16,9 @@ public class Mural {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMural;
 
-    @OneToOne
-    private Turma turma;
-
-    @OneToMany(mappedBy = "mural")
-    private List<Mensagem> mensagens;
+//    @OneToOne
+//    private Turma turma;
+//
+//    @OneToMany(mappedBy = "mural")
+//    private List<Mensagem> mensagens;
 }

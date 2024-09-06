@@ -3,8 +3,7 @@ package school.sptech.apicodando.api.domain.mensagem;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import school.sptech.apicodando.api.domain.educador.Educador;
-import school.sptech.apicodando.api.domain.mural.Mural;
+import school.sptech.apicodando.api.domain.turma.Turma;
 
 import java.time.LocalDateTime;
 
@@ -19,11 +18,12 @@ public class Mensagem {
     private String texto;
     private LocalDateTime dataEnvio;
 
-    @ManyToOne
-    private Educador educador;
+//    @ManyToOne
+//    private Educador educador;
 
     @ManyToOne
-    private Mural mural;
+    @JoinColumn(name = "idTurma")
+    private Turma turma;
 
     public Mensagem() {
     }

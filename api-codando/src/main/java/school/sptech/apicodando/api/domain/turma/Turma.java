@@ -9,9 +9,11 @@ import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.grade.Grade;
+import school.sptech.apicodando.api.domain.mensagem.Mensagem;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.mural.Mural;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -47,11 +49,13 @@ public class Turma {
 
     @OneToMany(mappedBy = "turma")
     protected List<Aluno> alunos;
-    @OneToOne
-    protected Mural mural;
+
+    @OneToMany(mappedBy = "turma")
+    private List<Mensagem> mensagens;
 
     public Turma() {
         statusTurma = true;
+        mensagens = new ArrayList<>();
     }
 
     public void setEscolaridade(Escolaridade escolaridade) {

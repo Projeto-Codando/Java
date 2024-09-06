@@ -32,8 +32,8 @@ public class Educador {
 //    @NotNull
     protected String senha;
 
-    @OneToMany(mappedBy = "educador")
-    protected List<Mensagem> mensagens;
+//    @OneToMany(mappedBy = "educador")
+//    protected List<Mensagem> mensagens;
 
     public Educador() {
     }
