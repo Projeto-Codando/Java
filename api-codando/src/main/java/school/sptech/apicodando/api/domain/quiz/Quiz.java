@@ -6,6 +6,7 @@ import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.pergunta.Pergunta;
 import school.sptech.apicodando.api.domain.tema.Tema;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,8 +18,8 @@ public class Quiz {
     private Integer idQuiz;
 
     private String texto;
+
     @ManyToOne
-    @JoinColumn(name = "id")
     private Aula aula;
 
     @OneToMany(mappedBy = "quiz")
@@ -27,5 +28,9 @@ public class Quiz {
 //    @ManyToOne
 //    @JoinColumn(name = "id")
 //    private Tema tema;
+
+    public Quiz() {
+        pergunta = new ArrayList<>();
+    }
 
 }
