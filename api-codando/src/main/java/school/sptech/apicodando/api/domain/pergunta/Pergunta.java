@@ -3,6 +3,7 @@ package school.sptech.apicodando.api.domain.pergunta;
 import jakarta.persistence.*;
 import jdk.dynalink.linker.LinkerServices;
 import lombok.Data;
+import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.quiz.Quiz;
 import school.sptech.apicodando.api.domain.resposta.Resposta;
 
@@ -19,7 +20,7 @@ public class Pergunta {
     private String texto;
 
     @ManyToOne
-    private Quiz quiz;
+    private Aula aula;
 
 
     @OneToMany(mappedBy = "pergunta")

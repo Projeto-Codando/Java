@@ -11,26 +11,26 @@ import java.util.List;
 
 @Data
 @Entity
-public class Quiz {
-
+ public class Quiz {
+//
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idQuiz;
 
     private String texto;
 
-    @ManyToOne
-    private Aula aula;
-
-    @OneToMany(mappedBy = "quiz")
-    private List<Pergunta> pergunta;
-//
 //    @ManyToOne
-//    @JoinColumn(name = "id")
-//    private Tema tema;
-
-    public Quiz() {
-        pergunta = new ArrayList<>();
-    }
+//    private Aula aula;
+//
+//    @OneToMany(mappedBy = "quiz")
+//    private List<Pergunta> pergunta;
+////
+////    @ManyToOne
+////    @JoinColumn(name = "id")
+////    private Tema tema;
+//
+////    public Quiz() {
+////        pergunta = new ArrayList<>();
+////    }
 
 }

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import school.sptech.apicodando.api.domain.pergunta.Pergunta;
 import school.sptech.apicodando.api.domain.quiz.Quiz;
 import school.sptech.apicodando.api.domain.tema.Tema;
 
@@ -26,11 +27,11 @@ public class Aula {
     protected Integer pontuacaoMaxima;
 
     @OneToMany(mappedBy = "aula")
-    protected List<Quiz> quiz;
+    protected List<Pergunta> perguntas;
     @ManyToOne
     private Tema tema;
 
-    public Aula() {
-        quiz = new ArrayList<>();
-    }
+//    public Aula() {
+//        quiz = new ArrayList<>();
+//    }
 }
