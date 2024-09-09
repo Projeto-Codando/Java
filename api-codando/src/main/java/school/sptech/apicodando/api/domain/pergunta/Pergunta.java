@@ -1,10 +1,8 @@
 package school.sptech.apicodando.api.domain.pergunta;
 
 import jakarta.persistence.*;
-import jdk.dynalink.linker.LinkerServices;
 import lombok.Data;
 import school.sptech.apicodando.api.domain.aula.Aula;
-import school.sptech.apicodando.api.domain.quiz.Quiz;
 import school.sptech.apicodando.api.domain.resposta.Resposta;
 
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ public class Pergunta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPergunta;
+    private Integer id;
     private String texto;
 
     @ManyToOne

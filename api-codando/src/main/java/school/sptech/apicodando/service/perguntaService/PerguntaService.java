@@ -41,10 +41,10 @@ public class PerguntaService {
         return PerguntaMapper.toDto(perguntas);
     }
 
-    public PerguntaListagemDTO buscarPorId (Integer idPergunta) {
+    public Pergunta buscarPorId (Integer idPergunta) {
         Pergunta pergunta = perguntaRepository.findById(idPergunta).orElseThrow(()
                 -> new RuntimeException("Pergunta não encontrada"));
-        return PerguntaMapper.toDto(pergunta);
+        return pergunta;
     }
 
 }

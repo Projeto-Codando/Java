@@ -36,7 +36,7 @@ public class PerguntaController {
     @Operation(summary = "Listar", description = "Método que lista uma pergunta por ID", tags = "Pergunta")
     @GetMapping("/{id}")
     public ResponseEntity<PerguntaListagemDTO> listarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(perguntaService.buscarPorId(id));
+        return ResponseEntity.ok(PerguntaMapper.toDto(perguntaService.buscarPorId(id)));
     }
 
     @Operation(summary = "Listar", description = "Método que lista perguntas por ID da aula", tags = "Pergunta")

@@ -2,6 +2,7 @@ package school.sptech.apicodando.service.perguntaService.dto;
 
 import lombok.Data;
 import school.sptech.apicodando.api.domain.resposta.Resposta;
+import school.sptech.apicodando.service.respostaService.dto.RespostaListagemDTO;
 
 import java.util.List;
 
@@ -11,6 +12,6 @@ public class PerguntaListagemDTO {
     private Integer idPergunta;
     private String texto;
     private Integer idAula;
-    private List<Resposta> respostas;
+    private List<RespostaListagemDTO> respostas;
 
 }

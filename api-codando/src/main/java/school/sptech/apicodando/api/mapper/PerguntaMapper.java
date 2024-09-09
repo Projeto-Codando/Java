@@ -14,10 +14,10 @@ public class PerguntaMapper {
 
     public static PerguntaListagemDTO toDto (Pergunta pergunta) {
         PerguntaListagemDTO perguntaListagemDTO = new PerguntaListagemDTO();
-        perguntaListagemDTO.setIdPergunta(pergunta.getIdPergunta());
+        perguntaListagemDTO.setIdPergunta(pergunta.getId());
         perguntaListagemDTO.setTexto(pergunta.getTexto());
         perguntaListagemDTO.setIdAula(pergunta.getAula().getId());
-        perguntaListagemDTO.setRespostas(pergunta.getRespostas());
+        perguntaListagemDTO.setRespostas(RespostaMapper.toDto(pergunta.getRespostas()));
         return perguntaListagemDTO;
     }
 

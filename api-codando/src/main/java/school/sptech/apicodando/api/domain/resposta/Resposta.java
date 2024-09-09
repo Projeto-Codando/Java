@@ -20,6 +20,11 @@ public class Resposta {
     private Integer contador;
 
     @ManyToOne
+    @JoinColumn(name = "pergunta_id")
     private Pergunta pergunta;
+
+    public Resposta() {
+        this.contador = 0;
+    }
 
 }
