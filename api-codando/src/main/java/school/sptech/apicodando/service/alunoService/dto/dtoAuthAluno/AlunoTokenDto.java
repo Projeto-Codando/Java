@@ -1,41 +1,46 @@
 package school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno;
 
+import lombok.Data;
+import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
+
+import java.util.List;
+
+@Data
 public class AlunoTokenDto {
 
     private Integer userId;
     private String nome;
     private String apelido;
     private String token;
+    private AlunoListagemDTO alunoListagemDTO;
 
-    public Integer getUserId() {
-        return userId;
-    }
+    @Data
+    public static class AlunoListagemDTO {
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+        private Integer idAluno;
+        private String nome;
+        private String sobrenome;
+        private String apelido;
+        private Boolean status;
+        private Integer moedas;
+        private String idTurma;
+        private int idAvatar;
+        private List<AvatarListagemDTO> avatares;
 
-    public String getNome() {
-        return nome;
-    }
+        @Data
+        public static class AvatarListagemDTO {
+            private Integer idAvatar;
+            private String descricao;
+            private Integer preco;
+            private String imagemURL;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+            public void setPreço(int preco) {
+                this.preco = preco;
+            }
 
-    public String getApelido() {
-        return apelido;
-    }
-
-    public void setApelido(String apelido) {
-        this.apelido = apelido;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+            public void setId(int id) {
+                this.idAvatar = id;
+            }
+        }
     }
 }

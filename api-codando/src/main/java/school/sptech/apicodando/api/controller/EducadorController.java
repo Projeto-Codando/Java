@@ -2,6 +2,7 @@ package school.sptech.apicodando.api.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,24 +26,13 @@ import static org.springframework.http.ResponseEntity.*;
 @RestController
 @RequestMapping("/educadores")
 @SecurityRequirement(name = "bearerAuth")
+@RequiredArgsConstructor
 public class EducadorController {
-    //    @Autowired
-//    private EducadorRepository educadorRepository;
-    @Autowired
-    private EducadorService educadorService;
 
-
-//    @PostMapping
-//    public ResponseEntity<EducadorListagemDTO> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
-//        Educador educador = EducadorMapper.toEntity(novoEducador);
-//        Educador educadorSalvo = educadorRepository.save(educador);
-//        EducadorListagemDTO listagemDto = EducadorMapper.toDto(educadorSalvo);
-//        return ResponseEntity.status(201).body(listagemDto);
-//    }
+    private final EducadorService educadorService;
 
     @Operation(summary = "Cadastrar", description = "Método que cadastra o educador!", tags = "Educador")
     @PostMapping
-    @SecurityRequirement(name = "Bearer")
     public ResponseEntity<EducadorCadastroDTO> criar(@RequestBody @Valid EducadorCadastroDTO novoEducador) {
         this.educadorService.criar(novoEducador);
         return created(null).body(novoEducador);
@@ -55,7 +45,6 @@ public class EducadorController {
         return ok(usuarioTokenDto);
     }
 
-
     @Operation(summary = "Busca por ID", description = "Método que retorna o educador buscado por ID!", tags = "Educador")
     @GetMapping("/{id}")
     public ResponseEntity<EducadorListagemDTO> buscaPorId(@PathVariable int id) {
@@ -67,25 +56,22 @@ public class EducadorController {
     @Operation(summary = "Listar", description = "Método que retorna todos os educadores!", tags = "Educador")
     @GetMapping
     public ResponseEntity<List<EducadorListagemDTO>> listar() {
-        List<Educador> educadores = educadorService.listarTodos();
-        List<EducadorListagemDTO> listaAuxiliar = EducadorMapper.toDto(educadores);
-        return ok(listaAuxiliar);
+        return ok(EducadorMapper.toDto(educadorService.listarTodos()));
     }
 
     @Operation(summary = "Excluir", description = "Método que apaga um educador!", tags = "Educador")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable @Valid int id) {
+    public ResponseEntity<Void> excluir(@PathVariable int id) {
         educadorService.excluir(id);
         return ok().build();
     }
 
     @Operation(summary = "Atualizar", description = "Método que atualiza um educador!", tags = "Educador")
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
+    public ResponseEntity<Void> atualizar(@PathVariable int id,
                                           @RequestBody @Valid EducadorCadastroDTO educadorAlterado) {
         educadorService.atualizar(educadorAlterado, id);
         return ok().build();
-
     }
 
 

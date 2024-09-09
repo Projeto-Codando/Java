@@ -6,6 +6,7 @@ public class EducadorTokenDto {
     private String nome;
     private String email;
     private String token;
+    private Integer idEducador;
 
     public Integer getUserId() {
         return userId;

@@ -5,29 +5,30 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.aula.Aula;
 
 @Entity
-public class ProgressoAluno {
+@Data
+public class    ProgressoAluno {
 
     //nao entendi mt bem essa tabela
-    @NotBlank
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idProgressoAluno;
-    @NotBlank
+    @NotNull
     @PositiveOrZero
     protected Integer pontuacaoAluno;
-    @NotBlank
-    @Size(min = 3, max = 255)
-    @NotNull
-    protected String statusAula;
-    @OneToOne
-    @JoinColumn(name = "idAluno")
+
+    private String statusAula = "Em andamento";
+
+    @ManyToOne
+    @JoinColumn(name = "fkAluno")
     protected Aluno fkAluno;
-    @OneToOne
-    @JoinColumn(name = "idAula")
+
+    @ManyToOne
+    @JoinColumn(name = "fkAula")
     protected Aula fkAula;
 
     public ProgressoAluno() {

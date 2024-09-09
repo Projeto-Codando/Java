@@ -3,6 +3,7 @@ package school.sptech.apicodando.api.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.apicodando.api.domain.csvFile.csv;
 import school.sptech.apicodando.service.alunoService.AlunoService;
+import school.sptech.apicodando.service.alunoService.dto.AlunoAtualizadoDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
 import school.sptech.apicodando.api.mapper.AlunoMapper;
@@ -37,46 +39,35 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/alunos")
+@RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 public class AlunoController {
 
-//    @Autowired
-//    private AlunoRepository alunoRepository;
-    @Autowired
-    private AlunoService alunoService;
-
-    @Autowired
-    private CsvFileService csvFileService;
+    private final AlunoService alunoService;
 
     @Operation(summary = "Cadastrar", description = "Método que cadastra o aluno!", tags = "Aluno")
     @PostMapping
     @SecurityRequirement(name = "Bearer")
-    public ResponseEntity<Void> criar(@RequestBody @Valid AlunoCadastroDTO novoAluno) {
-        this.alunoService.criar(novoAluno);
-        return status(201).build();
+    public ResponseEntity<AlunoListagemDTO> criar(@RequestBody @Valid AlunoCadastroDTO novoAluno) {
+        return status(HttpStatus.CREATED).body(AlunoMapper.toDto(alunoService.criar(novoAluno)));
     }
 
     @Operation(summary = "Login", description = "Método realiza o login do aluno!", tags = "Aluno")
     @PostMapping("/login")
     public ResponseEntity<AlunoTokenDto> login(@RequestBody AlunoLoginDTO usuarioLoginDto) {
-        AlunoTokenDto usuarioTokenDto = this.alunoService.autenticar(usuarioLoginDto);
-
-        return ok(usuarioTokenDto);
+        return ok(this.alunoService.autenticar(usuarioLoginDto));
     }
 
     @Operation(summary = "Busca por ID", description = "Método que retorna o aluno buscado por ID!", tags = "Aluno")
     @GetMapping("/{id}")
     public ResponseEntity<AlunoListagemDTO> buscaPorId(@PathVariable int id) {
-        AlunoListagemDTO dto = AlunoMapper.toDto(alunoService.listarUmPorId(id).get());
-        return ok(dto);
+        return ok(AlunoMapper.toDto(alunoService.listarUmPorId(id).get()));
     }
 
     @Operation(summary = "Listar", description = "Método que retorna todos os alunos!", tags = "Aluno")
     @GetMapping
     public ResponseEntity<List<AlunoListagemDTO>> listar() {
-        List<Aluno> alunos = alunoService.listarTodos();
-        List<AlunoListagemDTO> listaAuxiliar = AlunoMapper.toDto(alunos);
-        return ok(listaAuxiliar);
+        return ok(AlunoMapper.toDto(alunoService.listarTodos()));
     }
 
     @Operation(summary = "Excluir", description = "Método que apaga um aluno!", tags = "Aluno")
@@ -86,113 +77,18 @@ public class AlunoController {
         return ok().build();
     }
 
+    @Operation(summary = "Excluir uma lista de alunos", description = "Método que apaga uma lista de alunos!", tags = "Aluno")
+    @DeleteMapping("/excluirLista")
+    public ResponseEntity<Void> excluirLista(@RequestBody List<Integer> ids) {
+        alunoService.excluirLista(ids);
+        return ok().build();
+    }
+
     @Operation(summary = "Atualizar", description = "Método que atualiza o aluno!", tags = "Aluno")
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizar(@PathVariable("id") @Valid int id,
-                                          @RequestBody @Valid Aluno alunoAlterado) {
+    public ResponseEntity<AlunoListagemDTO> atualizar(@PathVariable int id, @RequestBody @Valid AlunoAtualizadoDTO alunoAlterado) {
         alunoService.atualizar(alunoAlterado, id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(AlunoMapper.toDto(alunoService.listarUmPorId(id).get()));
     }
-
-    @Operation(summary = "Listar Escolas", description = "Método que lista escolas do JSON!", tags = "Escola")
-    @GetMapping("/pesquisaEscolas")
-    public ResponseEntity<Object> getJsonFile() {
-        try {
-            Resource resource = new ClassPathResource("resultado.json");
-            ObjectMapper mapper = new ObjectMapper();
-            return ResponseEntity.ok(mapper.readValue(resource.getInputStream(), Object.class));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @Operation(summary = "Baixar Arquivo", description = "Método que realiza o download do JSON!", tags = "Escola")
-    @GetMapping("/download/{filename}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
-        Path path = Paths.get("caminho/para/o/arquivo", filename + ".csv");
-        Resource resource = new FileSystemResource(path);
-
-        // Criar cabeçalho para o download
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename + ".csv");
-        headers.add(HttpHeaders.CONTENT_TYPE, "text/csv");
-
-        // Retornar o arquivo para download
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
-
-    @Operation(summary = "Gerar Arquivo", description = "Método que gera o arquivo CSV!", tags = "Escola")
-    @GetMapping("/gerarCSV")
-    public ResponseEntity<Resource> gerarEbaixarCSV() {
-        List<Aluno> alunosNoDTO = alunoService.listarTodos();
-
-        List<AlunoListagemDTO> alunos = AlunoMapper.toDto(alunosNoDTO);
-
-        if(alunos.isEmpty()){
-            System.out.println("Lista vazia");
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-
-        FileWriter file = null;
-        Formatter saida = null;
-        Boolean badWay = false;
-
-        String fileName = "alunos.csv";
-
-        try {
-            file = new FileWriter(fileName);
-            saida = new Formatter(file);
-        } catch (Exception e) {
-            System.out.println("Erro ao criar arquivo: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        try {
-            for (AlunoListagemDTO aluno : alunos) {
-                saida.format("%d;%s;%s\n", aluno.getIdAluno(), aluno.getNome(), aluno.getApelido());
-            }
-
-        } catch (Exception e) {
-            System.out.println("Erro ao gravar no arquivo: " + e.getMessage());
-            e.printStackTrace();
-            badWay = true;
-        } finally {
-            saida.close();
-            try {
-                file.close();
-            } catch (IOException e) {
-                System.out.println("Erro ao fechar arquivo: " + e.getMessage());
-                e.printStackTrace();
-                badWay = true;
-            }
-            if (badWay) {
-                System.exit(1);
-            }
-        }
-
-        Path path = Paths.get(fileName);
-        Resource resource = new FileSystemResource(path);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
-        headers.add(HttpHeaders.CONTENT_TYPE, "text/csv");
-
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(resource);
-    }
-
-    @Operation(summary = "Listar por Diretoria", description = "Método que lista alunos por diretoria!", tags = "Aluno")
-    @GetMapping("/listarPorREP2")
-    public ResponseEntity<List<csv>> listarPorREP2() {
-        List<csv> csvs = csvFileService.quickSortByDiretoriaAndByREP_2();
-        return ok(csvs);
-    }
-
-
 
 }

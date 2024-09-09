@@ -1,14 +1,17 @@
 package school.sptech.apicodando.api.domain.modulo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import school.sptech.apicodando.api.domain.grade.Grade;
+import school.sptech.apicodando.api.domain.tema.Tema;
+
+import java.util.List;
 
 @Entity
+@Data
 public class Modulo {
 
 //    @NotBlank
@@ -19,24 +22,16 @@ public class Modulo {
 //    @Size(min = 3, max = 255)
 //    @NotNull
     protected String nome;
+    @OneToMany(mappedBy = "modulo")
+    private List<Tema> temas;
+    @ManyToOne
+//    @Column(name = "moduloGrade")
+    protected Grade grade;
 
 
     public Modulo() {
     }
 
-    public Integer getIdModulo() {
-        return idModulo;
-    }
 
-    public void setIdModulo(Integer idModulo) {
-        this.idModulo = idModulo;
-    }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 }

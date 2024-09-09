@@ -41,6 +41,8 @@ public class GerenciadorTokenJwt {
                 .compact();
 
     }
+
+    // TODO Verificar esse metodo comentado.
 //    public String generateToken(final Authentication authentication) {
 //
 ////        final String authorities = authentication.
