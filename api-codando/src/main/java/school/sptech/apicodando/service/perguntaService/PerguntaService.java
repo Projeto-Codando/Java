@@ -36,14 +36,28 @@ public class PerguntaService {
         return pergunta;
     }
 
-    public List<PerguntaListagemDTO> buscarPorIdAula (Integer idAula) {
+    public List<Pergunta> buscarPorIdAula (Integer idAula) {
         List<Pergunta> perguntas = perguntaRepository.findByAula_Id(idAula);
-        return PerguntaMapper.toDto(perguntas);
+        return perguntas;
     }
 
     public Pergunta buscarPorId (Integer idPergunta) {
         Pergunta pergunta = perguntaRepository.findById(idPergunta).orElseThrow(()
                 -> new RuntimeException("Pergunta não encontrada"));
+        return pergunta;
+    }
+
+    public void deletar (Integer id) {
+        perguntaRepository.deleteById(id);
+    }
+
+    public Pergunta atualizar (Integer id, PerguntaCadastroDTO perguntaCadastroDTO) {
+        Pergunta pergunta = perguntaRepository.findById(id).orElseThrow(()
+                -> new RuntimeException("Pergunta não encontrada"));
+        pergunta.setTexto(perguntaCadastroDTO.getTexto());
+//        pergunta.setResposta(perguntaCadastroDTO.getResposta());
+
+        perguntaRepository.save(pergunta);
         return pergunta;
     }
 

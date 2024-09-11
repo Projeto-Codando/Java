@@ -45,7 +45,21 @@ public class PerguntaController {
         if (perguntaService.buscarPorIdAula(idAula).isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(perguntaService.buscarPorIdAula(idAula));
+        return ResponseEntity.ok(PerguntaMapper.toDto(perguntaService.buscarPorIdAula(idAula)));
+    }
+
+    @Operation(summary = "Deletar", description = "Método que deleta uma pergunta por ID", tags = "Pergunta")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+        perguntaService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Atualizar", description = "Método que atualiza uma pergunta por ID", tags = "Pergunta")
+    @PutMapping("/{id}")
+    public ResponseEntity<PerguntaListagemDTO> atualizar(@PathVariable Integer id, @RequestBody PerguntaCadastroDTO perguntaCadastroDTO) {
+        PerguntaListagemDTO perguntaDto = PerguntaMapper.toDto(perguntaService.atualizar(id, perguntaCadastroDTO));
+        return ResponseEntity.ok(perguntaDto);
     }
 
 }
