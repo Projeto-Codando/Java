@@ -41,6 +41,17 @@ public class MensagemService {
     }
 
     public List<MensagemListagemDTO> exibirPorTurma (int idTurma) {
+        if (!turmaService.existeTurma(idTurma)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
         return MensagemMapper.toDto(mensagemRepository.findAllByTurmaIdTurma(idTurma));
     }
+
+    public void deletar(int id) {
+        if (!mensagemRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Mensagem não encontrada.");
+        }
+        mensagemRepository.deleteById(id);
+    }
+
 }

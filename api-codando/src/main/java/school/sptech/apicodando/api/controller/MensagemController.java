@@ -30,7 +30,14 @@ public class MensagemController {
     @Operation(summary = "Cadastrar", description = "Método que cadastra uma mensagem!", tags = "Mensagem")
     @PostMapping
     public ResponseEntity<MensagemListagemDTO> criar(@RequestBody @Valid MensagemCadastroDTO moduloCadastro) {
+        if (moduloCadastro == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
         MensagemListagemDTO mensagemListagemDTO = MensagemMapper.toDto(mensagemService.criar(moduloCadastro));
+        if (mensagemListagemDTO == null) {
+            return ResponseEntity.badRequest().build();
+        }
         URI location = URI.create(String.format("/%d", mensagemListagemDTO.getIdMensagem()));
         return ResponseEntity.created(location).body(mensagemListagemDTO);
     }
@@ -38,7 +45,17 @@ public class MensagemController {
     @Operation(summary = "Listar", description = "Método que lista mensagens pelo id da Turma!", tags = "Mensagem")
     @GetMapping("/turma/{idTurma}")
     public ResponseEntity<List<MensagemListagemDTO>> listarPorTurma(@PathVariable int idTurma) {
+        if (mensagemService.exibirPorTurma(idTurma).isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(mensagemService.exibirPorTurma(idTurma));
+    }
+
+    @Operation(summary = "Deletar", description = "Método que deleta uma mensagem pelo id!", tags = "Mensagem")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable int id) {
+        mensagemService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
