@@ -2,6 +2,8 @@ package school.sptech.apicodando.service.respostaService.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class RespostaListagemDTO {
 
@@ -10,5 +12,18 @@ public class RespostaListagemDTO {
     private Boolean correta;
     private Integer contador;
     private Integer idPergunta;
+    private List<AlunoListagemDto> alunos;
+
+    @Data
+    public static class AlunoListagemDto {
+        private Integer idAluno;
+        private String nome;
+        private String sobrenome;
+        private String apelido;
+        private Boolean status;
+        private Integer moedas;
+        private Integer idTurma;
+
+    }
 
 }

@@ -208,4 +208,8 @@ public class AlunoService {
 
         return idsInvalidos;
     }
+
+    public Aluno salvar (Aluno aluno) {
+        return repository.save(aluno);
+    }
 }

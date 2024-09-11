@@ -2,16 +2,12 @@ package school.sptech.apicodando.api.mapper;
 
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.avatar.Avatar;
-import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.utils.exception.MapperException;
 import school.sptech.apicodando.service.alunoService.dto.AlunoAtualizadoDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoCadastroDTO;
 import school.sptech.apicodando.service.alunoService.dto.AlunoListagemDTO;
-import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoLoginDTO;
 import school.sptech.apicodando.service.alunoService.dto.dtoAuthAluno.AlunoTokenDto;
 import school.sptech.apicodando.service.avatarService.dto.AvatarListagemDTO;
-import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
-import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +26,7 @@ public class AlunoMapper {
         aluno.setApelido(dto.getApelido());
         aluno.setSenha(dto.getSenha());
         aluno.setSenhaTurma(dto.getSenhaTurma());
+        aluno.setRespostas(new ArrayList<>());
 
         return aluno;
     }
@@ -55,6 +52,17 @@ public class AlunoMapper {
             }
 
             listagemDto.setAvatares(toDtoAvatar(entidade.getAvatares()));
+            List<AlunoListagemDTO.RespostaListagemDto> respostas = new ArrayList<>();
+            entidade.getRespostas().forEach(resposta -> {
+                AlunoListagemDTO.RespostaListagemDto respostaListagemDto = new AlunoListagemDTO.RespostaListagemDto();
+                respostaListagemDto.setIdResposta(resposta.getIdResposta());
+                respostaListagemDto.setTexto(resposta.getTexto());
+                respostaListagemDto.setCorreta(resposta.getCorreta());
+                respostaListagemDto.setContador(resposta.getContador());
+                respostaListagemDto.setIdPergunta(resposta.getPergunta().getId());
+                respostas.add(respostaListagemDto);
+            });
+            listagemDto.setIdRespostas(respostas);
 
             return listagemDto;
         } catch (Exception e) {

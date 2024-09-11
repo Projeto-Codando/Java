@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
+import school.sptech.apicodando.api.domain.resposta.Resposta;
 import school.sptech.apicodando.api.domain.turma.Turma;
 
 import java.util.ArrayList;
@@ -31,7 +32,17 @@ public class Aluno {
             joinColumns = @JoinColumn(name = "aluno_id"),
             inverseJoinColumns = @JoinColumn(name = "avatar_id")
     )
+
+
     private List<Avatar> avatares;
+
+    @ManyToMany
+    @JoinTable(
+            name = "aluno_resposta",
+            joinColumns = @JoinColumn(name = "aluno_id"),
+            inverseJoinColumns = @JoinColumn(name = "resposta_id")
+    )
+    protected List<Resposta> respostas;
 
     @ManyToOne
     @JoinColumn(name = "idTurma")
