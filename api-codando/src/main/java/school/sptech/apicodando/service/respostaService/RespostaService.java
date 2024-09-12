@@ -49,6 +49,17 @@ public class RespostaService {
     public RespostaListagemDTO incrementarContador (Integer idResposta, Integer idAluno) {
         Resposta resposta = buscarPorId(idResposta);
         Aluno aluno = alunoService.listarUmPorId(idAluno).get();
+
+        if (resposta.getAlunos().contains(aluno)) {
+            throw new RuntimeException("Aluno já respondeu essa pergunta");
+        }
+        if (resposta == null) {
+            throw new RuntimeException("Resposta não encontrada");
+        }
+        if (aluno == null) {
+            throw new RuntimeException("Aluno não encontrado");
+        }
+        
         resposta.setContador(resposta.getContador() + 1);
         resposta.getAlunos().add(aluno);
         aluno.getRespostas().add(resposta);
@@ -56,5 +67,4 @@ public class RespostaService {
         respostaRepository.save(resposta);
         return RespostaMapper.toDto(resposta);
     }
-
 }

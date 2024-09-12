@@ -41,9 +41,9 @@ public class RespostaController {
     }
 
     @Operation(summary = "Incrementar contador", description = "Método que incrementa o contador de uma resposta!", tags = "Resposta")
-    @PutMapping("/{id}")
-    public ResponseEntity<RespostaListagemDTO> incrementarContador (@PathVariable Integer id) {
-        return ResponseEntity.ok(respostaService.incrementarContador(id));
+    @PutMapping("/{idResposta}/{idAluno}")
+    public ResponseEntity<RespostaListagemDTO> incrementarContador (@PathVariable Integer idResposta, @PathVariable Integer idAluno) {
+        return ResponseEntity.ok(respostaService.incrementarContador(idResposta, idAluno));
     }
 
 }
