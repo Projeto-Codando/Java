@@ -40,10 +40,26 @@ public class RespostaController {
         return ResponseEntity.ok(respostaService.buscarPorIdPergunta(idPergunta));
     }
 
+    @Operation(summary = "Listar", description = "Método que lista o aluno que mais errou as perguntas", tags = "Resposta")
+    @GetMapping("/erros")
+    public ResponseEntity<List<RespostaListagemDTO>> listarAlunoQueMaisErrou () {
+        return ResponseEntity.ok(respostaService.listarAlunoQueMaisErrou());
+    }
+
+    @Operation(summary = "Listar", description = "Método que lista uma lista de alunos de uma turma ordenados por quantidade de respostas corretas", tags = "Resposta")
+    @GetMapping("/corretas/{idTurma}")
+    public ResponseEntity<List<RespostaListagemDTO>> listarAlunosPorRespostasCorretas (int idTurma) {
+        return ResponseEntity.ok(respostaService.listarAlunosDeUmaTurmaPorRespostasCorretas(idTurma));
+    }
+
     @Operation(summary = "Incrementar contador", description = "Método que incrementa o contador de uma resposta!", tags = "Resposta")
     @PutMapping("/{idResposta}/{idAluno}")
     public ResponseEntity<RespostaListagemDTO> incrementarContador (@PathVariable Integer idResposta, @PathVariable Integer idAluno) {
         return ResponseEntity.ok(respostaService.incrementarContador(idResposta, idAluno));
     }
+
+
+
+
 
 }
