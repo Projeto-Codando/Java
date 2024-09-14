@@ -16,7 +16,7 @@ public class Aluno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer idAluno;
+    protected Integer id;
     protected String nome;
     protected String sobrenome;
     protected String apelido;

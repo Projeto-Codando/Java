@@ -37,7 +37,7 @@ public class TurmaMapper {
 
         return alunos.stream().map(aluno -> {
             Aluno alunoDto = new Aluno();
-            alunoDto.setIdAluno(aluno.getIdAluno());
+            alunoDto.setId(aluno.getId());
             alunoDto.setNome(aluno.getNome());
             alunoDto.setSobrenome(aluno.getSobrenome());
             alunoDto.setApelido(aluno.getApelido());
@@ -86,7 +86,7 @@ public class TurmaMapper {
         List<TurmaListagemDTO.AlunoListagemDTO> dtos = new ArrayList<>();
         for (Aluno e : entidades) {
             TurmaListagemDTO.AlunoListagemDTO dto = new TurmaListagemDTO.AlunoListagemDTO();
-            dto.setIdAluno(e.getIdAluno());
+            dto.setIdAluno(e.getId());
             dto.setNome(e.getNome());
             dto.setSobrenome(e.getSobrenome());
             dto.setApelido(e.getApelido());

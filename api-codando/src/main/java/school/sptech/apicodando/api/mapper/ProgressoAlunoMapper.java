@@ -27,7 +27,7 @@ public class ProgressoAlunoMapper {
     public ProgressoAlunoCadastroDTO toDTO(ProgressoAluno progressoAluno) {
         ProgressoAlunoCadastroDTO progressoAlunoCadastroDTO = new ProgressoAlunoCadastroDTO();
         progressoAlunoCadastroDTO.setPontuacaoAluno(progressoAluno.getPontuacaoAluno());
-        progressoAlunoCadastroDTO.setFkAluno(progressoAluno.getFkAluno().getIdAluno());
+        progressoAlunoCadastroDTO.setFkAluno(progressoAluno.getFkAluno().getId());
         progressoAlunoCadastroDTO.setFkAula(progressoAluno.getFkAula().getId());
         return progressoAlunoCadastroDTO;
     }
@@ -44,7 +44,7 @@ public class ProgressoAlunoMapper {
 
     public static ProgressoAlunoListagemDto.AlunoListagemDto toAlunoListagemDto(Aluno aluno) {
         ProgressoAlunoListagemDto.AlunoListagemDto alunoListagemDto = new ProgressoAlunoListagemDto().new AlunoListagemDto();
-        alunoListagemDto.setIdAluno(aluno.getIdAluno());
+        alunoListagemDto.setIdAluno(aluno.getId());
         alunoListagemDto.setNome(aluno.getNome());
         alunoListagemDto.setSobrenome(aluno.getSobrenome());
         alunoListagemDto.setApelido(aluno.getApelido());
