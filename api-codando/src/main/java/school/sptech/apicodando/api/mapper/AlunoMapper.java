@@ -36,7 +36,7 @@ public class AlunoMapper {
         try {
             AlunoListagemDTO listagemDto = new AlunoListagemDTO();
 
-            listagemDto.setIdAluno(entidade.getIdAluno());
+            listagemDto.setIdAluno(entidade.getId());
             listagemDto.setNome(entidade.getNome());
             listagemDto.setSobrenome(entidade.getSobrenome());
             listagemDto.setApelido(entidade.getApelido());
@@ -76,7 +76,7 @@ public class AlunoMapper {
         }
 
         Aluno aluno = new Aluno();
-        aluno.setIdAluno(id);
+        aluno.setId(id);
         aluno.setNome(dto.getNome());
         aluno.setSobrenome(dto.getSobrenome());
         aluno.setApelido(dto.getApelido());
@@ -112,13 +112,13 @@ public class AlunoMapper {
 
         AlunoTokenDto alunoTokenDto = new AlunoTokenDto();
 
-        alunoTokenDto.setUserId(aluno.getIdAluno());
+        alunoTokenDto.setUserId(aluno.getId());
         alunoTokenDto.setToken(token);
         alunoTokenDto.setApelido(aluno.getApelido());
         alunoTokenDto.setNome(aluno.getNome());
 
         AlunoTokenDto.AlunoListagemDTO alunoListagemDTO = new AlunoTokenDto.AlunoListagemDTO();
-        alunoListagemDTO.setIdAluno(aluno.getIdAluno());
+        alunoListagemDTO.setIdAluno(aluno.getId());
         alunoListagemDTO.setNome(aluno.getNome());
         alunoListagemDTO.setSobrenome(aluno.getSobrenome());
         alunoListagemDTO.setApelido(aluno.getApelido());

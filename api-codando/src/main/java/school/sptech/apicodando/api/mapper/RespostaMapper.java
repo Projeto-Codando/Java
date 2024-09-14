@@ -32,7 +32,7 @@ public class RespostaMapper {
         List<RespostaListagemDTO.AlunoListagemDto> idAlunos = new ArrayList<>();
         resposta.getAlunos().forEach(aluno -> {
             RespostaListagemDTO.AlunoListagemDto alunoListagemDto = new RespostaListagemDTO.AlunoListagemDto();
-            alunoListagemDto.setIdAluno(aluno.getIdAluno());
+            alunoListagemDto.setIdAluno(aluno.getId());
             alunoListagemDto.setNome(aluno.getNome());
             alunoListagemDto.setSobrenome(aluno.getSobrenome());
             alunoListagemDto.setApelido(aluno.getApelido());

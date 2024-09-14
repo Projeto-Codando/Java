@@ -103,7 +103,7 @@ public class AlunoService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado aluno com o id informado.");
         }
 
-        aluno.setIdAluno(id);
+        aluno.setId(id);
         repository.save(aluno);
     }
 
