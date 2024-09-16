@@ -9,6 +9,8 @@ import school.sptech.apicodando.api.domain.aula.repository.AulaRepository;
 import school.sptech.apicodando.api.domain.grade.repository.GradeRepository;
 import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
 import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
+import school.sptech.apicodando.api.domain.turma.Turma;
+import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.ModuloMapper;
 import school.sptech.apicodando.api.mapper.TemaMapper;
 import school.sptech.apicodando.service.aulaService.dto.AulaCriacaoDTO;
@@ -18,6 +20,7 @@ import school.sptech.apicodando.service.moduloService.ModuloService;
 import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 import school.sptech.apicodando.service.temaService.TemaService;
 import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
+import school.sptech.apicodando.service.turmaService.TurmaService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,8 @@ public class AulaService {
     private final TemaRepository temaRepository;
     private final ModuloRepository moduloRepository;
     private final GradeRepository  gradeRepository;
+//    private final TurmaService turmaService;
+    private final TurmaRepository turmaRepository;
 //    private final ModuloService moduloService;
 //    private final TemaService temaService;
 
@@ -50,13 +55,19 @@ public class AulaService {
     }
 
     public Aula criar(AulaCriacaoDTO novaAula) {
-
         if (!temaRepository.existsById(novaAula.getTemaId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.");
         }
 
+        if (!turmaRepository.existsById(novaAula.getTurmaId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
+        }
+
+        Turma turma = turmaRepository.findById(novaAula.getTurmaId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."));
         Aula aula = AulaMapper.toEntity(novaAula);
-        aula.setTema(temaRepository.findById(novaAula.getTemaId()).get());
+        aula.setTema(temaRepository.findById(novaAula.getTemaId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")));
+        aula.setTurma(turma);
+        turma.getAulas().add(aula);
         return aulaRepository.save(aula);
     }
 
@@ -69,14 +80,11 @@ public class AulaService {
     }
 
     public List<AulaListagemDTO> listarAulasPorGrade(Integer idGrade) {
-
-
-        if (gradeRepository.existsById(idGrade)) {
+        if (!gradeRepository.existsById(idGrade)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada.");
         }
 
         List<ModuloListagemDTO> modulos = ModuloMapper.toDto(moduloRepository.findAllByGrade_IdGrade(idGrade));
-
 
         List<Aula> aulas = new ArrayList<>();
 

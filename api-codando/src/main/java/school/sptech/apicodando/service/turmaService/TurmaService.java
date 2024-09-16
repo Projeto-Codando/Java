@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.educador.repository.EducadorRepository;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
@@ -21,6 +22,7 @@ import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.TurmaMapper;
 import school.sptech.apicodando.service.arrayService.Array;
+import school.sptech.apicodando.service.aulaService.AulaService;
 import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
@@ -44,6 +46,7 @@ public class TurmaService {
     private final EscolaridadeRepository escolaridadeRepository;
     private final EducadorRepository educadorRepository;
     private final ModuloRepository moduloRepository;
+    private final AulaService aulaService;
 
     public Turma criar(TurmaCadastroDTO turmaCadastro) {
         Escolaridade escolaridade = escolaridadeRepository.findById(turmaCadastro.getFkEscolaridade())
@@ -54,6 +57,8 @@ public class TurmaService {
 
         Modulo modulo = moduloRepository.findById(turmaCadastro.getFkModulo())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
+
+
 
         final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade, educador, modulo);
 

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TurmaMapper {
+
     public static Turma toEntity(TurmaCadastroDTO dto, Escolaridade escolaridade, Educador educador, Modulo modulo) {
         if (dto == null) {
             return null;
@@ -60,7 +61,8 @@ public class TurmaMapper {
         listagemDto.setFkEducador(toEducadorDto(entidade.getEducador()));
         listagemDto.setAlunos(toAlunoDto(entidade.getAlunos()));
 //        listagemDto.setFkModulo(entidade.getModulo().getIdModulo());
-        listagemDto.setMensagens(MensagemMapper.toDto(entidade.getMensagens())); 
+        listagemDto.setMensagens(MensagemMapper.toDto(entidade.getMensagens()));
+        listagemDto.setAulas(AulaMapper.toDto(entidade.getAulas()));
 
 
         return listagemDto;

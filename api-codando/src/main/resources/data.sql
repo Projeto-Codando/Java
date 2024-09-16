@@ -21,8 +21,8 @@ VALUES ('Nome do Modulo');
 INSERT INTO Tema (nome)
 VALUES ('LP');
 
-INSERT INTO Aula (titulo, descricao, nivel_dificuldade, pontuacao_maxima, tema_id_tema)
-VALUES ('IF', 'Aprendendo a usar "IF"', 1000, 100, 1);
+INSERT INTO Aula (titulo, descricao, nivel_dificuldade, pontuacao_maxima, tema_id_tema, turma_id_turma)
+VALUES ('IF', 'Aprendendo a usar "IF"', 1000, 100, 1, 1);
 
 INSERT INTO csv (ano_letivo, aba1, aba2, aba3, apr1, apr2, apr3, cd_escola, cd_rede_ensino, cd_tp_identificador, nm_completo_escola, nm_diretoria, nm_municipio, rep1, rep2, rep3) VALUES
 (2021, 0, 0, 0, 0, 99.56, 0, 34344, true, 8, 'QUINZINHO CAMARGO PREFEITO', 'PIRAJU', 'PIRAJU', 0, 1, 0),

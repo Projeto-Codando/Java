@@ -1,16 +1,14 @@
 package school.sptech.apicodando.api.mapper;
 
 import school.sptech.apicodando.api.domain.aula.Aula;
-import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.service.aulaService.dto.AulaCriacaoDTO;
 import school.sptech.apicodando.service.aulaService.dto.AulaListagemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.fasterxml.jackson.databind.type.LogicalType.Collection;
-
 public class AulaMapper {
+
 
     public static AulaListagemDTO toDto(Aula aula) {
 
@@ -24,6 +22,7 @@ public class AulaMapper {
         aulaListagemDTO.setDescricao(aula.getDescricao());
         aulaListagemDTO.setNivelDificuldade(aula.getNivelDificuldade());
         aulaListagemDTO.setPontuacaoMaxima(aula.getPontuacaoMaxima());
+        aulaListagemDTO.setIdTurma(aula.getTurma().getIdTurma());
 
 //        aulaListagemDTO.setTema(toTemaDto(aula.getTema()));
         return aulaListagemDTO;

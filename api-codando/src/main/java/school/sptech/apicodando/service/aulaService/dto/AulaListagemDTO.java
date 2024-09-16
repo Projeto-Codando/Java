@@ -1,8 +1,6 @@
 package school.sptech.apicodando.service.aulaService.dto;
 
 import lombok.Data;
-import school.sptech.apicodando.api.domain.tema.Tema;
-import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 
 @Data
 public class AulaListagemDTO {
@@ -12,6 +10,7 @@ public class AulaListagemDTO {
     protected String descricao;
     protected Integer nivelDificuldade;
     protected Integer pontuacaoMaxima;
+    protected Integer idTurma;
 
 //    private TemaListagemDTO tema;
 

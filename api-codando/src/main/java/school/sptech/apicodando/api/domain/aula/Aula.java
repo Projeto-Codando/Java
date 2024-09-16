@@ -9,6 +9,7 @@ import lombok.Data;
 import school.sptech.apicodando.api.domain.pergunta.Pergunta;
 import school.sptech.apicodando.api.domain.quiz.Quiz;
 import school.sptech.apicodando.api.domain.tema.Tema;
+import school.sptech.apicodando.api.domain.turma.Turma;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,9 @@ public class Aula {
     protected List<Pergunta> perguntas;
     @ManyToOne
     private Tema tema;
+
+    @ManyToOne
+    private Turma turma;
 
 //    public Aula() {
 //        quiz = new ArrayList<>();

@@ -24,4 +24,7 @@ public class AulaCriacaoDTO {
 
     @NotNull
     private Integer temaId;
+
+    @NotNull
+    private Integer turmaId;
 }

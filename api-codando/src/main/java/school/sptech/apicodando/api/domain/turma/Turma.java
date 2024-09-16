@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
+import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.grade.Grade;
@@ -51,6 +52,9 @@ public class Turma {
 
     @OneToMany(mappedBy = "turma")
     private List<Mensagem> mensagens;
+
+    @OneToMany(mappedBy = "turma")
+    private List<Aula> aulas;
 
     public Turma() {
         statusTurma = true;
