@@ -16,6 +16,7 @@ public class Pergunta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String texto;
+    private Integer contador;
 
     @ManyToOne
     private Aula aula;
@@ -25,6 +26,7 @@ public class Pergunta {
     private List<Resposta> respostas;
 
     public Pergunta() {
-        respostas = new ArrayList<>();
+        this.respostas = new ArrayList<>();
+        this.contador = 0;
     }
 }

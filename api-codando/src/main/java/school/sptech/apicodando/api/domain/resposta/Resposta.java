@@ -20,7 +20,7 @@ public class Resposta {
 
     private String texto;
     private Boolean correta;
-    private Integer contador;
+//    private Integer contador;
 
     @ManyToOne
     @JoinColumn(name = "pergunta_id")
@@ -30,7 +30,7 @@ public class Resposta {
     private List<Aluno> alunos;
 
     public Resposta() {
-        this.contador = 0;
+
     }
 
 }

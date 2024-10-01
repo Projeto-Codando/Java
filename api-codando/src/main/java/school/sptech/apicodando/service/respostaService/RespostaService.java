@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.pergunta.Pergunta;
+import school.sptech.apicodando.api.domain.pergunta.repository.PerguntaRepository;
 import school.sptech.apicodando.api.domain.resposta.Resposta;
 import school.sptech.apicodando.api.domain.resposta.repository.RespostaRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
@@ -25,6 +26,7 @@ public class RespostaService {
     private final PerguntaService perguntaService;
     private final AlunoService alunoService;
     private final TurmaService turmaService;
+    private final PerguntaRepository perguntaRepository;
 
     public Resposta criar (RespostaCadastroDTO respostaCadastroDTO) {
         if (respostaCadastroDTO == null) {
@@ -45,14 +47,15 @@ public class RespostaService {
         return resposta;
     }
 
-    public List<RespostaListagemDTO> buscarPorIdPergunta (Integer idPergunta) {
-        List<Resposta> resposta = respostaRepository.findByPergunta_Id(idPergunta);
-        return RespostaMapper.toDto(resposta);
+    public List<Resposta> buscarPorIdPergunta (Integer idPergunta) {
+        return respostaRepository.findByPergunta_Id(idPergunta);
+
     }
 
     public RespostaListagemDTO incrementarContador (Integer idResposta, Integer idAluno) {
         Resposta resposta = buscarPorId(idResposta);
         Aluno aluno = alunoService.listarUmPorId(idAluno).get();
+        Pergunta pergunta = resposta.getPergunta();
 
         if (resposta.getAlunos().contains(aluno)) {
             throw new RuntimeException("Aluno já respondeu essa pergunta");
@@ -64,7 +67,11 @@ public class RespostaService {
             throw new RuntimeException("Aluno não encontrado");
         }
 
-        resposta.setContador(resposta.getContador() + 1);
+        if (pergunta.getContador() == null) {
+            pergunta.setContador(0);
+        }
+
+        pergunta.setContador(pergunta.getContador() + 1);
         resposta.getAlunos().add(aluno);
         aluno.getRespostas().add(resposta);
         alunoService.salvar(aluno);
@@ -78,23 +85,26 @@ public class RespostaService {
 //        return RespostaMapper.toDto(respostas);
 //    }
 
-    public List<RespostaListagemDTO> listarAlunoQueMaisErrou () {
-        List<Resposta> respostas = respostaRepository.findAll();
-        respostas.sort((r1, r2) -> r2.getContador().compareTo(r1.getContador()));
-        return RespostaMapper.toDto(respostas);
-    }
-
-    public List<RespostaListagemDTO> listarAlunosDeUmaTurmaPorRespostasCorretas(Integer idTurma) {
-        List<Resposta> respostas = respostaRepository.findAll();
-        Turma turma = turmaService.buscarPorId(idTurma);
-        List<Resposta> r = new ArrayList<>();
-        for (Resposta resposta : respostas) {
-            if (resposta.getCorreta() && resposta.getAlunos().get(0).getTurma().getIdTurma().equals(turma.getIdTurma())) {
-                r.add(resposta);
-            }
-        }
-        //metodo para organizar por quantidade de respostas corretas
-        r.sort((r1, r2) -> r2.getContador().compareTo(r1.getContador()));
-        return RespostaMapper.toDto(r);
-    }
+//    public List<RespostaListagemDTO> listarAlunoQueMaisErrou () {
+//        List<Pergunta> perguntas = perguntaRepository.findAll();
+//        perguntas.sort((r1, r2) -> r2.getContador().compareTo(r1.getContador()));
+//
+//
+//
+//        return RespostaMapper.toDto(perguntas);
+//    }
+//
+//    public List<RespostaListagemDTO> listarAlunosDeUmaTurmaPorRespostasCorretas(Integer idTurma) {
+//        List<Resposta> respostas = respostaRepository.findAll();
+//        Turma turma = turmaService.buscarPorId(idTurma);
+//        List<Resposta> r = new ArrayList<>();
+//        for (Resposta resposta : respostas) {
+//            if (resposta.getCorreta() && resposta.getAlunos().get(0).getTurma().getIdTurma().equals(turma.getIdTurma())) {
+//                r.add(resposta);
+//            }
+//        }
+//        //metodo para organizar por quantidade de respostas corretas
+//        r.sort((r1, r2) -> r2.getContador().compareTo(r1.getContador()));
+//        return RespostaMapper.toDto(r);
+//    }
 }

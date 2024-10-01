@@ -10,7 +10,7 @@ public class RespostaListagemDTO {
     private Integer idResposta;
     private String texto;
     private Boolean correta;
-    private Integer contador;
+//    private Integer contador;
     private Integer idPergunta;
     private List<AlunoListagemDto> alunos;
 
