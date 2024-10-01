@@ -11,6 +11,26 @@ VALUES ('Turma 1', 'senha123', 1, 1, true);
 
 INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
 VALUES ('aluno2', 'sobrenome2', 'apelido2', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apelido23', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apelido233', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apelido2333', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apelido2331', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apelido233111', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apelido2336', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apelido2337', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apelido2338', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apelido2339', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
+INSERT INTO Aluno (nome, sobrenome, apelido, senha, status, moedas, id_turma, id_escolaridade,id_avatar)
+VALUES ('aluno2', 'sobrenome2', 'apel', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC', 'true', 300, 1, 1, 1);
 
 INSERT INTO Turma (nome, senha, id_escolaridade, id_educador, status_turma)
 VALUES ('Turma 2', 'senha1234', 1, 1, true);
@@ -35,3 +55,24 @@ INSERT INTO csv (ano_letivo, aba1, aba2, aba3, apr1, apr2, apr3, cd_escola, cd_r
 INSERT INTO Avatar (id, descricao, preco, imagemURL) VALUES
 (1, 'Chimpaze Default', 0, 'https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/chimpaZe_default.png'),
 (2, 'Aryton Senna', 0, 'https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/image_72.png');
+
+INSERT INTO Pergunta (texto, aula_id) VALUES
+('Qual a resposta da vida, do universo e tudo mais?1', 1),
+('Qual a resposta da vida, do universo e tudo mais?11', 1),
+('Qual a resposta da vida, do universo e tudo mais?111', 1),
+('Qual a resposta da vida, do universo e tudo mais?1111', 1),
+('Qual a resposta da vida, do universo e tudo mais?11111', 1),
+('Qual a resposta da vida, do universo e tudo mais?111111', 1);
+
+INSERT INTO Resposta (texto, correta, pergunta_id) VALUES
+('42', false, 3),
+('42', false, 3),
+('42', false, 3),
+('42', false, 3),
+('42', false, 3),
+
+('42', false, 6),
+('42', false, 6),
+('42', false, 6),
+('42', false, 6),
+('42', false, 6);

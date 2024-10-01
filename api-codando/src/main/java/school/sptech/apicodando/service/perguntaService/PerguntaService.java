@@ -3,14 +3,19 @@ package school.sptech.apicodando.service.perguntaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import school.sptech.apicodando.api.controller.RespostaController;
 import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.pergunta.Pergunta;
 import school.sptech.apicodando.api.domain.pergunta.repository.PerguntaRepository;
+import school.sptech.apicodando.api.domain.resposta.Resposta;
+import school.sptech.apicodando.api.domain.resposta.repository.RespostaRepository;
 import school.sptech.apicodando.api.mapper.PerguntaMapper;
 import school.sptech.apicodando.service.aulaService.AulaService;
 import school.sptech.apicodando.service.perguntaService.dto.PerguntaCadastroDTO;
 import school.sptech.apicodando.service.perguntaService.dto.PerguntaListagemDTO;
+import school.sptech.apicodando.service.respostaService.RespostaService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +23,8 @@ import java.util.List;
 public class PerguntaService {
 
     private final PerguntaRepository perguntaRepository;
+//    private final RespostaService respostaService;
+    private final RespostaRepository respostaRepository;
     private final AulaService aulaService;
 
     public Pergunta criar (PerguntaCadastroDTO perguntaCadastroDTO) {
@@ -59,6 +66,41 @@ public class PerguntaService {
 
         perguntaRepository.save(pergunta);
         return pergunta;
+    }
+
+    public List<Pergunta> listarPerguntasComMaisErros(){
+        List<Pergunta> perguntas = perguntaRepository.findAll();
+        List<Pergunta> perguntasComMaisErros = new ArrayList<>();
+
+
+
+        for (Pergunta pergunta : perguntas) {
+            if (pergunta.getContador() == null) {
+                pergunta.setContador(0);
+            } //TODO trocar para tipo primitivo.
+            List<Resposta> respostas = respostaRepository.findByPergunta_Id(pergunta.getId());
+           for (Resposta resposta : respostas) {
+               if (pergunta.getContador() > 0 && !resposta.getCorreta()) {
+                   if (!perguntasComMaisErros.contains(pergunta)) {
+                       perguntasComMaisErros.add(pergunta);
+                   }
+               }
+           }
+        }
+        //parte responsavel por organizar o array por ordem de quantidade de erros
+        for (int i = 0; i < perguntasComMaisErros.size(); i++) {
+            for (int j = 0; j < perguntasComMaisErros.size(); j++) {
+                if (perguntasComMaisErros.get(i).getContador() == perguntasComMaisErros.get(j).getContador()) {
+                    continue;
+                }
+                if (perguntasComMaisErros.get(i).getContador() > perguntasComMaisErros.get(j).getContador()) {
+                    Pergunta aux = perguntasComMaisErros.get(i);
+                    perguntasComMaisErros.set(i, perguntasComMaisErros.get(j));
+                    perguntasComMaisErros.set(j, aux);
+                }
+            }
+        }
+        return perguntasComMaisErros;
     }
 
 }

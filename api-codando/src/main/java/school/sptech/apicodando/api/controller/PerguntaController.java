@@ -62,4 +62,10 @@ public class PerguntaController {
         return ResponseEntity.ok(perguntaDto);
     }
 
+    @Operation(summary = "Listar", description = "Método que lista perguntas com mais erros", tags = "Pergunta")
+    @GetMapping("/erros")
+    public ResponseEntity<List<PerguntaListagemDTO>> listarPerguntasComMaisErros() {
+        return ResponseEntity.ok(PerguntaMapper.toDto(perguntaService.listarPerguntasComMaisErros()));
+    }
+
 }

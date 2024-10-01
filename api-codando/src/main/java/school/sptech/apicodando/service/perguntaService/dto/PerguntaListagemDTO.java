@@ -12,6 +12,7 @@ public class PerguntaListagemDTO {
     private Integer idPergunta;
     private String texto;
     private Integer idAula;
+    private Integer contador;
     private List<RespostaListagemDTO> respostas;
 
 }

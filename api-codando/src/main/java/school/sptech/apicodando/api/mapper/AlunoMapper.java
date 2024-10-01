@@ -58,7 +58,7 @@ public class AlunoMapper {
                 respostaListagemDto.setIdResposta(resposta.getIdResposta());
                 respostaListagemDto.setTexto(resposta.getTexto());
                 respostaListagemDto.setCorreta(resposta.getCorreta());
-                respostaListagemDto.setContador(resposta.getContador());
+//                respostaListagemDto.setContador(resposta.getContador());
                 respostaListagemDto.setIdPergunta(resposta.getPergunta().getId());
                 respostas.add(respostaListagemDto);
             });

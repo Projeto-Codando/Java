@@ -26,7 +26,7 @@ public class RespostaMapper {
         respostaListagem.setIdResposta(resposta.getIdResposta());
         respostaListagem.setTexto(resposta.getTexto());
         respostaListagem.setCorreta(resposta.getCorreta());
-        respostaListagem.setContador(resposta.getContador());
+//        respostaListagem.setContador(resposta.getContador());
         respostaListagem.setIdPergunta(resposta.getPergunta().getId());
 
         List<RespostaListagemDTO.AlunoListagemDto> idAlunos = new ArrayList<>();
