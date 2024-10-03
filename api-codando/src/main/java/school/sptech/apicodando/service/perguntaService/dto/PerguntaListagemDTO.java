@@ -16,11 +16,13 @@ public class PerguntaListagemDTO {
     private List<RespostaListagemDTO> respostas;
 
     public String getPorcentagemRespostasIncorretas() {
-        return 100 - porcentagemRespostasCorretas() + "%";
+        int porcentagem = 100 - porcentagemRespostasCorretas();
+        return porcentagem == 0 ? "N/A" : porcentagem + "%";
     }
 
     public String getPorcentagemRespostasCorretas() {
-        return porcentagemRespostasCorretas() + "%";
+        int porcentagem = porcentagemRespostasCorretas();
+        return porcentagem == 0 ? "N/A" : porcentagem + "%";
     }
 
     public int porcentagemRespostasCorretas() {
