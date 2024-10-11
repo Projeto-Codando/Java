@@ -1,3 +1,4 @@
+
 INSERT INTO Educador (nome, sobrenome, email, senha)
 VALUES ('nome1', 'sobrenome1', 'email@email.com', '$2a$10$0/TKTGxdREbWaWjWYhwf6e9P1fPOAMMNqEnZgOG95jnSkHSfkkIrC');
 

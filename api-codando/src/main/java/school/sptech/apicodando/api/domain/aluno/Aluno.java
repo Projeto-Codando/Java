@@ -21,6 +21,7 @@ public class Aluno {
     protected String sobrenome;
     protected String apelido;
     protected String senha;
+
     protected Boolean status;
     protected Integer moedas;
     protected String senhaTurma;
