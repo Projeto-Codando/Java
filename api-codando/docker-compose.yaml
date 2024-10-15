@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres-data:/var/lib/postgresql
+      - ./postgres-data:/var/lib/postgresql/data  # Correção do caminho de dados do PostgreSQL
       - ./src/main/resources/data.sql:/docker-entrypoint-initdb.d/init.sql
 
   spring:
@@ -23,7 +23,13 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_APPLICATION_NAME: api-codando  # Nome da aplicação Spring
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update  # Atualiza o schema automaticamente
+      SPRING_JPA_SHOW_SQL: "true"  # Mostrar queries SQL no console
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect  # Dialeto do PostgreSQL
     ports:
       - "8080:8080"
     depends_on:
       - postgres
+    volumes:
+      - ./src/main/resources/application_utf8.properties:/app/src/main/resources/application.properties
