@@ -10,9 +10,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - /var/lib/postgres # Volume anônimo (não será persistido)
-      - ./src/main/resources/db/migration/update-schema.sql:/docker-entrypoint-initdb.d/update-schema.sql # creates aqui
-      - ./postgres-data/data/data.sql:/docker-entrypoint-initdb.d/data.sql # inserts aqui
+      - ./postgres-data:/var/lib/postgresql # Persistência dos dados
+      - ./src/main/resources/db/migration/update-schema.sql:/docker-entrypoint-initdb.d/update-schema.sql
+      - ./postgres-data/data/data.sql:/docker-entrypoint-initdb.d/data.sql
 
   spring:
     container_name: api-codando
