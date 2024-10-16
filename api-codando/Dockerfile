@@ -9,7 +9,7 @@ FROM openjdk:17
 EXPOSE 8080
 
 # Copia o JAR gerado do estágio anterior (build) para o diretório /target no container
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/target/api-codando-0.0.1-SNAPSHOT.jar /app.jar
 
 # Comando para rodar a aplicação
 ENTRYPOINT ["java", "-jar", "/app.jar"]
