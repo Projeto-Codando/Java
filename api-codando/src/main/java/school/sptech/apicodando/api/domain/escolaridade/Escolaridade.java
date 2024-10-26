@@ -4,9 +4,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Escolaridade {
 
     @NotBlank
@@ -16,7 +20,8 @@ public class Escolaridade {
 
     protected String descricao;
 
-    public Escolaridade() {
+    public Escolaridade(String descricao) {
+        this.descricao = descricao;
     }
 
     public Integer getIdEscolaridade() {
