@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface AvatarRepository extends JpaRepository<Avatar, Integer> {
         Optional<Avatar> findByDescricao(String descricao);
+
+        long count();
 }

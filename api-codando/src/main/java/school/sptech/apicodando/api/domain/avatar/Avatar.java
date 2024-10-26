@@ -2,12 +2,14 @@ package school.sptech.apicodando.api.domain.avatar;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 
 import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Avatar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +18,13 @@ public class Avatar {
     protected int preco;
     protected String imagemURL;
 
+    public Avatar(String descricao, int preco, String imagemURL) {
+        this.descricao = descricao;
+        this.preco = preco;
+        this.imagemURL = imagemURL;
+    }
+
     @ManyToMany(mappedBy = "avatares")
     private List<Aluno> alunos;
+
 }
