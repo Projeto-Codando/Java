@@ -56,15 +56,14 @@ public class TurmaService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Educador não encontrado."));
 
         Modulo modulo = moduloRepository.findById(turmaCadastro.getFkModulo())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
-
-
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modulo não encontrado."));
 
         final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade, educador, modulo);
 
         if (existeTurmaByCodigo(turmaCadastro.getSenha())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");
         }
+
         return turmaRepository.save(novaTurma);
     }
 

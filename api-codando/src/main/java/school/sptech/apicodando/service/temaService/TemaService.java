@@ -1,5 +1,6 @@
 package school.sptech.apicodando.service.temaService;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,23 @@ public class TemaService {
     public final ModuloRepository moduloRepository;
     private final AulaService aulaService;
 
+    @PostConstruct
+    public void inserirDadosIniciaisSeNecessario() {
+        if (temaRepository.count() == 0) {
+            temaRepository.saveAll(criarTemas());
+            System.out.println("Dado inicial do tema inserido.");
+        } else {
+            System.out.println("Dado do tema ja inserido.");
+        }
+    }
+
+    private List<Tema> criarTemas() {
+        return List.of(
+                new Tema("Condicional"),
+                new Tema("Laço de Repetição"),
+                new Tema("Variáveis")
+        );
+    }
 
     public Tema criar(TemaCadastroDTO dto, int moduloId) {
         if (!moduloRepository.existsById(moduloId)) {

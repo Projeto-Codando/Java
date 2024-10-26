@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface TemaRepository extends JpaRepository<Tema, Integer> {
 
     List<Tema> findAllByModulo_IdModulo(Integer integer);
+    long count();
 }

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ModuloRepository extends JpaRepository<Modulo, Integer> {
 
-
     List<Modulo> findAllByGrade_IdGrade(Integer idGrade);
+    long count();
 }

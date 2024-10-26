@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Tema {
 
 //    @NotBlank
@@ -30,6 +32,7 @@ public class Tema {
     @JoinColumn(name = "idModulo")
     private Modulo modulo;
 
-    public Tema() {
+    public Tema(String nome) {
+        this.nome = nome;
     }
 }

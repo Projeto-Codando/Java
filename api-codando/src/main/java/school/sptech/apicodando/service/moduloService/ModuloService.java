@@ -1,11 +1,13 @@
 package school.sptech.apicodando.service.moduloService;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.aula.repository.AulaRepository;
+import school.sptech.apicodando.api.domain.avatar.Avatar;
 import school.sptech.apicodando.api.domain.grade.Grade;
 import school.sptech.apicodando.api.domain.grade.repository.GradeRepository;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
@@ -33,6 +35,18 @@ public class ModuloService {
     private final GradeRepository gradeRepository;
     private final TemaService temaService;
     private final AulaRepository aulaRepository;
+
+    @PostConstruct
+    public void inserirDadosIniciaisSeNecessario() {
+        if (moduloRepository.count() == 0) {
+            Modulo modulo = new Modulo();
+            modulo.setNome("LEMBRAR DE MUDAR O NOME DO MÓDULO");
+            moduloRepository.save(modulo);
+            System.out.println("Dado iniciai do modulo inserido.");
+        } else {
+            System.out.println("Dado do moduilo ja inserido.");
+        }
+    }
 
     public Modulo criar(ModuloCadastroDTO moduloCadastro) {
 
