@@ -5,6 +5,7 @@ import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.service.temaService.dto.TemaCadastroDTO;
 import school.sptech.apicodando.service.temaService.dto.TemaListagemDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TemaMapper {
@@ -27,6 +28,7 @@ public class TemaMapper {
 //    }
 
     public static List<TemaListagemDTO> toDto(List<Tema> temas) {
+
         return temas.stream().map(TemaMapper::toDto).toList();
     }
 
