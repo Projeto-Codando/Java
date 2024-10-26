@@ -13,7 +13,7 @@ import school.sptech.apicodando.api.domain.aluno.Aluno;
 @NoArgsConstructor
 public class Escolaridade {
 
-    @NotBlank
+//    @NotBlank
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer idEscolaridade;

@@ -8,6 +8,7 @@ import school.sptech.apicodando.service.moduloService.dto.ModuloCadastroDTO;
 import school.sptech.apicodando.service.moduloService.dto.ModuloListagemDTO;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Data
@@ -15,8 +16,17 @@ public class ModuloMapper {
 
     public static ModuloListagemDTO toDto(Modulo modulo) {
         ModuloListagemDTO dto = new ModuloListagemDTO();
+
+
         dto.setIdModulo(modulo.getIdModulo());
         dto.setNome(modulo.getNome());
+
+        if(Objects.isNull(modulo.getTemas())) {
+            dto.setTemas(null);
+        } else {
+            dto.setTemas(modulo.getTemas().stream().map(TemaMapper::toDto).collect(Collectors.toList()));
+        }
+
         dto.setTemas(modulo.getTemas().stream().map(TemaMapper::toDto).collect(Collectors.toList()));
 //        dto.setIdGrade(modulo.getGrade().getIdGrade());
 //        dto.getGrade().setTurma(toTurmaListagem(modulo.getGrade().getFkTurma()));
