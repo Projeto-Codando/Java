@@ -15,4 +15,27 @@ public class PerguntaListagemDTO {
     private Integer contador;
     private List<RespostaListagemDTO> respostas;
 
+    public String getPorcentagemRespostasIncorretas() {
+        int porcentagem = 100 - porcentagemRespostasCorretas();
+        return porcentagem == 0 ? "N/A" : porcentagem + "%";
+    }
+
+    public String getPorcentagemRespostasCorretas() {
+        int porcentagem = porcentagemRespostasCorretas();
+        return porcentagem == 0 ? "N/A" : porcentagem + "%";
+    }
+
+    public int porcentagemRespostasCorretas() {
+        int totalRespostas = 0;
+        int totalRespostasCorretas = 0;
+        for (RespostaListagemDTO resposta : respostas) {
+            totalRespostas++;
+            if (resposta.getCorreta()) {
+                totalRespostasCorretas++;
+            }
+        }
+        return totalRespostas == 0 ? 0 : (totalRespostasCorretas * 100 / totalRespostas);
+    }
+
+
 }
