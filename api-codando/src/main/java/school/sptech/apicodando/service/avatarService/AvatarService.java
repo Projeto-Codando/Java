@@ -1,5 +1,6 @@
 package school.sptech.apicodando.service.avatarService;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,16 @@ import java.util.List;
 public class AvatarService {
     private final AvatarRepository repository;
     private final AlunoService alunoService;
+
+    @PostConstruct
+    public void inserirDadosIniciaisSeNecessario() {
+        if (repository.count() == 0) {
+            repository.saveAll(criarAvatares());
+            System.out.println("Dado inicial do avatar inserido.");
+        } else {
+            System.out.println("Dado do avatar ja inserido.");
+        }
+    }
 
     public List<Avatar> listar() {
         return repository.findAll();
@@ -55,4 +66,40 @@ public class AvatarService {
         });
         return avatar;
     }
+
+    private List<Avatar> criarAvatares() {
+        return List.of(
+                new Avatar("Chimpaze", 0, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/chimpaZe_default.png"),
+                new Avatar("Chimpaze Bombeiro", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/chimpaZe_bombeiro.png"),
+                new Avatar("Chimpaze Pirata", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/chimpaZe_pirata.png"),
+                new Avatar("Chimpaze Policial", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/chimpaZe_policial.png"),
+                new Avatar("Chimpaze Touca", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/chimpaZe_touca.png"),
+                new Avatar("Preguiça", 350, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/preguica.png"),
+                new Avatar("Preguiça Leal", 350, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/preguica_leal.png"),
+                new Avatar("Preguiça Ney", 350, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/preguica_ney.png"),
+                new Avatar("Preguiça Popo", 350, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/preguica_popo.png"),
+                new Avatar("Preguiça Senna", 350, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/preguica_senna.png"),
+                new Avatar("Cachorro", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/cachorro_default.png"),
+                new Avatar("Cachorro Magico", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/cachorro_cartola.png"),
+                new Avatar("Cachorro da Roça", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/cachorro_chapeu.png"),
+                new Avatar("Cachorra FruFru", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/cachorro_laco.png"),
+                new Avatar("Cachorro Touca", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/cachorro_touca.png"),
+                new Avatar("Gato", 150, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/gato_default.png"),
+                new Avatar("Gato Aeromoça", 150, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/gato_aeromoco.png"),
+                new Avatar("Gato Bruxa", 150, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/gato_bruxa.png"),
+                new Avatar("Gato Marinheiro", 150, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/gato_marinheiro.png"),
+                new Avatar("Gato Medico", 150, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/gato_medico.png"),
+                new Avatar("Urubu", 200, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/urubu_default.png"),
+                new Avatar("Urubu Potter", 200, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/urubu_frio.png"),
+                new Avatar("Urubu Judoca", 200, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/urubu_judoca.png"),
+                new Avatar("Urubu Praiano", 200, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/urubu_oculos.png"),
+                new Avatar("Urubu Vilão", 200, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/urubu_vilao.png"),
+                new Avatar("Zebra", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/zebra_default.png"),
+                new Avatar("Zebra Cartola", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/zebra_cartola.png"),
+                new Avatar("Zebra Vaqueira", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/zebra_cowboy.png"),
+                new Avatar("Zebra Mexicana", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/zebra_mexicana.png"),
+                new Avatar("Zebra Rei", 100, "https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/zebra_rei.png")
+        );
+    }
+
 }

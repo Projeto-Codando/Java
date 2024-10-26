@@ -16,6 +16,12 @@ public class Avatar {
     protected int preco;
     protected String imagemURL;
 
+    public Avatar(String descricao, int preco, String imagemURL) {
+        this.descricao = descricao;
+        this.preco = preco;
+        this.imagemURL = imagemURL;
+    }
+
     @ManyToMany(mappedBy = "avatares")
     private List<Aluno> alunos;
 }
