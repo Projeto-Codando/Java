@@ -11,8 +11,8 @@ services:
       - "5432:5432"
     volumes:
       - ./postgres-data:/var/lib/postgresql # Persistência dos dados
-      - ./src/main/resources/db/migration/update-schema.sql:/docker-entrypoint-initdb.d/update-schema.sql
-      - ./postgres-data/data/data.sql:/docker-entrypoint-initdb.d/data.sql
+#      - ./src/main/resources/db/migration/update-schema.sql:/docker-entrypoint-initdb.d/update-schema.sql
+#      - ./postgres-data/data/data.sql:/docker-entrypoint-initdb.d/data.sql
 
   spring:
     container_name: api-codando

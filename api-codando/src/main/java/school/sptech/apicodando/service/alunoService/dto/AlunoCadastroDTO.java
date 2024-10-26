@@ -11,12 +11,11 @@ import lombok.Setter;
 @Setter
 public class AlunoCadastroDTO {
 
-    @NotBlank
     @Size(min = 3, max = 255)
     @NotNull
     private String nome;
 
-    @NotBlank
+
     @Size(min = 3, max = 255)
     @NotNull
     private String sobrenome;
