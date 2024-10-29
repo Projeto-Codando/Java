@@ -22,6 +22,10 @@ public class Avatar {
         this.imagemURL = imagemURL;
     }
 
+    public Avatar (){
+
+    };
+
     @ManyToMany(mappedBy = "avatares")
     private List<Aluno> alunos;
 }
