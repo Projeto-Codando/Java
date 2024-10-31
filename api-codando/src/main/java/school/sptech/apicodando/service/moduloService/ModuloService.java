@@ -40,11 +40,11 @@ public class ModuloService {
     public void inserirDadosIniciaisSeNecessario() {
         if (moduloRepository.count() == 0) {
             Modulo modulo = new Modulo();
-            modulo.setNome("LEMBRAR DE MUDAR O NOME DO MÓDULO");
+            modulo.setNome("Lógica de programação");
             moduloRepository.save(modulo);
-            System.out.println("Dado iniciai do modulo inserido.");
+            System.out.println("Dados iniciais do modulo inserido.");
         } else {
-            System.out.println("Dado do moduilo ja inserido.");
+            System.out.println("Dado do modulo ja inserido.");
         }
     }
 

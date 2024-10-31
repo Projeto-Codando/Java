@@ -1,5 +1,6 @@
 package school.sptech.apicodando.service.perguntaService;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,33 @@ public class PerguntaService {
 //    private final RespostaService respostaService;
     private final RespostaRepository respostaRepository;
     private final AulaService aulaService;
+
+
+
+    @PostConstruct
+    public void inserirDadosIniciaisSeNecessario() {
+        if (perguntaRepository.count() == 0) {
+            List<Pergunta> perguntas = List.of(
+                    new Pergunta("Em uma aventura na selva, um macaco curioso encontrou uma árvore mágica cheia de frutas diferentes. Para saber quais frutas ele ainda não experimentou, ele precisa comparar se as duas frutas são diferentes. Qual símbolo ele deve usar para fazer essa comparação?", aulaService.buscarPorId(1)),
+                    new Pergunta("Em uma aventura na floresta, um grupo de macacos encontra uma árvore carregada de bananas. Eles estão usando um código JavaScript para decidir o que fazer com as bananas:", aulaService.buscarPorId(1)),
+                    new Pergunta("Você está ajudando um grupo de macacos programadores a desenvolver um sistema de acesso a uma caverna misteriosa na floresta. Para garantir a segurança, eles precisam verificar se a senha inserida pelo explorador tem pelo menos oito caracteres. Qual seria a melhor estrutura para realizar essa verificação?", aulaService.buscarPorId(1)),
+                    new Pergunta("Em uma aventura noturna, os macacos precisam determinar se a lua está cheia para realizar um ritual especial. Eles têm um sensor que retorna o valor true se a lua estiver cheia e false caso contrário. Como os macacos podem usar uma estrutura de if para verificar se a lua está cheia e imprimir 'A lua está cheia!'?", aulaService.buscarPorId(1)),
+                    new Pergunta("Os macacos querem verificar se a temperatura está acima de 30 graus para decidir se vão nadar no rio. Eles possuem uma variável chamada temperatura. Qual estrutura de if é adequada para essa verificação?", aulaService.buscarPorId(1)),
+                    new Pergunta("Os macacos precisam verificar se a altura de uma árvore é maior que 15 metros para escolher a árvore certa para a competição. Eles possuem uma variável alturaArvore. Qual estrutura de if usariam?", aulaService.buscarPorId(1)),
+                    new Pergunta("Um macaco curioso está testando diferentes tipos de frutas para ver quais são comestíveis. Ele tem uma variável frutaComestivel que retorna true se a fruta for comestível e false caso contrário. Como ele pode usar uma estrutura de if para verificar se a fruta é comestível e imprimir 'A fruta é comestível!'?", aulaService.buscarPorId(1)),
+                    new Pergunta("Na floresta, os macacos estão aprendendo a linguagem dos pássaros para se comunicarem melhor. Para entender os sons dos pássaros, eles precisam identificar se dois cantos são iguais. Qual símbolo eles usam para fazer essa comparação?", aulaService.buscarPorId(2)),
+                    new Pergunta("Os macacos estão classificando diferentes tipos de folhas que encontram na selva. Eles usam um código onde 1 representa folhas grandes, 2 representa folhas médias e 3 representa folhas pequenas. Como eles podem usar um switch case para imprimir o tipo de folha?", aulaService.buscarPorId(2)),
+                    new Pergunta("Durante uma celebração na floresta, os macacos querem decidir que tipo de dança fazer. Eles têm uma variável tipoDanca onde a representa a dança do fogo, b representa a dança da chuva, e c representa a dança do sol. Qual switch case eles usariam?", aulaService.buscarPorId(2)),
+                    new Pergunta("Os macacos estão escolhendo frutas para um banquete. Eles têm uma variável fruta onde 1 representa bananas, 2 representa maçãs, e 3 representa mangas. Qual switch case eles usariam para imprimir a fruta escolhida?", aulaService.buscarPorId(2)),
+                    new Pergunta("Os macacos estão decidindo a cor das flores para decorar suas casas. Eles têm uma variável corFlor onde red representa flores vermelhas, blue representa flores azuis, e yellow representa flores amarelas. Como usariam um switch case para decidir a cor?", aulaService.buscarPorId(2)),
+                    new Pergunta("Em um jogo de esportes na selva, os macacos precisam decidir qual jogo jogar baseado no valor da variável jogo, onde 1 representa futebol, 2 representa basquete, e 3 representa vôlei. Qual switch case eles usariam?", aulaService.buscarPorId(2))
+            );
+            perguntaRepository.saveAll(perguntas);
+            System.out.println("Dados iniciais das perguntas inseridos.");
+        } else {
+            System.out.println("Dados das perguntas já inseridos.");
+        }
+    }
 
     public Pergunta criar (PerguntaCadastroDTO perguntaCadastroDTO) {
 

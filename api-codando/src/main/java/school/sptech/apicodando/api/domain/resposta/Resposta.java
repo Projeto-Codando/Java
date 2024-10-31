@@ -33,4 +33,10 @@ public class Resposta {
 
     }
 
+    public Resposta(String texto, boolean correta, Pergunta pergunta) {
+        this.texto = texto;
+        this.correta = correta;
+        this.pergunta = pergunta;
+    }
+
 }

@@ -38,4 +38,14 @@ public class Aula {
 //    public Aula() {
 //        quiz = new ArrayList<>();
 //    }
+
+    public Aula(String titulo, String descricao, int nivelDificuldade, int pontuacaoMaxima, Tema tema, Turma turma) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.nivelDificuldade = nivelDificuldade;
+        this.pontuacaoMaxima = pontuacaoMaxima;
+        this.tema = tema;
+        this.turma = turma;
+    }
+    public Aula(){}
 }

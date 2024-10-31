@@ -1,6 +1,8 @@
 package school.sptech.apicodando.service.respostaService;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Service;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
 import school.sptech.apicodando.api.domain.pergunta.Pergunta;
@@ -27,6 +29,16 @@ public class RespostaService {
     private final AlunoService alunoService;
     private final TurmaService turmaService;
     private final PerguntaRepository perguntaRepository;
+
+    @PostConstruct
+    public void inserirDadosIniciaisSeNecessario() {
+        if (respostaRepository.count() == 0) {
+            respostaRepository.saveAll(criarRespostas());
+            System.out.println("Dado inicial da resposta inserido.");
+        } else {
+            System.out.println("Dado da resposta ja inserido.");
+        }
+    }
 
     public Resposta criar (RespostaCadastroDTO respostaCadastroDTO) {
         if (respostaCadastroDTO == null) {
@@ -77,6 +89,75 @@ public class RespostaService {
         alunoService.salvar(aluno);
         respostaRepository.save(resposta);
         return RespostaMapper.toDto(resposta);
+    }
+
+    private List<Resposta> criarRespostas() {
+        return List.of(
+                new Resposta("==", false, perguntaService.buscarPorId(1)),
+                new Resposta("!=", true, perguntaService.buscarPorId(1)),
+                new Resposta("!", false, perguntaService.buscarPorId(1)),
+                new Resposta("?", false, perguntaService.buscarPorId(1)),
+
+                new Resposta("A quantidade de bananas é menor que 5!", false, perguntaService.buscarPorId(2)),
+                new Resposta("A quantidade de bananas é igual a 5!", false, perguntaService.buscarPorId(2)),
+                new Resposta("A quantidade de bananas é diferente que 5", true, perguntaService.buscarPorId(2)),
+                new Resposta("Nenhuma das anteriores", false, perguntaService.buscarPorId(2)),
+
+                new Resposta("Iteração para contar caracteres", false, perguntaService.buscarPorId(3)),
+                new Resposta("Verificação do comprimento da string", true, perguntaService.buscarPorId(3)),
+                new Resposta("Loop para verificar repetidamente", false, perguntaService.buscarPorId(3)),
+                new Resposta("Avaliação da complexidade da senha", false, perguntaService.buscarPorId(3)),
+
+                new Resposta("luaCheia", true, perguntaService.buscarPorId(4)),
+                new Resposta("luaCheia == false", false, perguntaService.buscarPorId(4)),
+                new Resposta("luaCheia != true", false, perguntaService.buscarPorId(4)),
+                new Resposta("luaCheia == false", false, perguntaService.buscarPorId(4)),
+
+                new Resposta("temperatura < 30", false, perguntaService.buscarPorId(5)),
+                new Resposta("temperatura >= 30", true, perguntaService.buscarPorId(5)),
+                new Resposta("temperatura <= 30", false, perguntaService.buscarPorId(5)),
+                new Resposta("temperatura != 30", false, perguntaService.buscarPorId(5)),
+
+                new Resposta("alturaArvore <= 15", false, perguntaService.buscarPorId(6)),
+                new Resposta("alturaArvore < 15", false, perguntaService.buscarPorId(6)),
+                new Resposta("alturaArvore > 15", true, perguntaService.buscarPorId(6)),
+                new Resposta("alturaArvore == 15", false, perguntaService.buscarPorId(6)),
+
+                new Resposta("frutaComestivel != true", false, perguntaService.buscarPorId(7)),
+                new Resposta("frutaComestivel == false", false, perguntaService.buscarPorId(7)),
+                new Resposta("frutaComestivel == true", true, perguntaService.buscarPorId(7)),
+                new Resposta("frutaComestivel != false", false, perguntaService.buscarPorId(7)),
+
+                new Resposta("=", false, perguntaService.buscarPorId(8)),
+                new Resposta("-", false, perguntaService.buscarPorId(8)),
+                new Resposta("==", true, perguntaService.buscarPorId(8)),
+                new Resposta("*", false, perguntaService.buscarPorId(8)),
+
+                new Resposta("Folha grande", false, perguntaService.buscarPorId(9)),
+                new Resposta("Folha média", true, perguntaService.buscarPorId(9)),
+                new Resposta("Folha pequena", false, perguntaService.buscarPorId(9)),
+                new Resposta("Tipo de folha desconhecido", false, perguntaService.buscarPorId(9)),
+
+                new Resposta("Dança do fogo", false, perguntaService.buscarPorId(10)),
+                new Resposta("Dança da chuva", false, perguntaService.buscarPorId(10)),
+                new Resposta("Dança do sol", true, perguntaService.buscarPorId(10)),
+                new Resposta("Tipo de dança desconhecido", false, perguntaService.buscarPorId(10)),
+
+                new Resposta("Bananas", true, perguntaService.buscarPorId(11)),
+                new Resposta("Maçãs", false, perguntaService.buscarPorId(11)),
+                new Resposta("Mangas", false, perguntaService.buscarPorId(11)),
+                new Resposta("Fruta desconhecida", false, perguntaService.buscarPorId(11)),
+
+                new Resposta("temperatura < 30", false, perguntaService.buscarPorId(12)),
+                new Resposta("temperatura >= 30", true, perguntaService.buscarPorId(12)),
+                new Resposta("temperatura == 30", false, perguntaService.buscarPorId(12)),
+                new Resposta("temperatura != 30", false, perguntaService.buscarPorId(12)),
+
+                new Resposta("Futebol", false, perguntaService.buscarPorId(13)),
+                new Resposta("Basquete", false, perguntaService.buscarPorId(13)),
+                new Resposta("Vôlei", true, perguntaService.buscarPorId(13)),
+                new Resposta("Jogo desconhecido", false, perguntaService.buscarPorId(13))
+        );
     }
 
 //    public List<RespostaListagemDTO> buscarPorIdAluno (Integer idAluno) {

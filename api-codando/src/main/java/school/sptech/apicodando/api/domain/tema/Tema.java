@@ -35,4 +35,9 @@ public class Tema {
     public Tema(String nome) {
         this.nome = nome;
     }
+
+    public Tema(String nome, Modulo modulo) {
+        this.nome = nome;
+        this.modulo = modulo;
+    }
 }

@@ -29,4 +29,10 @@ public class Pergunta {
         this.respostas = new ArrayList<>();
         this.contador = 0;
     }
+
+    public Pergunta(String texto, Aula aula) {
+        this.texto = texto;
+        this.aula = aula;
+        this.contador = 0;
+    }
 }

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
 import school.sptech.apicodando.api.domain.tema.Tema;
 import school.sptech.apicodando.api.domain.tema.repository.TemaRepository;
@@ -27,7 +28,13 @@ public class TemaService {
     @PostConstruct
     public void inserirDadosIniciaisSeNecessario() {
         if (temaRepository.count() == 0) {
-            temaRepository.saveAll(criarTemas());
+            Modulo modulo = moduloRepository.findById(1).get();
+            List<Tema> temas = List.of(
+                    new Tema("Condicional", modulo),
+                    new Tema("Laço de Repetição", modulo),
+                    new Tema("Variavel", modulo)
+            );
+            temaRepository.saveAll(temas);
             System.out.println("Dado inicial do tema inserido.");
         } else {
             System.out.println("Dado do tema ja inserido.");
