@@ -24,4 +24,8 @@ public class Avatar {
 
     @ManyToMany(mappedBy = "avatares")
     private List<Aluno> alunos;
+
+    public Avatar() {
+
+    }
 }

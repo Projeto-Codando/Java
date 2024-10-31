@@ -67,6 +67,7 @@ public class AlunoService {
         novoAluno.addAvatar(setBasicAvatar());
         novoAluno.setMoedas(Constantes.MOEDAS_INICIAIS);
         novoAluno.setIdAvatar(Constantes.ID_AVATAR_INICIAL);
+        novoAluno.setFcmToken(alunoCadastroDTO.getFcmToken());
 
         if (existePorApelido(alunoCadastroDTO.getApelido())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Aluno já cadastrado.");
@@ -211,5 +212,12 @@ public class AlunoService {
 
     public Aluno salvar (Aluno aluno) {
         return repository.save(aluno);
+    }
+
+    public void updateFcmToken(Integer userId, String token) {
+        Aluno user = repository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        user.setFcmToken(token);
+        repository.save(user);
     }
 }

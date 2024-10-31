@@ -36,5 +36,8 @@ public class AlunoCadastroDTO {
     @NotNull
     private String senhaTurma;
 
+    @NotBlank
+    @NotNull
+    private String fcmToken;
 
 }

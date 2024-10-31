@@ -26,6 +26,7 @@ public class Aluno {
     protected Integer moedas;
     protected String senhaTurma;
     protected int idAvatar;
+    protected String fcmToken;
 
     @ManyToMany
     @JoinTable(
@@ -33,7 +34,6 @@ public class Aluno {
             joinColumns = @JoinColumn(name = "aluno_id"),
             inverseJoinColumns = @JoinColumn(name = "avatar_id")
     )
-
 
     private List<Avatar> avatares;
 
