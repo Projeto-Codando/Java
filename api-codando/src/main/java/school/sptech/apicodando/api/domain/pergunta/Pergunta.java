@@ -15,6 +15,7 @@ public class Pergunta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 1000)
     private String texto;
     private Integer contador;
 

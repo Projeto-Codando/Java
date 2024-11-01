@@ -39,29 +39,35 @@ public class AulaService {
 //    private final ModuloService moduloService;
 //    private final TemaService temaService;
 
-    @PostConstruct
-    public void inserirDadosIniciaisSeNecessario() {
+
+    public List<Integer> inserirDadosIniciaisSeNecessario(Integer idTurma) {
         if (aulaRepository.count() == 0) {
             List<Aula> aulas = List.of(
                     new Aula("Aula 1", "Aula 1", 500, 10,
                             temaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
-                            turmaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
+                            turmaRepository.findById(idTurma).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
                     new Aula("If / Else", "Aula detalhada sobre a combinação das estruturas condicionais if e else, incluindo exemplos de uso em fluxos de controle.", 500, 200,
                             temaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
-                            turmaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
+                            turmaRepository.findById(idTurma).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
                     new Aula("Switch Case", "Aula explicativa sobre a estrutura condicional switch case, ideal para selecionar entre várias opções baseadas em uma única variável.", 500, 200,
                             temaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
                             turmaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
                     new Aula("Variável", "Uma variável é um espaço de memória identificado por um nome que armazena valores que podem ser alterados durante a execução do programa.", 500, 200,
                             temaRepository.findById(2).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
-                            turmaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.")))
+                            turmaRepository.findById(idTurma).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.")))
             );
 
             aulaRepository.saveAll(aulas);
+            List<Integer> idsAulas = new ArrayList<>();
+            for (Aula aula : aulas) {
+                idsAulas.add(aula.getId());
+            }
             System.out.println("Dados iniciais da aula inseridos.");
+            return idsAulas;
         } else {
             System.out.println("Dado da aula ja inserido.");
         }
+        return new ArrayList<>();
     }
 
     public List<Aula> listarAulas() {

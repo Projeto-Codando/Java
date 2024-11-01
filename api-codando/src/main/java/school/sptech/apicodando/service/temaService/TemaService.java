@@ -25,7 +25,7 @@ public class TemaService {
     public final ModuloRepository moduloRepository;
     private final AulaService aulaService;
 
-    @PostConstruct
+
     public void inserirDadosIniciaisSeNecessario() {
         if (temaRepository.count() == 0) {
             Modulo modulo = moduloRepository.findById(1).get();

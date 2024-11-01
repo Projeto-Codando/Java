@@ -36,7 +36,7 @@ public class ModuloService {
     private final TemaService temaService;
     private final AulaRepository aulaRepository;
 
-    @PostConstruct
+
     public void inserirDadosIniciaisSeNecessario() {
         if (moduloRepository.count() == 0) {
             Modulo modulo = new Modulo();

@@ -1,38 +1,26 @@
 package school.sptech.apicodando.service.turmaService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.educador.Educador;
 import school.sptech.apicodando.api.domain.educador.repository.EducadorRepository;
 import school.sptech.apicodando.api.domain.escolaridade.Escolaridade;
 import school.sptech.apicodando.api.domain.escolaridade.repository.EscolaridadeRepository;
-import school.sptech.apicodando.api.domain.grade.Grade;
-import school.sptech.apicodando.api.domain.grade.repository.GradeRepository;
-import school.sptech.apicodando.api.domain.mensagem.Mensagem;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
 import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.domain.turma.repository.TurmaRepository;
 import school.sptech.apicodando.api.mapper.TurmaMapper;
-import school.sptech.apicodando.service.arrayService.Array;
+import school.sptech.apicodando.configuration.DadosIniciais;
 import school.sptech.apicodando.service.aulaService.AulaService;
+import school.sptech.apicodando.service.perguntaService.PerguntaService;
+import school.sptech.apicodando.service.respostaService.RespostaService;
 import school.sptech.apicodando.service.turmaService.dto.TurmaAtualizaDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaCadastroDTO;
 import school.sptech.apicodando.service.turmaService.dto.TurmaListagemDTO;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +35,9 @@ public class TurmaService {
     private final EducadorRepository educadorRepository;
     private final ModuloRepository moduloRepository;
     private final AulaService aulaService;
+    private final PerguntaService perguntaService;
+    private final RespostaService respostaService;
+//    private final DadosIniciais dadosIniciais;
 
     public Turma criar(TurmaCadastroDTO turmaCadastro) {
         Escolaridade escolaridade = escolaridadeRepository.findById(turmaCadastro.getFkEscolaridade())
@@ -64,7 +55,14 @@ public class TurmaService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");
         }
 
-        return turmaRepository.save(novaTurma);
+        turmaRepository.save(novaTurma);
+
+//        aulaService.inserirDadosIniciaisSeNecessario(novaTurma.getIdTurma());
+        perguntaService.inserirDadosIniciaisSeNecessario(aulaService.inserirDadosIniciaisSeNecessario(novaTurma.getIdTurma()));
+        respostaService.inserirDadosIniciaisSeNecessario();
+
+
+        return novaTurma;
     }
 
     public Turma desativar(int id, int idProfessor) {

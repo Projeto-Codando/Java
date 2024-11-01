@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Service;
 import school.sptech.apicodando.api.domain.aluno.Aluno;
+import school.sptech.apicodando.api.domain.aluno.repository.AlunoRepository;
 import school.sptech.apicodando.api.domain.pergunta.Pergunta;
 import school.sptech.apicodando.api.domain.pergunta.repository.PerguntaRepository;
 import school.sptech.apicodando.api.domain.resposta.Resposta;
@@ -26,11 +27,11 @@ public class RespostaService {
 
     private final RespostaRepository respostaRepository;
     private final PerguntaService perguntaService;
-    private final AlunoService alunoService;
-    private final TurmaService turmaService;
-    private final PerguntaRepository perguntaRepository;
+    private final AlunoRepository alunoService;
+//    private final TurmaService turmaService;
+//    private final PerguntaRepository perguntaRepository;
 
-    @PostConstruct
+
     public void inserirDadosIniciaisSeNecessario() {
         if (respostaRepository.count() == 0) {
             respostaRepository.saveAll(criarRespostas());
@@ -66,7 +67,7 @@ public class RespostaService {
 
     public RespostaListagemDTO incrementarContador (Integer idResposta, Integer idAluno) {
         Resposta resposta = buscarPorId(idResposta);
-        Aluno aluno = alunoService.listarUmPorId(idAluno).get();
+        Aluno aluno = alunoService.findById(idAluno).get();
         Pergunta pergunta = resposta.getPergunta();
 
         if (resposta.getAlunos().contains(aluno)) {
@@ -86,7 +87,7 @@ public class RespostaService {
         pergunta.setContador(pergunta.getContador() + 1);
         resposta.getAlunos().add(aluno);
         aluno.getRespostas().add(resposta);
-        alunoService.salvar(aluno);
+        alunoService.save(aluno);
         respostaRepository.save(resposta);
         return RespostaMapper.toDto(resposta);
     }
