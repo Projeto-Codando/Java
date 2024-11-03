@@ -67,29 +67,29 @@ public class ModuloService {
         return ModuloMapper.toDto(moduloRepository.findAll());
     }
 
-    public List<ModuloListagemDTO> listarPorGrade(Integer idGrade) {
-        Grade grade = gradeRepository.findById(idGrade)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
+//    public List<ModuloListagemDTO> listarPorGrade(Integer idGrade) {
+//        Grade grade = gradeRepository.findById(idGrade)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada."));
+//
+//        List<Modulo> modulos = moduloRepository.findAllByGrade_IdGrade(grade.getIdGrade());
+//        List<ModuloListagemDTO> modulosDto = ModuloMapper.toDto(modulos);
+//
+//        for (ModuloListagemDTO moduloDto : modulosDto) {
+//            List<TemaListagemDTO> temasDto = temaService.listarPorModulo(moduloDto.getIdModulo());
+//            moduloDto.setTemas(temasDto);
+//        }
+//
+//        return modulosDto;
+//    }
 
-        List<Modulo> modulos = moduloRepository.findAllByGrade_IdGrade(grade.getIdGrade());
-        List<ModuloListagemDTO> modulosDto = ModuloMapper.toDto(modulos);
-
-        for (ModuloListagemDTO moduloDto : modulosDto) {
-            List<TemaListagemDTO> temasDto = temaService.listarPorModulo(moduloDto.getIdModulo());
-            moduloDto.setTemas(temasDto);
-        }
-
-        return modulosDto;
-    }
-
-    public ModuloListagemDTO listarPorId(Integer id){
+    public ModuloListagemDTO listarPorId(Integer id, Integer idTurma) {
 
         Modulo modulo = moduloRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modulo não encontrado."));
 
         ModuloListagemDTO dto = ModuloMapper.toDto(modulo);
 
-        List<TemaListagemDTO> temasDto = temaService.listarPorModulo(dto.getIdModulo());
+        List<TemaListagemDTO> temasDto = temaService.listarPorModulo(dto.getIdModulo(), idTurma);
         dto.setTemas(temasDto);
 
         return dto;

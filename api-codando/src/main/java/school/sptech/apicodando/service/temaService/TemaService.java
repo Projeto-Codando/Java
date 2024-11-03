@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.modulo.Modulo;
 import school.sptech.apicodando.api.domain.modulo.repository.ModuloRepository;
 import school.sptech.apicodando.api.domain.tema.Tema;
@@ -65,7 +66,7 @@ public class TemaService {
         return TemaMapper.toDto(temaRepository.findAll());
     }
 
-    public List<TemaListagemDTO> listarPorModulo(Integer idModulo) {
+    public List<TemaListagemDTO> listarPorModulo(Integer idModulo, Integer idTurma) {
 
         if (!moduloRepository.existsById(idModulo)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Módulo não encontrado.");
@@ -73,10 +74,11 @@ public class TemaService {
 
         List<Tema> temas = temaRepository.findAllByModulo_IdModulo(idModulo);
 
+
         List<TemaListagemDTO> temasDto = TemaMapper.toDto(temas);
 
         for (TemaListagemDTO temaDto : temasDto) {
-            List<AulaListagemDTO> aulasDto = aulaService.listarAulasPorTema(temaDto.getIdTema());
+            List<AulaListagemDTO> aulasDto = aulaService.listarAulasPorTema(temaDto.getIdTema(), idTurma);
             temaDto.setAulas(aulasDto);
         }
         return temasDto;

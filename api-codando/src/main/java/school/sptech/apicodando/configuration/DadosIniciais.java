@@ -44,10 +44,10 @@ public class DadosIniciais {
 //        escolaridadeInitializer.inserirDadosIniciaisSeNecessario();
 
     }
-
-    public void inserirPerguntaResposta() {
+//
+//    public void inserirPerguntaResposta() {
 //        perguntaService.inserirDadosIniciaisSeNecessario();
 //        respostaService.inserirDadosIniciaisSeNecessario();
-    }
+//    }
 
 }

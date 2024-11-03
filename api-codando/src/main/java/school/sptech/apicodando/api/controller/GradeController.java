@@ -36,11 +36,11 @@ public class GradeController {
         return ResponseEntity.created(location).body(novaGrade);
     }
 
-    @Operation(summary = "Listar", description = "Método que lista uma grade por Id!", tags = "Grade")
-    @GetMapping("/{id}")
-    public ResponseEntity<GradeListagemDto> listar(@PathVariable int id) {
-        return status(200).body(gradeService.listarPorId(id));
-    }
+//    @Operation(summary = "Listar", description = "Método que lista uma grade por Id!", tags = "Grade")
+//    @GetMapping("/{id}")
+//    public ResponseEntity<GradeListagemDto> listar(@PathVariable int id) {
+//        return status(200).body(gradeService.listarPorId(id));
+//    }
 
 //    @Operation(summary = "Listar", description = "Método que lista grades por idTurma!", tags = "Grade")
 //    @GetMapping("/turma /{id}")
@@ -54,11 +54,11 @@ public class GradeController {
 //        return ok().body(grades);
 //    }
 
-
-    @Operation(summary = "Listar", description = "Método que lista todas as grades!", tags = "Grade")
-    @GetMapping
-    public ResponseEntity <List<GradeListagemDto>> listarTodos() {
-        return status(200).body(gradeService.listarTodos());
-    }
+//
+//    @Operation(summary = "Listar", description = "Método que lista todas as grades!", tags = "Grade")
+//    @GetMapping
+//    public ResponseEntity <List<GradeListagemDto>> listarTodos() {
+//        return status(200).body(gradeService.listarTodos());
+//    }
 
 }

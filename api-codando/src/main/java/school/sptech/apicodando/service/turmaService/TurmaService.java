@@ -51,17 +51,16 @@ public class TurmaService {
 
         final Turma novaTurma = TurmaMapper.toEntity(turmaCadastro, escolaridade, educador, modulo);
 
-        if (existeTurmaByCodigo(turmaCadastro.getSenha())){
+        if (existeTurmaByCodigo(turmaCadastro.getSenha())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Turma já criada.");
         }
 
         turmaRepository.save(novaTurma);
 
-//        aulaService.inserirDadosIniciaisSeNecessario(novaTurma.getIdTurma());
-        perguntaService.inserirDadosIniciaisSeNecessario(aulaService.inserirDadosIniciaisSeNecessario(novaTurma.getIdTurma()));
-        respostaService.inserirDadosIniciaisSeNecessario();
-
-
+        // Inserindo dados iniciais
+        var responseAula = aulaService.inserirDadosIniciaisSeNecessario(novaTurma.getIdTurma());
+        var responsePergunta = perguntaService.inserirDadosIniciaisSeNecessario(responseAula);
+        respostaService.inserirDadosIniciaisSeNecessario(responsePergunta);
         return novaTurma;
     }
 
@@ -83,9 +82,9 @@ public class TurmaService {
         return turma.get();
     }
 
-    public Turma atualizar(TurmaAtualizaDTO turmaAtualizada, int id){
+    public Turma atualizar(TurmaAtualizaDTO turmaAtualizada, int id) {
         Turma turma = buscarPorIdTurmaAndIdProfessor(id, turmaAtualizada.getFkEducador().getIdEducador());
-        if(turma == null){
+        if (turma == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.");
         } else {
 
@@ -160,7 +159,6 @@ public class TurmaService {
         }
         return turma.get();
     }
-
 
 
 }

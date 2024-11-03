@@ -35,27 +35,27 @@ public class GradeService {
         return gradeRepository.save(novaGrade);
     }
 
-    public GradeListagemDto listarPorId(Integer id){
-        GradeListagemDto dto = GradeMapper.toDto(gradeRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada.")));
-        
-        dto.setModulo(moduloService.listarPorGrade(dto.getIdGrade()));
+//    public GradeListagemDto listarPorId(Integer id){
+//        GradeListagemDto dto = GradeMapper.toDto(gradeRepository.findById(id)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Grade não encontrada.")));
+//
+//        dto.setModulo(moduloService.listarPorGrade(dto.getIdGrade()));
+//
+//        return dto;
+//    }
 
-        return dto;
-    }
-
-    public List<GradeListagemDto> listarTodos(){
-
-        List<Grade> grades = gradeRepository.findAll();
-
-        List<GradeListagemDto> dtos = GradeMapper.toDto(grades);
-
-        for (GradeListagemDto dto : dtos) {
-            dto.setModulo(moduloService.listarPorGrade(dto.getIdGrade()));
-        }
-
-        return dtos;
-    }
+//    public List<GradeListagemDto> listarTodos(){
+//
+//        List<Grade> grades = gradeRepository.findAll();
+//
+//        List<GradeListagemDto> dtos = GradeMapper.toDto(grades);
+//
+//        for (GradeListagemDto dto : dtos) {
+//            dto.setModulo(moduloService.listarPorGrade(dto.getIdGrade()));
+//        }
+//
+//        return dtos;
+//    }
 
 //    public List<GradeListagemDto> listarPorTurma(Integer idTurma){
 //        List<Grade> grades = gradeRepository.findAllByFkTurma_IdTurma(idTurma);

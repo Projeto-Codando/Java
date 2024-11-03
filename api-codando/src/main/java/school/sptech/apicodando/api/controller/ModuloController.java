@@ -35,17 +35,17 @@ public class ModuloController {
     public ResponseEntity<List<ModuloListagemDTO>> listarModulos() {
         return ResponseEntity.ok(moduloService.listarModulos());
     }
-
-    @Operation(summary = "Listar", description = "Método que lista todos os módulos de uma grade!", tags = "Modulo")
-    @GetMapping("/grade/{idGrade}")
-    public ResponseEntity<List<ModuloListagemDTO>> listarPorGrade(@PathVariable Integer idGrade) {
-        return ResponseEntity.ok(moduloService.listarPorGrade(idGrade));
-    }
+//
+//    @Operation(summary = "Listar", description = "Método que lista todos os módulos de uma grade!", tags = "Modulo")
+//    @GetMapping("/grade/{idGrade}")
+//    public ResponseEntity<List<ModuloListagemDTO>> listarPorGrade(@PathVariable Integer idGrade) {
+//        return ResponseEntity.ok(moduloService.listarPorGrade(idGrade));
+//    }
 
     @Operation(summary = "Listar", description = "Método que lista um módulo por ID!", tags = "Modulo")
-    @GetMapping("/{id}")
-    public ResponseEntity<ModuloListagemDTO> listarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(moduloService.listarPorId(id));
+    @GetMapping("/{id}/{idTurma}")
+    public ResponseEntity<ModuloListagemDTO> listarPorId(@PathVariable Integer id, @PathVariable Integer idTurma) {
+        return ResponseEntity.ok(moduloService.listarPorId(id, idTurma));
     }
 
 }

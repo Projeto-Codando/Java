@@ -25,6 +25,7 @@ import school.sptech.apicodando.service.turmaService.TurmaService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,15 +34,15 @@ public class AulaService {
     private final AulaRepository aulaRepository;
     private final TemaRepository temaRepository;
     private final ModuloRepository moduloRepository;
-    private final GradeRepository  gradeRepository;
-//    private final TurmaService turmaService;
+    private final GradeRepository gradeRepository;
+    //    private final TurmaService turmaService;
     private final TurmaRepository turmaRepository;
 //    private final ModuloService moduloService;
 //    private final TemaService temaService;
 
 
     public List<Integer> inserirDadosIniciaisSeNecessario(Integer idTurma) {
-        if (aulaRepository.count() == 0) {
+        if (idTurma != null) {
             List<Aula> aulas = List.of(
                     new Aula("Aula 1", "Aula 1", 500, 10,
                             temaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
@@ -51,27 +52,34 @@ public class AulaService {
                             turmaRepository.findById(idTurma).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
                     new Aula("Switch Case", "Aula explicativa sobre a estrutura condicional switch case, ideal para selecionar entre várias opções baseadas em uma única variável.", 500, 200,
                             temaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
-                            turmaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
+                            turmaRepository.findById(idTurma).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
                     new Aula("Variável", "Uma variável é um espaço de memória identificado por um nome que armazena valores que podem ser alterados durante a execução do programa.", 500, 200,
                             temaRepository.findById(2).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
                             turmaRepository.findById(idTurma).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.")))
             );
 
             aulaRepository.saveAll(aulas);
-            List<Integer> idsAulas = new ArrayList<>();
-            for (Aula aula : aulas) {
-                idsAulas.add(aula.getId());
-            }
-            System.out.println("Dados iniciais da aula inseridos.");
-            return idsAulas;
+            return aulas.stream().map(Aula::getId).collect(Collectors.toList());
         } else {
             System.out.println("Dado da aula ja inserido.");
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
     }
 
     public List<Aula> listarAulas() {
         return aulaRepository.findAll();
+    }
+
+    public List<AulaListagemDTO> listarAulasPorTema(int idTema, int idTurma) {
+
+
+        List<Aula> aulas = aulaRepository.findAllByTema_IdTemaAndTurma_IdTurma(idTema, idTurma);
+
+        if (aulas.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return AulaMapper.toDto(aulas);
     }
 
     public List<AulaListagemDTO> listarAulasPorTema(int idTema) {
