@@ -24,4 +24,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/codando_api:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/api:${{ github.run_number }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/codando_api:${{ github.run_number }}
