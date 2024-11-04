@@ -23,7 +23,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./api-codando
+          context: ./api-codando/
           file: ./Dockerfile
           push: true
           tags: |
