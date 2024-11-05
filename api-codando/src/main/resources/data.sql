@@ -51,10 +51,6 @@ INSERT INTO csv (ano_letivo, aba1, aba2, aba3, apr1, apr2, apr3, cd_escola, cd_r
 (2021, 0, 0, 0, 100, 0, 0, 17164, true, 8, 'JOAO DE CASTRO GONCALVES DR', 'AMERICANA', 'AMERICANA', 0, 5, 0),
 (2021, 0, 0, 0, 94.74, 93.35, 0, 17176, true, 8, 'MAGI MONSENHOR', 'AMERICANA', 'AMERICANA', 5.26, 6.65, 0);
 
-INSERT INTO Avatar (id, descricao, preco, imagemURL) VALUES
-(1, 'Chimpaze Default', 0, 'https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/chimpaZe_default.png'),
-(2, 'Aryton Senna', 0, 'https://qxztjedmqxjnfloewgbv.supabase.co/storage/v1/object/public/macaco/image_72.png');
-
 INSERT INTO Pergunta (texto, aula_id) VALUES
 ('Qual a resposta da vida, do universo e tudo mais?1', 1),
 ('Qual a resposta da vida, do universo e tudo mais?11', 1),
