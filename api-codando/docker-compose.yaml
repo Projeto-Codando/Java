@@ -18,27 +18,33 @@ services:
     networks:
       - codando-net
 
-  spring:
-    container_name: api-codando
-    build:
-      context: .
-      dockerfile: Dockerfile
+  spring1:
+    container_name: api-codando1
     image: ismaelog1/codando_api:latest
     restart: always
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_APPLICATION_NAME: api-codando
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: "true"
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
     ports:
       - "8080:8080"
     depends_on:
       - postgres
-    volumes:
-      - ./src/main/resources/application.properties:/app/src/main/resources/application.properties
+    networks:
+      - codando-net
+
+  spring2:
+    container_name: api-codando2
+    image: ismaelog1/codando_api:latest
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres
     networks:
       - codando-net
 
