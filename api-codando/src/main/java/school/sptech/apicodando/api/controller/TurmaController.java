@@ -33,7 +33,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/turmas")
+@RequestMapping("/api/turmas")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer")
 public class TurmaController {

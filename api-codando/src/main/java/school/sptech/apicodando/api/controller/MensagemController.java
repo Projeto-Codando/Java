@@ -20,7 +20,7 @@ import java.util.List;
 import static org.springframework.web.servlet.function.ServerResponse.status;
 
 @RestController
-@RequestMapping("/mensagens")
+@RequestMapping("/api/mensagens")
 @SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class MensagemController {

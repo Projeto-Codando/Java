@@ -24,7 +24,7 @@ import java.util.Optional;
 import static org.springframework.http.ResponseEntity.*;
 
 @RestController
-@RequestMapping("/educadores")
+@RequestMapping("/api/educadores")
 @SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class EducadorController {

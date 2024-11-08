@@ -38,7 +38,7 @@ import static org.springframework.http.ResponseEntity.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/alunos")
+@RequestMapping("/api/alunos")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")
 public class AlunoController {

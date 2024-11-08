@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/modulos")
+@RequestMapping("/api/modulos")
 @SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class ModuloController {

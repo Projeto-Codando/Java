@@ -59,8 +59,7 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/educadores/**", HttpMethod.POST.name()),
             new AntPathRequestMatcher("/alunos/**", HttpMethod.POST.name()),
             new AntPathRequestMatcher("/csvFile/**"),
-            new AntPathRequestMatcher("/turmas/gerarCSV/**"),
-            new AntPathRequestMatcher("/**"),
+            new AntPathRequestMatcher("/turmas/gerarCSV/**")
 
     };
 
