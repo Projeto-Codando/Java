@@ -18,6 +18,8 @@ public class Pergunta {
     @Column(length = 1000)
     private String texto;
     private Integer contador;
+    private Integer tentativasIncorretas;
+
 
     @ManyToOne
     private Aula aula;
@@ -29,11 +31,13 @@ public class Pergunta {
     public Pergunta() {
         this.respostas = new ArrayList<>();
         this.contador = 0;
+        this.tentativasIncorretas = 0;
     }
 
     public Pergunta(String texto, Aula aula) {
         this.texto = texto;
         this.aula = aula;
         this.contador = 0;
+        this.tentativasIncorretas = 0;
     }
 }

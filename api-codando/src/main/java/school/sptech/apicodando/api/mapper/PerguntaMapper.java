@@ -17,7 +17,7 @@ public class PerguntaMapper {
         perguntaListagemDTO.setIdPergunta(pergunta.getId());
         perguntaListagemDTO.setTexto(pergunta.getTexto());
         perguntaListagemDTO.setIdAula(pergunta.getAula().getId());
-        perguntaListagemDTO.setContador(pergunta.getContador());
+//        perguntaListagemDTO.setContador(pergunta.getContador());
         perguntaListagemDTO.setRespostas(RespostaMapper.toDto(pergunta.getRespostas()));
         return perguntaListagemDTO;
     }

@@ -12,7 +12,8 @@ public class PerguntaListagemDTO {
     private Integer idPergunta;
     private String texto;
     private Integer idAula;
-    private Integer contador;
+//    SE TIVER USANDO NO MOBILE, SÓ DESCOMENTAR NA PERGUNTA MAPPER
+//    private Integer contador;
     private List<RespostaListagemDTO> respostas;
 
     public String getPorcentagemRespostasIncorretas() {
@@ -28,10 +29,11 @@ public class PerguntaListagemDTO {
     public int porcentagemRespostasCorretas() {
         int totalRespostas = 0;
         int totalRespostasCorretas = 0;
+
         for (RespostaListagemDTO resposta : respostas) {
-            totalRespostas++;
-            if (resposta.getCorreta()) {
-                totalRespostasCorretas++;
+            totalRespostas += resposta.getContador();
+            if (resposta.getTentativasIncorretas() < resposta.getContador()) {
+                totalRespostasCorretas += resposta.getContador() - resposta.getTentativasIncorretas();
             }
         }
         return totalRespostas == 0 ? 0 : (totalRespostasCorretas * 100 / totalRespostas);

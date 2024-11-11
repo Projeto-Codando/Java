@@ -28,7 +28,7 @@ public class RespostaService {
     private final RespostaRepository respostaRepository;
     private final PerguntaService perguntaService;
     private final AlunoRepository alunoService;
-    private final PerguntaRepository perguntaRepository;
+//    private final PerguntaRepository perguntaRepository;
 //    private final TurmaService turmaService;
 //    private final PerguntaRepository perguntaRepository;
 
@@ -68,29 +68,43 @@ public class RespostaService {
 
     public RespostaListagemDTO incrementarContador(Integer idResposta, Integer idAluno) {
         Resposta resposta = buscarPorId(idResposta);
-        Aluno aluno = alunoService.findById(idAluno).get();
+        Aluno aluno = alunoService.findById(idAluno).orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
         Pergunta pergunta = resposta.getPergunta();
 
         if (resposta.getAlunos().contains(aluno)) {
             throw new RuntimeException("Aluno já respondeu essa pergunta");
         }
-        if (resposta == null) {
-            throw new RuntimeException("Resposta não encontrada");
-        }
-        if (aluno == null) {
-            throw new RuntimeException("Aluno não encontrado");
-        }
 
-        if (pergunta.getContador() == null) {
-            pergunta.setContador(0);
-        }
-
-        pergunta.setContador(pergunta.getContador() + 1);
         resposta.getAlunos().add(aluno);
         aluno.getRespostas().add(resposta);
-        alunoService.save(aluno);
+
+        Integer idRespostaCorreta = pergunta.getRespostas()
+                .stream()
+                .filter(Resposta::getCorreta)
+                .map(Resposta::getIdResposta)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Nenhuma resposta correta encontrada para esta pergunta"));
+
+        boolean acertou = verificarRespostaAluno(idResposta, idRespostaCorreta);
+
+        resposta.registrarTentativa(acertou);
+
+        int totalTentativas = resposta.getContador();
+        pergunta.setContador(pergunta.getContador() + totalTentativas);
+
+        RespostaListagemDTO respostaDTO = RespostaMapper.toDto(resposta);
+        respostaDTO.setTentativasIncorretas(resposta.getTentativasIncorretas());
+        pergunta.setTentativasIncorretas(resposta.getTentativasIncorretas());
+        respostaDTO.setContador(pergunta.getContador());
+
         respostaRepository.save(resposta);
-        return RespostaMapper.toDto(resposta);
+        alunoService.save(aluno);
+
+        return respostaDTO;
+    }
+
+    public boolean verificarRespostaAluno(Integer idRespostaEscolhida, Integer idRespostaCorreta) {
+        return idRespostaEscolhida.equals(idRespostaCorreta);
     }
 
     private List<Resposta> criarRespostas(List<Integer> idsPerguntas) {

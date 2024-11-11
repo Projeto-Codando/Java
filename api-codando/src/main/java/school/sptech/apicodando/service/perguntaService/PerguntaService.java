@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import school.sptech.apicodando.api.controller.RespostaController;
+import school.sptech.apicodando.api.domain.aluno.Aluno;
+import school.sptech.apicodando.api.domain.aluno.repository.AlunoRepository;
 import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.pergunta.Pergunta;
 import school.sptech.apicodando.api.domain.pergunta.repository.PerguntaRepository;
@@ -17,6 +19,7 @@ import school.sptech.apicodando.service.perguntaService.dto.PerguntaListagemDTO;
 import school.sptech.apicodando.service.respostaService.RespostaService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +30,7 @@ public class PerguntaService {
     private final PerguntaRepository perguntaRepository;
     //    private final RespostaService respostaService;
     private final RespostaRepository respostaRepository;
+    private final AlunoRepository alunoRepository;
     private final AulaService aulaService;
 
 
@@ -99,38 +103,182 @@ public class PerguntaService {
     }
 
     public List<Pergunta> listarPerguntasComMaisErros() {
+        System.out.println("                                                        PERGUNTA SERVICE");
         List<Pergunta> perguntas = perguntaRepository.findAll();
         List<Pergunta> perguntasComMaisErros = new ArrayList<>();
 
-
         for (Pergunta pergunta : perguntas) {
-            if (pergunta.getContador() == null) {
-                pergunta.setContador(0);
-            } //TODO trocar para tipo primitivo.
+            System.out.println(" ");
+            System.out.println("PERGUNTA ATUAL: " + pergunta.getTexto());
+            System.out.println("ID PERGUNTA ATUAL: " + pergunta.getId());
+
             List<Resposta> respostas = respostaRepository.findByPergunta_Id(pergunta.getId());
-            for (Resposta resposta : respostas) {
-                if (pergunta.getContador() > 0 && !resposta.getCorreta()) {
-                    if (!perguntasComMaisErros.contains(pergunta)) {
-                        perguntasComMaisErros.add(pergunta);
+            int acertos = 0;
+            int erros = 0;
+
+
+            for (Aluno aluno : alunoRepository.findAll()) {
+                boolean acertou = false;
+
+                for (Resposta resposta : respostas) {
+                    if (resposta.getAlunos().contains(aluno)) {
+                    System.out.println("RESPOSTA ATUAL: " + resposta.getTexto());
+                    System.out.println("ID RESPOSTA ATUAL: " + resposta.getIdResposta());
+
+                        if (resposta.getCorreta() && !acertou) {
+                            acertos++;
+//                            acertos += resposta.getAlunos().size();
+                            acertou = true;
+                        } else  {
+//                            erros++;
+                            erros += resposta.getTentativasIncorretas();
+                        }
                     }
                 }
             }
-        }
-        //parte responsavel por organizar o array por ordem de quantidade de erros
-        for (int i = 0; i < perguntasComMaisErros.size(); i++) {
-            for (int j = 0; j < perguntasComMaisErros.size(); j++) {
-                if (perguntasComMaisErros.get(i).getContador() == perguntasComMaisErros.get(j).getContador()) {
-                    continue;
-                }
-                if (perguntasComMaisErros.get(i).getContador() > perguntasComMaisErros.get(j).getContador()) {
-                    Pergunta aux = perguntasComMaisErros.get(i);
-                    perguntasComMaisErros.set(i, perguntasComMaisErros.get(j));
-                    perguntasComMaisErros.set(j, aux);
-                }
+
+            int totalTentativas = acertos + erros;
+            System.out.println("PERGUNTA CONTADOR DENTRO DA SERVICE: " + pergunta.getContador());
+            System.out.println("PERGUNTA TENTATIVAS INCORRETAS DENTRO DA SERVICE: " + pergunta.getTentativasIncorretas());
+            double porcentagemCorretas = totalTentativas > 0 ? (acertos * 100.0) / totalTentativas : 0;
+            double porcentagemIncorretas = 100 - porcentagemCorretas;
+
+            System.out.printf("Pergunta ID: %d, Acertos: %d, Erros: %d, Corretas: %.2f%%, Incorretas: %.2f%%%n",
+                    pergunta.getId(), acertos, erros, porcentagemCorretas, porcentagemIncorretas);
+
+//            if (erros >= acertos && !perguntasComMaisErros.contains(pergunta) && erros!=0) {
+            if (erros > 0) {
+                perguntasComMaisErros.add(pergunta);
             }
         }
+
+        for (int i = 0; i < perguntasComMaisErros.size(); i++) {
+                for (int j = 0; j < perguntasComMaisErros.size(); j++) {
+                    if (perguntasComMaisErros.get(i).getContador() == perguntasComMaisErros.get(j).getContador()) {
+                        continue;
+                    }
+                    if (perguntasComMaisErros.get(i).getContador() > perguntasComMaisErros.get(j).getContador()) {
+                        Pergunta aux = perguntasComMaisErros.get(i);
+                        perguntasComMaisErros.set(i, perguntasComMaisErros.get(j));
+                        perguntasComMaisErros.set(j, aux);
+                    }
+                }
+            }
+
+        perguntasComMaisErros.sort(Comparator.comparingInt(Pergunta::getTentativasIncorretas).reversed());
+
         return perguntasComMaisErros;
+        }
     }
+//        List<Pergunta> perguntas = perguntaRepository.findAll();
+//        List<Pergunta> perguntasComMaisErros = new ArrayList<>();
+//
+//        for (Pergunta pergunta : perguntas) {
+//            System.out.println("Contador de Perguntas (tentativas): " + pergunta.getContador());
+//
+//            // Inicialize o contador de tentativas se estiver nulo
+//            if (pergunta.getContador() == null) {
+//                pergunta.setContador(0);
+//            }
+//
+//            // Obtenha todas as respostas para a pergunta
+//            List<Resposta> respostas = respostaRepository.findByPergunta_Id(pergunta.getId());
+//
+//            // Contadores para acertos e erros
+//            int acertos = 0;
+//            int erros = 0;
+//
+//            // Contabilize acertos e erros
+//            for (Resposta resposta : respostas) {
+//
+//                if (pergunta.getContador() > 0 && !resposta.getCorreta()) {
+////                    if (!perguntasComMaisErros.contains(pergunta)) {
+////                        System.out.println("                                     LISTA PERGUNTA COM MAIS ERROS: " + pergunta.getContadorIncorretas());
+////                        perguntasComMaisErros.add(pergunta);
+////                    }
+////                }
+//                if (resposta.getCorreta()) {
+//                    acertos++;
+//                    System.out.println("ACERTOS: " + acertos);
+//                } else {
+//                    erros++;
+//                    System.out.println("ACERTOS: " + acertos);
+//                }
+//            }
+//
+//            // Atualize o contador de tentativas e limite para 4
+//            if (pergunta.getContador() < 4) {
+//                pergunta.setContador(pergunta.getContador() + 1);
+//            }
+//
+//            // Calcule a média de acertos e erros
+//            int totalTentativas = acertos + erros;
+//            double porcentagemCorretas = totalTentativas > 0 ? (acertos * 100.0) / totalTentativas : 0;
+//            double porcentagemIncorretas = 100 - porcentagemCorretas;
+//
+//            // Exibir para depuração
+//            System.out.printf("Pergunta ID: %d, Acertos: %d, Erros: %d, Corretas: %.2f%%, Incorretas: %.2f%%%n",
+//                    pergunta.getId(), acertos, erros, porcentagemCorretas, porcentagemIncorretas);
+//
+//            // Atualize a lista de perguntas com mais erros
+//            if (erros > acertos && !perguntasComMaisErros.contains(pergunta)) {
+//                perguntasComMaisErros.add(pergunta);
+//            }
+//            for (int i = 0; i < perguntasComMaisErros.size(); i++) {
+//                for (int j = 0; j < perguntasComMaisErros.size(); j++) {
+//                    if (perguntasComMaisErros.get(i).getContador() == perguntasComMaisErros.get(j).getContador()) {
+//                        continue;
+//                    }
+//                    if (perguntasComMaisErros.get(i).getContador() > perguntasComMaisErros.get(j).getContador()) {
+//                        Pergunta aux = perguntasComMaisErros.get(i);
+//                        perguntasComMaisErros.set(i, perguntasComMaisErros.get(j));
+//                        perguntasComMaisErros.set(j, aux);
+//                    }
+//                }
+//            }
+//
+////            // Salvar as atualizações de contador e estatísticas no banco (se necessário)
+////            perguntaRepository.save(pergunta);
+//
+//
+//        return perguntasComMaisErros;
 
 
-}
+//}
+//        List<Pergunta> perguntasComMaisErros = new ArrayList<>();
+//
+//
+//        for (Pergunta pergunta : perguntas) {
+//            System.out.println("Contador de Perguntas (tentativas): " + pergunta.getContador());
+//            if (pergunta.getContador() == null) {
+//                pergunta.setContador(0);
+//            } //TODO trocar para tipo primitivo.
+//            List<Resposta> respostas = respostaRepository.findByPergunta_Id(pergunta.getId());
+//            for (Resposta resposta : respostas) {
+//                if (pergunta.getContador() > 0 && !resposta.getCorreta()) {
+//                    if (!perguntasComMaisErros.contains(pergunta)) {
+//                        System.out.println("                                     LISTA PERGUNTA COM MAIS ERROS: " + pergunta.getContadorIncorretas());
+//                        perguntasComMaisErros.add(pergunta);
+//                    }
+//                }
+//            }
+//        }
+//        //parte responsavel por organizar o array por ordem de quantidade de erros
+//        for (int i = 0; i < perguntasComMaisErros.size(); i++) {
+//            for (int j = 0; j < perguntasComMaisErros.size(); j++) {
+//                if (perguntasComMaisErros.get(i).getContador() == perguntasComMaisErros.get(j).getContador()) {
+//                    continue;
+//                }
+//                if (perguntasComMaisErros.get(i).getContador() > perguntasComMaisErros.get(j).getContador()) {
+//                    Pergunta aux = perguntasComMaisErros.get(i);
+//                    perguntasComMaisErros.set(i, perguntasComMaisErros.get(j));
+//                    perguntasComMaisErros.set(j, aux);
+//                }
+//            }
+//        }
+//        return perguntasComMaisErros;
+//    }
+
+
+//}
+

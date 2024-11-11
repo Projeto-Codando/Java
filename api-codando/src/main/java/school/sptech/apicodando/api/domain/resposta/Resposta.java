@@ -20,7 +20,8 @@ public class Resposta {
 
     private String texto;
     private Boolean correta;
-//    private Integer contador;
+    private Integer contador ;
+    private Integer tentativasIncorretas;
 
     @ManyToOne
     @JoinColumn(name = "pergunta_id")
@@ -37,6 +38,14 @@ public class Resposta {
         this.texto = texto;
         this.correta = correta;
         this.pergunta = pergunta;
+        this.contador = 0;
+        this.tentativasIncorretas = 0;
     }
 
+    public void registrarTentativa(Boolean foiCorreta) {
+        if (!foiCorreta) {
+            tentativasIncorretas++;
+        }
+        contador++;
+    }
 }
