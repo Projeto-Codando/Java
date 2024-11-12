@@ -128,7 +128,7 @@ public class RespostaService {
     new Resposta("luaCheia", true, perguntaService.buscarPorId(idsPerguntas.get(3))),
     new Resposta("luaCheia == false", false, perguntaService.buscarPorId(idsPerguntas.get(3))),
     new Resposta("luaCheia != true", false, perguntaService.buscarPorId(idsPerguntas.get(3))),
-    new Resposta("luaCheia == false", false, perguntaService.buscarPorId(idsPerguntas.get(3))),
+    new Resposta("luaCheia =! false", false, perguntaService.buscarPorId(idsPerguntas.get(3))),
 
     new Resposta("temperatura < 30", false, perguntaService.buscarPorId(idsPerguntas.get(4))),
     new Resposta("temperatura >= 30", true, perguntaService.buscarPorId(idsPerguntas.get(4))),

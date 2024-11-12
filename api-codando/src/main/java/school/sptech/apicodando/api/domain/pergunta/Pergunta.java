@@ -1,6 +1,7 @@
 package school.sptech.apicodando.api.domain.pergunta;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import school.sptech.apicodando.api.domain.aula.Aula;
 import school.sptech.apicodando.api.domain.resposta.Resposta;
@@ -16,6 +17,7 @@ public class Pergunta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(length = 1000)
+    @Size(max = 2000)
     private String texto;
     private Integer contador;
     private Integer tentativasIncorretas;
