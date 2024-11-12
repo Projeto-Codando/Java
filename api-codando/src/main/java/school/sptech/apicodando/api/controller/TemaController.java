@@ -18,7 +18,7 @@ import java.util.List;
 import static org.springframework.web.servlet.function.ServerResponse.created;
 
 @RestController
-@RequestMapping("/temas")
+@RequestMapping("/api/temas")
 @SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class TemaController {

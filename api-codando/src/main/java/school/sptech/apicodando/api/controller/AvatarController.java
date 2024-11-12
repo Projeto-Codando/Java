@@ -15,7 +15,7 @@ import school.sptech.apicodando.service.avatarService.dto.AvatarListagemDTO;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/avatares")
+@RequestMapping("/api/avatares")
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 public class AvatarController {

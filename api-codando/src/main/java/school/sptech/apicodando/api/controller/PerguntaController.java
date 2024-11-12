@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/perguntas")
+@RequestMapping("/api/perguntas")
 @SecurityRequirement(name = "bearerAuth")
 public class PerguntaController {
 

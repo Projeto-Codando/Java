@@ -14,7 +14,7 @@ import school.sptech.apicodando.service.respostaService.dto.RespostaListagemDTO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/respostas")
+@RequestMapping("/api/respostas")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer")
 public class RespostaController {

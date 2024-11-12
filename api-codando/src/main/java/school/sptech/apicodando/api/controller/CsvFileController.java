@@ -32,7 +32,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/csvFile")
+@RequestMapping("/api/csvFile")
 @RequiredArgsConstructor
 public class CsvFileController {
 

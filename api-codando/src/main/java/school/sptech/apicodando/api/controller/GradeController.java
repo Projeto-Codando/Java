@@ -20,7 +20,7 @@ import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/grades")
+@RequestMapping("/api/grades")
 @SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class GradeController {

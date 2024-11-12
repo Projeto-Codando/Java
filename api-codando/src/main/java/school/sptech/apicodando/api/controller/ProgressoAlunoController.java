@@ -15,7 +15,7 @@ import school.sptech.apicodando.service.progressoAlunoService.dto.ProgressoAluno
 
 import java.util.List;
 
-@RequestMapping("/progresso-aluno")
+@RequestMapping("/api/progresso-aluno")
 @RequiredArgsConstructor
 @RestController
 @SecurityRequirement(name = "bearerAuth")
