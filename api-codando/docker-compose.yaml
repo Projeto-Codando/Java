@@ -8,7 +8,7 @@ services:
     image: ismaelog1/codando_api:latest
     restart: always
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://10.0.0.165:5432/postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
     ports:
@@ -23,7 +23,7 @@ services:
     image: ismaelog1/codando_api:latest
     restart: always
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://10.0.0.165:5432/postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
     ports:
