@@ -2,6 +2,9 @@ networks:
   codando-net:
     driver: bridge
 
+volumes:
+  postgres-data:
+
 services:
   postgres:
     container_name: postgres
@@ -46,4 +49,3 @@ services:
       - postgres
     networks:
       - codando-net
-
