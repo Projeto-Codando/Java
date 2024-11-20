@@ -3,6 +3,20 @@ networks:
     driver: bridge
 
 services:
+  postgres:
+    container_name: postgres
+    image: ismaelog1/codando_db:latest
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - codando-net
   spring1:
     container_name: api-codando1
     image: ismaelog1/codando_api:latest
@@ -33,5 +47,3 @@ services:
     networks:
       - codando-net
 
-volumes:
-  postgres-data:
