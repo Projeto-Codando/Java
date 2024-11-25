@@ -10,6 +10,7 @@ import school.sptech.apicodando.api.domain.turma.Turma;
 import school.sptech.apicodando.api.mapper.MensagemMapper;
 import school.sptech.apicodando.service.mensagemService.dto.MensagemCadastroDTO;
 import school.sptech.apicodando.service.mensagemService.dto.MensagemListagemDTO;
+import school.sptech.apicodando.service.notificacaoService.NotificationService;
 import school.sptech.apicodando.service.turmaService.TurmaService;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class MensagemService {
 
     private final MensagemRepository mensagemRepository;
     private final TurmaService turmaService;
+    private final NotificationService notificacaoService;
 
     public Mensagem criar(MensagemCadastroDTO mensagem) {
 
@@ -36,6 +38,11 @@ public class MensagemService {
         mensagemEntity.setDataEnvio(LocalDateTime.now());
 
         turma.getMensagens().add(MensagemMapper.toEntity(mensagem));
+
+        String title = "Mensagem para a turma" + turma.getNome();
+
+        notificacaoService.sendNotificationToUser(title, mensagem.getTexto());
+//        notificacaoService.sendNotificationToClass("Mensagem para a turma", mensagem.getTexto(), mensagem.getIdTurma());
 
         return mensagemRepository.save(mensagemEntity);
     }

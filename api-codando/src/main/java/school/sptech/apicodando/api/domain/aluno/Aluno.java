@@ -26,6 +26,7 @@ public class Aluno {
     protected Integer moedas;
     protected String senhaTurma;
     protected int idAvatar;
+    protected String fcmToken;
 
     @ManyToMany
     @JoinTable(
