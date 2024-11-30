@@ -44,16 +44,13 @@ public class AulaService {
     public List<Integer> inserirDadosIniciaisSeNecessario(Integer idTurma) {
         if (idTurma != null) {
             List<Aula> aulas = List.of(
-                    new Aula("Aula 1", "Aula 1", 500, 1000,
+                    new Aula("If / Else", "Aula detalhada sobre a combinação das estruturas condicionais if e else, incluindo exemplos de uso em fluxos de controle.", 200, 200,
                             temaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
                             turmaRepository.findById(idTurma).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
-                    new Aula("If / Else", "Aula detalhada sobre a combinação das estruturas condicionais if e else, incluindo exemplos de uso em fluxos de controle.", 500, 1000,
+                    new Aula("Switch Case", "Aula explicativa sobre a estrutura condicional switch case, ideal para selecionar entre várias opções baseadas em uma única variável.", 200, 200,
                             temaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
                             turmaRepository.findById(idTurma).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
-                    new Aula("Switch Case", "Aula explicativa sobre a estrutura condicional switch case, ideal para selecionar entre várias opções baseadas em uma única variável.", 500, 1000,
-                            temaRepository.findById(1).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
-                            turmaRepository.findById(idTurma).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada."))),
-                    new Aula("Variável", "Uma variável é um espaço de memória identificado por um nome que armazena valores que podem ser alterados durante a execução do programa.", 500, 1000,
+                    new Aula("Variável", "Uma variável é um espaço de memória identificado por um nome que armazena valores que podem ser alterados durante a execução do programa.", 200, 200,
                             temaRepository.findById(2).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tema não encontrado.")),
                             turmaRepository.findById(idTurma).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Turma não encontrada.")))
             );
