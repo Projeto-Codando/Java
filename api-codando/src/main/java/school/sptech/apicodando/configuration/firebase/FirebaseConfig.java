@@ -15,7 +15,7 @@ public class FirebaseConfig {
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
 
-        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("notificacao-firebase.json");
+        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("notification-firebase-not.json");
 
         if (serviceAccount == null) {
             throw new IOException("Arquivo de configuração do Firebase não encontrado.");

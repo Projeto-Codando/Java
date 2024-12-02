@@ -39,7 +39,7 @@ public class MensagemService {
 
         turma.getMensagens().add(MensagemMapper.toEntity(mensagem));
 
-        String title = "Mensagem para a turma" + turma.getNome();
+        String title = "Mensagem para a " + turma.getNome();
 
         notificacaoService.sendNotificationToUser(title, mensagem.getTexto());
 //        notificacaoService.sendNotificationToClass("Mensagem para a turma", mensagem.getTexto(), mensagem.getIdTurma());

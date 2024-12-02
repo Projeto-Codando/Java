@@ -26,7 +26,7 @@ public class NotificationService {
 
         Message message = Message.builder()
                 .setNotification(notification)
-                .setToken("dBGOrroJRVqNAh7rFj2-Y7:APA91bHD7IuGgPsXxbeJHy2zBHAXxxphati7hLxZcE5S5TDmhXBDzlqQOgYmClMWRW-a2eX3_YCFRRORrhXQT8VBN2uf_X0ZEmgArDlnAAVNoBN3V1k1Nvc")
+                .setToken("e0JPX3z-RvaugEJLzp09pf:APA91bFcmepqQaqw6uX_iBgAy2oY0xxnrXOrjAWB1POcSvfw9bGBcpQw7y7FzmhNBUwr9XO8NEzESIwkQvUYtIHMogaLtE9XtOY8p1hw9JkQ_EPVQd5VPYQ")
                 .build();
 
         try {
@@ -39,6 +39,8 @@ public class NotificationService {
     }
 
     public void sendNotificationToClass(String title, String body, Integer idTurma) {
+
+        System.out.println("Enviando notificação para a turma " + idTurma);
 
         List<Aluno> listaAlunos = alunoRepository.findAllByTurmaIdTurma(idTurma);
         List<String> tokens = listaAlunos.stream().map(Aluno::getFcmToken).toList();
