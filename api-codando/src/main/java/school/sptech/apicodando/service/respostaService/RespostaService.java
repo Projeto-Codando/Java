@@ -173,7 +173,36 @@ public class RespostaService {
     new Resposta("Futebol", false, perguntaService.buscarPorId(idsPerguntas.get(12))),
     new Resposta("Basquete", false, perguntaService.buscarPorId(idsPerguntas.get(12))),
     new Resposta("Vôlei", true, perguntaService.buscarPorId(idsPerguntas.get(12))),
-    new Resposta("Jogo desconhecido", false, perguntaService.buscarPorId(idsPerguntas.get(12)))
+    new Resposta("Jogo desconhecido", false, perguntaService.buscarPorId(idsPerguntas.get(12))),
+
+    new Resposta("18", false, perguntaService.buscarPorId(idsPerguntas.get(13))),
+    new Resposta("12", true, perguntaService.buscarPorId(idsPerguntas.get(13))),
+    new Resposta("10", false, perguntaService.buscarPorId(idsPerguntas.get(13))),
+    new Resposta("3", false, perguntaService.buscarPorId(idsPerguntas.get(13))),
+
+    new Resposta("12", false, perguntaService.buscarPorId(idsPerguntas.get(14))),
+    new Resposta("10", false, perguntaService.buscarPorId(idsPerguntas.get(14))),
+    new Resposta("13", true, perguntaService.buscarPorId(idsPerguntas.get(14))),
+    new Resposta("15", false, perguntaService.buscarPorId(idsPerguntas.get(14))),
+
+    new Resposta("9 metros", false, perguntaService.buscarPorId(idsPerguntas.get(15))),
+    new Resposta("11 metros", true, perguntaService.buscarPorId(idsPerguntas.get(15))),
+    new Resposta("10 metros", false, perguntaService.buscarPorId(idsPerguntas.get(15))),
+    new Resposta("8 metros", false, perguntaService.buscarPorId(idsPerguntas.get(15))),
+
+    new Resposta("3", true, perguntaService.buscarPorId(idsPerguntas.get(16))),
+    new Resposta("4", false, perguntaService.buscarPorId(idsPerguntas.get(16))),
+    new Resposta("5", false, perguntaService.buscarPorId(idsPerguntas.get(16))),
+    new Resposta("6", false, perguntaService.buscarPorId(idsPerguntas.get(16))),
+
+    new Resposta("20", true, perguntaService.buscarPorId(idsPerguntas.get(16))),
+    new Resposta("15", false, perguntaService.buscarPorId(idsPerguntas.get(16))),
+    new Resposta("10", false, perguntaService.buscarPorId(idsPerguntas.get(16))),
+    new Resposta("25", false, perguntaService.buscarPorId(idsPerguntas.get(16)))
+
+
+
+
 );
     }
 
