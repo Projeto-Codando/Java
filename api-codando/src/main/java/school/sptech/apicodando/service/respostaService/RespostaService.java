@@ -195,10 +195,10 @@ public class RespostaService {
     new Resposta("5", false, perguntaService.buscarPorId(idsPerguntas.get(16))),
     new Resposta("6", false, perguntaService.buscarPorId(idsPerguntas.get(16))),
 
-    new Resposta("20", true, perguntaService.buscarPorId(idsPerguntas.get(16))),
-    new Resposta("15", false, perguntaService.buscarPorId(idsPerguntas.get(16))),
-    new Resposta("10", false, perguntaService.buscarPorId(idsPerguntas.get(16))),
-    new Resposta("25", false, perguntaService.buscarPorId(idsPerguntas.get(16)))
+    new Resposta("20", true, perguntaService.buscarPorId(idsPerguntas.get(17))),
+    new Resposta("15", false, perguntaService.buscarPorId(idsPerguntas.get(17))),
+    new Resposta("10", false, perguntaService.buscarPorId(idsPerguntas.get(17))),
+    new Resposta("25", false, perguntaService.buscarPorId(idsPerguntas.get(17)))
 
 
 
