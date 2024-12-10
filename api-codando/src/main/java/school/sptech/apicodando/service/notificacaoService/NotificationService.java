@@ -26,7 +26,7 @@ public class NotificationService {
 
         Message message = Message.builder()
                 .setNotification(notification)
-                .setToken("e0JPX3z-RvaugEJLzp09pf:APA91bFcmepqQaqw6uX_iBgAy2oY0xxnrXOrjAWB1POcSvfw9bGBcpQw7y7FzmhNBUwr9XO8NEzESIwkQvUYtIHMogaLtE9XtOY8p1hw9JkQ_EPVQd5VPYQ")
+               .setToken("dztoadxUTdWQBjrMCUujVK:APA91bFg12emBP0wA_5p8Eo8QRiAlmnT5F6V4ZnBDLOJ-FdNWUNfPlzmN0tnhcaRziJdRJ7CeO7d0y56ItBIQshVYlVGsV8ypbAICoMDZWKu_JW6oEH27vU")
                 .build();
 
         try {
