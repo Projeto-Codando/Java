@@ -34,7 +34,7 @@ public class Resposta {
 
     }
 
-    public Resposta(String texto, boolean correta, Pergunta pergunta) {
+    public Resposta(String texto, boolean correta, Pergunta pergunta, Integer contador) {
         this.texto = texto;
         this.correta = correta;
         this.pergunta = pergunta;

@@ -117,6 +117,9 @@ public class AlunoMapper {
         alunoTokenDto.setApelido(aluno.getApelido());
         alunoTokenDto.setNome(aluno.getNome());
 
+        // Setando o firebase token
+        alunoTokenDto.setFcmToken(aluno.getFcmToken());
+
         AlunoTokenDto.AlunoListagemDTO alunoListagemDTO = new AlunoTokenDto.AlunoListagemDTO();
         alunoListagemDTO.setIdAluno(aluno.getId());
         alunoListagemDTO.setNome(aluno.getNome());
