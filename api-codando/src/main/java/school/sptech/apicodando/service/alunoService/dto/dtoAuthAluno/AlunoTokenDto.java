@@ -12,6 +12,10 @@ public class AlunoTokenDto {
     private String nome;
     private String apelido;
     private String token;
+
+    // Criando o firebase token
+    private String fcmToken;
+
     private AlunoListagemDTO alunoListagemDTO;
 
     @Data

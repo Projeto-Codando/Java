@@ -115,16 +115,27 @@ public class AlunoService {
         final Authentication authentication = this.authenticationManager.authenticate(credentials);
 
         Aluno usuarioAutenticado =
-                repository.findByApelido(usuarioLoginDto.getApelido())
-                        .orElseThrow(
-                                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Email do usuário não cadastrado", null)
+                repository
+                        .findByApelido(usuarioLoginDto.getApelido())
+                            .orElseThrow(
+                                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Email do usuário não cadastrado", null)
                         );
+
+        setFcmToken(usuarioAutenticado.getId(), usuarioLoginDto.getFcmToken());
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final String token = gerenciadorTokenJwt.generateToken(authentication);
 
         return AlunoMapper.of(usuarioAutenticado, token);
+    }
+
+    private void setFcmToken(Integer idAluno, String fcmToken) {
+        if(fcmToken != null){
+            Aluno aluno = repository.findById(idAluno).get();
+            aluno.setFcmToken(fcmToken);
+            repository.save(aluno);
+        }
     }
 
     private Avatar setBasicAvatar() {

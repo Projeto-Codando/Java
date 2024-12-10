@@ -55,6 +55,8 @@ public class AlunoController {
     @Operation(summary = "Login", description = "Método realiza o login do aluno!", tags = "Aluno")
     @PostMapping("/login")
     public ResponseEntity<AlunoTokenDto> login(@RequestBody AlunoLoginDTO usuarioLoginDto) {
+        System.out.println("Entrou no login");
+        System.out.println(usuarioLoginDto);
         return ok(this.alunoService.autenticar(usuarioLoginDto));
     }
 
